@@ -20,5 +20,5 @@ rep={'/*LOGO_NAV*/':logo(h=30),'/*LOGO_FOOT*/':logo(h=26),'/*LOGO_PARTS*/null':j
      '/*VIDEO*/':VIDEO,'/*POSTER*/':POSTER}
 for k,v in rep.items(): src=src.replace(k,v)
 assert '/*' not in src.split('<script>')[0].replace('/*!','') or True
-out=OUT_DIR+'/中良工業_互動介紹.html'
+out=OUT_DIR+'/index.html'
 open(out,'w',encoding='utf-8').write(src); print('site built',len(src)//1024,'KB', len(dots),'dots')

@@ -5,7 +5,7 @@
 <title>TLC 30s Film</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=block" rel="stylesheet">
 <style>
 :root{
   --navy:#06121F; --navy2:#0B1D30; --blue:#007DC2; --blue2:#36A9EC; --sky:#8CCBF2;
@@ -122,6 +122,31 @@ div.w{display:block}
 #s6c .co .b{font:600 16px Manrope;letter-spacing:.46em;color:#4D6378;margin-top:14px;padding-left:.46em}
 #s6c .co .c{font:600 20px "JetBrains Mono";letter-spacing:.14em;color:var(--blue);margin-top:34px}
 #s6c .co .d{font:500 15px "JetBrains Mono";letter-spacing:.3em;color:#7A8C9D;margin-top:12px}
+/* ---------- English edition ---------- */
+body.en #s1 .zh1{font:600 80px/1.15 "Fraunces",serif;letter-spacing:-.01em}
+body.en #s1 .zh1 .w{margin:0 .2em}
+body.en #s1 .en1{font:500 30px/1.4 Manrope;letter-spacing:.01em;margin-top:34px}
+body.en #s1 .zh2{font:italic 500 66px/1.2 "Fraunces",serif;letter-spacing:-.005em;margin-top:18px}
+body.en #s1 .zh2 .w{margin:0 .12em}
+body.en #s2 .zhname{font:800 100px/1 Manrope;letter-spacing:.16em;padding-left:.16em}
+body.en #s2 .pill b{font:700 30px Manrope;letter-spacing:.02em}
+body.en #s2 .pill i{display:none}
+body.en .h-zh{font:600 66px/1.12 "Fraunces",serif;letter-spacing:-.01em}
+body.en #steps{margin-top:44px}
+body.en .step .t{font:700 34px/1.2 Manrope;letter-spacing:-.01em}
+body.en .lbl4 .s{font:500 19px Manrope;letter-spacing:.01em}
+body.en #s4b .q{font:600 62px/1.15 "Fraunces",serif;letter-spacing:-.01em}
+body.en #s4b .qe{font:500 28px Manrope}
+body.en #icons .ico .zt{font:700 28px Manrope;letter-spacing:0}
+body.en #s4b .note{font:500 16px Manrope}
+body.en .pin-l .a{font:700 23px Manrope;letter-spacing:0}
+body.en #panel5 .numt{font:800 46px/1.05 Manrope;letter-spacing:-.01em}
+body.en .bdg .c{font:500 15px/1.3 Manrope;letter-spacing:0}
+body.en #quote5 .z{font:600 44px/1.2 "Fraunces",serif;letter-spacing:-.01em}
+body.en #quote5 .e{font:italic 500 34px/1.25 "Fraunces",serif;color:var(--orange);margin-top:6px}
+body.en #s6c .tz{font:600 58px/1.2 "Fraunces",serif;letter-spacing:-.01em;top:226px}
+body.en #s6c .te{top:322px;font:500 25px Manrope}
+body.en #s6c .co .a{font:700 26px Manrope;letter-spacing:.32em;padding-left:.32em}
 </style>
 </head>
 <body>
@@ -238,6 +263,29 @@ div.w{display:block}
 const LOGO = /*LOGO_PARTS*/null;
 const DOTS = /*MAPDOTS*/null;
 const DUR = 30;
+const EN = new URLSearchParams(location.search).get('lang')==='en';
+if(EN){
+  document.documentElement.lang='en'; document.body.classList.add('en');
+  const H=(sel,html)=>{ document.querySelector(sel).innerHTML=html; };
+  H('#s1 .zh1','<span class="w" data-t="0.30">A hiking boot.</span><span class="w" data-t="0.78">A backpack.</span><span class="w" data-t="1.26">A glove.</span>');
+  H('#s1 .en1','<span class="w" data-t="1.62">Three products with almost nothing in common —</span>');
+  H('#s1 .zh2','<span class="w" data-t="2.05">except</span><span class="w hl" data-t="2.25">the layer</span><span class="w" data-t="2.45">inside them.</span>');
+  H('#s1 .en2','');
+  H('#enname','INDUSTRIAL CO., LTD. &nbsp;·&nbsp; TAIWAN');
+  const pills=document.querySelectorAll('#s2 .pill b'); ['Sustainability','Innovation','Performance'].forEach((x,i)=>pills[i].textContent=x);
+  H('#s3h','Four core techniques.'); H('#s3e','One integrated process — from yarn to engineered composite.');
+  const st=[['Weaving','Structure, strength and hand-feel'],['Dyeing &amp; Finishing','Consistent colour and texture'],['Treatment &amp; Coating','Performance, engineered in'],['Lamination','Bonded into one engineered package']];
+  document.querySelectorAll('#steps .step').forEach((el,i)=>{ el.querySelector('.t').innerHTML=st[i][0]; el.querySelector('.e').innerHTML=st[i][1]; });
+  H('#s4h','The Engineered Package'); H('#s4e','Cushioning, durability and function — bonded into one solution.');
+  H('#s4bq','Five categories. One physics question.'); H('#s4bqe','<span style="color:var(--orange)">How fast does it recover after compression?</span>');
+  H('#s4bnote','ARIAPRENE® inside a hiking boot, backpack, lacrosse glove, cap and dog vest &nbsp;·&nbsp; illustrative animation');
+  H('#p5big .numt','countries<br>across Asia'); H('#p5e','One governance standard, executed across borders.');
+  H('#q5z','Compliance is the floor.'); H('#q5e','Innovation is why you choose a partner.');
+  H('#s6c .tz','<span class="w" data-t="26.62">Layer by layer —</span> <span class="w" data-t="26.86">a solid foundation for the brands we serve.</span>');
+  H('#s6te','From yarn to engineered composites.');
+  H('#co_a','TIONG LIONG INDUSTRIAL CO., LTD.'); H('#co_b','SHALU, TAICHUNG &nbsp;·&nbsp; TAIWAN');
+  document.title='TLC 30s Film (EN)';
+}
 
 /* ---------- helpers ---------- */
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
@@ -306,7 +354,7 @@ function animLogo(svg,t,{stripeD=420,stag=.075,dur=.75,blobAt=.42,textAt=.70}={}
 $('#logo2wrap').innerHTML=logoSVG('logo2',{text:'#FFFFFF',mark:'#1A93DB',w:1000});
 $('#logo6wrap').innerHTML=logoSVG('logo6',{w:620});
 $('#hudMark').innerHTML=`<svg viewBox="-1 -5 118 118" width="30" height="30">${LOGO.orange.map(d=>`<path fill="#EE9039" d="${d}"/>`).join('')}${LOGO.blue.map(d=>`<path fill="#fff" d="${d}"/>`).join('')}<path fill="#fff" d="${LOGO.blob}"/></svg>`;
-$('#zhname').innerHTML=[...'中良工業'].map((c,i)=>`<span class="w" data-t="${(6.0+i*.09).toFixed(2)}">${c}</span>`).join('');
+$('#zhname').innerHTML=[...(EN?'TIONG LIONG':'中良工業')].map((c,i)=>c===' '?'<span class="w" data-t="6">&nbsp;</span>':`<span class="w" data-t="${(6.0+i*(EN?.045:.09)).toFixed(2)}">${c}</span>`).join('');
 
 /* ---------- background ---------- */
 const bg=$('#bg').getContext('2d');
@@ -546,6 +594,7 @@ function anchorPos(ly){ // rightmost projected anchor
   return best;
 }
 const LBL=[['coat','Coprime®','網布塗層技術　Mesh coating technology'],['weave','CORDURA®','耐磨面料　Durable face fabric'],['foam','ARIAPRENE®','TPE 發泡緩衝　TPE foam cushioning'],['insul','3M™ Thinsulate™','輕量保暖　Lightweight insulation'],['memb','Bio-based Membrane','生質防水膜　Waterproof membrane']];
+if(EN) ['Mesh coating technology','Durable face fabric','TPE foam cushioning','Lightweight insulation','Bio-based waterproof membrane'].forEach((x,k)=>LBL[k][2]=x);
 $('#labels4').innerHTML=LBL.map((l,i)=>`<div class="lbl4" id="lb${i}"><div class="dot"></div><div class="ln"></div><div class="txt"><div class="b">${l[1]}</div><div class="s">${l[2]}</div></div></div>`).join('');
 function labels4(t){
   const vis=t>14.4&&t<16.6;
@@ -626,6 +675,7 @@ const ICONS=[
   ['帽子','Cap','<path d="M8 41c0-13 9-22 22-22s20 8 21 20v2z"/><path d="M51 39c6 0 10 2 12 5-6 1.5-12 1.5-17 0"/><path d="M30 19c3 6 4 14 4 22M22 21c-2 6-3 13-3 20"/><path d="M28 18h4"/><path d="M8 41h43" stroke="#EE9039"/>'],
   ['獵犬背心','Dog vest','<path d="M14 30c0-4 3-7 7-7h22c3 0 5-2 6-4l3-6c1-2 3-3 5-2l4 4c1 1 1 3 0 4l-5 4c-2 2-3 4-3 7v6c0 3-2 5-5 5H19c-3 0-5-2-5-5z"/><path d="M19 41v12M26 41v12M40 41v12M47 41v12"/><path d="M14 29c-4-2-6-6-6-10"/><path d="M22 23h20v18H22z" stroke="#EE9039"/><path d="M57 13l-1-5"/>'],
 ];
+if(EN) [['Hiking boot','HOKA TenNine Hike GTX · tongue'],['Backpack','lululemon More Miles Active 17L'],['Lacrosse glove','Epoch Integra Elite'],['Cap','Ciele GOCap Elite Circle C'],['Dog vest','Gunner Waterfowl Dog Vest']].forEach((x,k)=>{ICONS[k][0]=x[0];ICONS[k][1]=x[1];});
 $('#icons').innerHTML=ICONS.map((ic,i)=>`<div class="ico w" id="ic${i}" style="top:${330+i*120}px"><svg viewBox="0 0 64 64" fill="none" stroke="#E9F4FB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ic[2].replace(/<path /g,'<path pathLength="1" ')}</svg><div><div class="zt">${ic[0]}</div><div class="et">${ic[1]}</div></div></div>`).join('');
 const lines4=$('#lines4').getContext('2d');
 function physics(t){
@@ -656,6 +706,7 @@ const SITES=[
   {zh:'越南',en:'VIETNAM',ll:[107.6,14.2],t:21.8,lx:26,ly:-22,country:3},
   {zh:'印尼',en:'INDONESIA · EXPANDING',tagz:'布局中',ll:[110.2,-7.3],t:22.05,lx:26,ly:-22,country:4,dashed:true},
 ];
+if(EN) [['Taiwan · Taichung','HEADQUARTERS'],['China · Fuqing','PRODUCTION'],['China · Zhongshan','PRODUCTION'],['Vietnam','PRODUCTION'],['Indonesia','NEW BASE','Expanding']].forEach((x,k)=>{SITES[k].zh=x[0];SITES[k].en=x[1];if(x[2])SITES[k].tagz=x[2];});
 const MD=DOTS.filter(d=>d[0]>=MP.lon0-0.3&&d[0]<=136.5&&d[1]<=MP.lat1+.3&&d[1]>=-11.5).map(d=>{const p=proj(d[0],d[1]);return [p[0],p[1],d[2]]});
 const TWp=proj(...SITES[0].ll);
 MD.forEach(d=>d.push(Math.hypot(d[0]-TWp[0],d[1]-TWp[1])));
@@ -699,6 +750,7 @@ function drawMap(t){
   g.globalAlpha=1;
 }
 const BADGES=[['Higg<br>FEM','環境績效'],['ZDHC','化學品管理'],['GHG','溫室氣體盤查'],['GRS','全球回收標準']];
+if(EN) ['Environmental performance','Chemical management','GHG inventory','Global Recycled Standard'].forEach((x,k)=>BADGES[k][1]=x);
 $('#badges').innerHTML=BADGES.map((b,i)=>`<div class="bdg w" id="bd${i}"><div class="hex"><svg viewBox="0 0 142 142"><polygon points="71,6 127,38.5 127,103.5 71,136 15,103.5 15,38.5" fill="rgba(0,125,194,.14)" stroke="rgba(140,203,242,.55)" stroke-width="1.6"/><polygon class="hx" pathLength="1" points="71,6 127,38.5 127,103.5 71,136 15,103.5 15,38.5" fill="none" stroke="#EE9039" stroke-width="3" stroke-dasharray="1" stroke-dashoffset="1"/></svg><span>${b[0]}</span></div><div class="c">${b[1]}</div></div>`).join('');
 function panel5(t){
   const o0=25.85,o1=26.25;
@@ -791,6 +843,7 @@ function render(t){
 window.__render=t=>render(t);
 async function fontsReady(){
   const L=[['600 74px "Noto Serif TC"','一雙登山靴答案藏在同一層材料裡五個品類物理問題合規是底線創新才是選擇夥伴的理由成為品牌最堅實後盾'],['900 92px "Noto Sans TC"','中良工業股份有限公司永續創新性能四道核心工藝織造染整機能處理與塗佈貼合國生產據點台灣台中福清中山越南印尼布局中'],['700 30px "Noto Sans TC"','耐磨面料發泡緩衝輕量保暖生質防水膜機能塗層登山靴背包曲棍球手套帽子獵犬背心環境績效化學品管理溫室氣體盤查全球回收標準示意動畫已應用於'],['800 30px Manrope','ABC'],['500 15px "JetBrains Mono"','ABC'],['500 19px "Noto Sans TC"','耐磨面料發泡緩衝輕量保暖生質防水膜機能塗層網布塗層技術'],['500 16px "Noto Sans TC"','環境績效化學品管理溫室氣體盤查全球回收標準ARIAPRENE已應用於登山靴背包曲棍球手套帽子與獵犬背心示意動畫'],['700 24px "Noto Sans TC"','台灣台中中國福清中山越南印尼布局中'],['700 12px "JetBrains Mono"','HQ布局中'],['900 50px "Noto Sans TC"','國布局'],['700 28px "Noto Sans TC"','中良工業股份有限公司'],['600 56px "Noto Serif TC"','一層成為品牌最堅實的後盾'],['600 36px "Noto Serif TC"','合規是底線創新才是選擇夥伴的理由'],['italic 500 20px Manrope','Compliance'],['600 22px Manrope','TIONG'],['400 13px "JetBrains Mono"','x']];
+  L.push(['600 80px Fraunces','A hiking boot Layer by'],['italic 500 66px Fraunces','except the layer'],['italic 500 34px Fraunces','Innovation'],['800 100px Manrope','TIONG LIONG'],['500 30px Manrope','Three']);
   await Promise.all(L.map(([f,s])=>document.fonts.load(f,s).catch(()=>{})));
   await document.fonts.ready;
 }

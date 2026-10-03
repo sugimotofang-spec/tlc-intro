@@ -1,6 +1,6 @@
 import pathlib, sys, time
 from playwright.sync_api import sync_playwright
-url=pathlib.Path(r'C:/Users/sugi/Desktop/中良工業介紹影片/中良工業_互動介紹.html').as_uri()
+url=pathlib.Path(r'C:/Users/sugi/Desktop/中良工業介紹影片/index.html').as_uri()+(sys.argv[4] if len(sys.argv)>4 else '')
 W,H=(int(sys.argv[1]),int(sys.argv[2])) if len(sys.argv)>2 else (1440,900)
 tag=sys.argv[3] if len(sys.argv)>3 else 'd'
 with sync_playwright() as p:

@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 from PIL import Image
 times=[float(x) for x in sys.argv[1].split(',')]; out=sys.argv[2] if len(sys.argv)>2 else 'sheet.png'
 cols=int(sys.argv[3]) if len(sys.argv)>3 else 3
-url=pathlib.Path('film.html').resolve().as_uri()+'?render=1'
+url=pathlib.Path('film.html').resolve().as_uri()+'?render=1'+('&lang=en' if '--en' in sys.argv else '')
 with sync_playwright() as p:
     b=p.chromium.launch(args=['--force-color-profile=srgb'])
     pg=b.new_page(viewport={'width':1920,'height':1080})

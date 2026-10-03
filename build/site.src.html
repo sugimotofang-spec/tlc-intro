@@ -7,7 +7,7 @@
 <meta name="description" content="中良工業（Tiong Liong Industrial, TLC）互動介紹：核心工藝、工程化複合材料、ARIAPRENE® 物理實驗室、四國布局與 ESG。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#06121F; --navy-2:#0A1A2B; --panel:#0D2136; --panel-2:#10283F;
@@ -249,6 +249,22 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2
 footer .l{display:flex;align-items:center;gap:16px}
 footer svg{height:26px;width:auto}
 footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
+#lang{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;padding:3px;margin-right:10px}
+#lang button{padding:5px 11px;border-radius:999px;font:700 12px var(--sans);letter-spacing:.06em;color:var(--mute)}
+#lang button.on{background:var(--ice);color:var(--navy)}
+#nav .right{display:flex;align-items:center}
+body.en{--serif:"Fraunces","Noto Serif TC",serif;--zh:"Manrope","Noto Sans TC",sans-serif}
+body.en .h2,body.en #hero h1,body.en #esg .quote,body.en #contact .bigline,body.en #esg .story h3{letter-spacing:-.01em}
+body.en #hero h1{font-size:clamp(40px,5.8vw,80px);line-height:1.06}
+body.en .h2{line-height:1.08}
+body.en [data-hide-en],body:not(.en) [data-only-en]{display:none!important}
+body.en #craft .step h3,body.en .big4 span,body.en .prod b,body.en #siteList b,body.en #film .chap span,body.en .ec h4,body.en #stats span,body.en .btn,body.en #nav ul a,body.en .meter span,body.en .seg button,body.en .mlbl,body.en #lxDetail h4,body.en #lxList small,body.en .chip{letter-spacing:.005em}
+body.en .big4 span{font:800 28px/1.1 var(--sans)}
+body.en #hero .copy{max-width:860px}
+body.en #hero h1{font-size:clamp(40px,5.2vw,74px)}
+body.en #contact .bigline{font-size:clamp(30px,4.3vw,60px)}
+body.en #lxDetail h4{font-family:var(--sans)}
+@media (max-width:600px){#nav .cta{display:none}}
 </style>
 </head>
 <body>
@@ -263,7 +279,7 @@ footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
     <li><a href="#footprint">布局</a></li>
     <li><a href="#esg">永續</a></li>
   </ul>
-  <a class="cta" href="https://www.tiongliong.com" target="_blank" rel="noopener">tiongliong.com ↗</a>
+  <div class="right"><div id="lang" role="group" aria-label="Language"><button data-l="zh">中</button><button data-l="en">EN</button></div><a class="cta" href="https://www.tiongliong.com" target="_blank" rel="noopener">tiongliong.com ↗</a></div>
 </nav>
 
 <!-- ================= HERO ================= -->
@@ -297,8 +313,8 @@ footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
     <p class="h2-en">Thirty seconds, six chapters — from a single thread to an engineered package.</p>
   </div>
   <div class="player paused" id="player" data-rv>
-    <video id="vid" preload="metadata" playsinline poster="/*POSTER*/"><source src="/*VIDEO*/" type="video/mp4"></video>
-    <div class="missing" id="vidMissing">找不到影片檔，請確認「/*VIDEO*/」與此網頁放在同一個資料夾。</div>
+    <video id="vid" preload="metadata" playsinline></video>
+    <div class="missing" id="vidMissing">找不到影片檔，請確認 media 資料夾與此網頁放在一起。</div>
     <div class="big" id="bigPlay"><button aria-label="播放影片"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#1a0d02"/></svg></button></div>
     <div class="bar">
       <button id="pp" aria-label="播放／暫停"><svg width="18" height="18" viewBox="0 0 24 24" id="ppIco"><path d="M8 5v14l11-7z" fill="#fff"/></svg></button>
@@ -403,7 +419,7 @@ footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
   <div data-rv>
     <div class="tag">05 / ESG in Practice</div>
     <p class="quote">跨國 ESG 的落地，考驗的從來不是口號，而是<em>數據的真實性與治理紀律</em>。</p>
-    <p class="quote-en">Cross-border ESG isn't about slogans — it's about data integrity and governance discipline.</p>
+    <p class="quote-en" data-hide-en>Cross-border ESG isn't about slogans — it's about data integrity and governance discipline.</p>
   </div>
   <div class="cards" id="esgCards"></div>
   <div class="story">
@@ -413,7 +429,7 @@ footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
       <h3>我們開發用剩的布，<br>變成了別人的價目卡。</h3>
       <p>台灣品牌 Pasont（怕剩）兩年來用中良工業的開發餘料做包包——連價目卡和名片都用邊角料裁成，每一張都不一樣，因為每一批餘料都不一樣。其中一個系列，用的正是一支 100% 再生聚酯的 CORDURA® 布。</p>
       <p>ESG 不是只有報告書。有時候，它就是同一塊布料，先撐起了一雙鞋，後來又撐起了一個有人願意背出門的包。</p>
-      <p class="en">Fabric left over from our development runs became Pasont's bags — and even their price tags and business cards. ESG isn't only a report; sometimes it's the same fabric holding up a shoe, then a bag someone is happy to carry.</p>
+      <p class="en" data-hide-en>Fabric left over from our development runs became Pasont's bags — and even their price tags and business cards. ESG isn't only a report; sometimes it's the same fabric holding up a shoe, then a bag someone is happy to carry.</p>
     </div>
   </div>
 </div></section>
@@ -422,7 +438,7 @@ footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
 <section id="contact"><div class="stripes"></div><div class="wrap" data-rv>
   <div class="tag">Let's build your next material</div>
   <p class="bigline" style="margin-top:22px">合規是底線，<br>創新才是選擇夥伴的理由。</p>
-  <p class="bigline-en">Compliance is the floor. Innovation is why you choose a partner.</p>
+  <p class="bigline-en" data-hide-en>Compliance is the floor. Innovation is why you choose a partner.</p>
   <div class="btns">
     <a class="btn pri" href="https://www.tiongliong.com" target="_blank" rel="noopener">前往官網 <small>tiongliong.com ↗</small></a>
     <a class="btn sec" href="https://www.tiongliong.com/zh-TW/product/Coprime-Technology.html" target="_blank" rel="noopener">Coprime® 技術 <small>↗</small></a>
@@ -438,6 +454,10 @@ footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
 <script>
 const LOGO=/*LOGO_PARTS*/null;
 const DOTS=/*MAPDOTS*/null;
+const QS=new URLSearchParams(location.search);
+let LANG=(()=>{ const q=QS.get('lang'); if(q==='en'||q==='zh') return q; try{ const s=localStorage.getItem('tlc-lang'); if(s) return s; }catch(e){} return /^zh/i.test(navigator.language||'')?'zh':'en'; })();
+const L=(zh,en)=>LANG==='en'?en:zh;
+const langHooks=[];
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), lerp=(a,b,t)=>a+(b-a)*t, P=(t,a,b)=>clamp((t-a)/(b-a));
 const ease={out:x=>1-Math.pow(1-x,3),inOut:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,back:x=>{const c=1.6;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)}};
@@ -553,8 +573,12 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
 /* ================= FILM PLAYER ================= */
 (function(){
   const v=$('#vid'), pl=$('#player'), big=$('#bigPlay'), fill=$('#vfill'), track=$('#track'), tm=$('#vtime');
-  const CH=[[0,'開場','Hook'],[4,'品牌','Brand'],[8,'核心工藝','Craft'],[14,'複合材料','Materials'],[20,'布局・ESG','Footprint'],[26,'結語','Close']];
-  $('#chaps').innerHTML=CH.map((c,i)=>`<button class="chap" data-t="${c[0]}"><b>0:${String(c[0]).padStart(2,'0')}</b><span>${c[1]}</span><small>${c[2]}</small></button>`).join('');
+  const CH=[[0,'開場','Hook'],[4,'品牌','Brand'],[8,'核心工藝','Craft'],[14,'複合材料','Materials'],[20,'布局・ESG','Footprint & ESG'],[26,'結語','Close']];
+  const VID={zh:['media/tlc-intro-30s-zh.mp4','media/poster-zh.jpg'],en:['media/tlc-intro-30s-en.mp4','media/poster-en.jpg']};
+  function chaps(){ $('#chaps').innerHTML=CH.map((c,i)=>`<button class="chap" data-t="${c[0]}"><b>0:${String(c[0]).padStart(2,'0')}</b><span>${L(c[1],c[2])}</span><small>${L(c[2],'')}</small></button>`).join('');
+    $$('.chap').forEach(b=>b.onclick=()=>{ v.currentTime=+b.dataset.t; play(); }); }
+  function source(){ const [src,poster]=VID[LANG]; if(v.getAttribute('src')===src) return; const was=!v.paused; v.pause(); v.setAttribute('src',src); v.setAttribute('poster',poster); v.load(); $('#vidMissing').style.display='none'; big.classList.remove('hide'); if(was) play(); }
+  langHooks.push(()=>{ chaps(); source(); });
   track.insertAdjacentHTML('beforeend',CH.slice(1).map(c=>`<div class="tick" style="left:${c[0]/30*100}%"></div>`).join(''));
   const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
   const ico=p=>$('#ppIco').innerHTML=p?'<path d="M8 5v14l11-7z" fill="#fff"/>':'<path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="#fff"/>';
@@ -570,11 +594,10 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
   track.addEventListener('pointerdown',e=>{ seek(e); track.setPointerCapture(e.pointerId); track.onpointermove=seek; });
   track.addEventListener('pointerup',()=>{ track.onpointermove=null; });
   track.addEventListener('keydown',e=>{ if(e.key==='ArrowRight') v.currentTime+=2; if(e.key==='ArrowLeft') v.currentTime-=2; });
-  $$('.chap').forEach(b=>b.onclick=()=>{ v.currentTime=+b.dataset.t; play(); });
   $('#mute').onclick=()=>{ v.muted=!v.muted; $('#muteWave').style.opacity=v.muted?.2:1; };
   $('#fs').onclick=()=>{ (pl.requestFullscreen||pl.webkitRequestFullscreen||(()=>{})).call(pl); };
-  v.addEventListener('error',()=>{ $('#vidMissing').style.display='grid'; },true);
-  v.querySelector('source').addEventListener('error',()=>{ $('#vidMissing').style.display='grid'; big.classList.add('hide'); });
+  v.addEventListener('error',()=>{ $('#vidMissing').style.display='grid'; big.classList.add('hide'); });
+  chaps(); source();
 })();
 
 /* ================= CRAFT: scroll-scrubbed isometric line ================= */
@@ -640,7 +663,7 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
     // labels at the end
     g.setTransform(dpr,0,0,dpr,0,0);
     const lab=clamp((lam-.92)/.08);
-    if(ph<1){ label('織造 WEAVING',q); } else if(ph<2){ label('染整 DYEING',1); } else if(ph<3){ label('塗佈 COATING',1); } else { label(lam<.95?'貼合 LAMINATION':'工程化複合材料 ENGINEERED PACKAGE',1); }
+    if(ph<1){ label(L('織造 WEAVING','WEAVING'),q); } else if(ph<2){ label(L('染整 DYEING','DYEING & FINISHING'),1); } else if(ph<3){ label(L('塗佈 COATING','COATING'),1); } else { label(lam<.95?L('貼合 LAMINATION','LAMINATION'):L('工程化複合材料 ENGINEERED PACKAGE','ENGINEERED PACKAGE'),1); }
     function label(t,a){ g.globalAlpha=1; g.font='600 12px "JetBrains Mono"'; g.fillStyle='rgba(220,236,248,.55)'; g.textAlign='center'; g.fillText(t,W/2,H-18); }
   }
   function update(){
@@ -654,6 +677,7 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
   onVisible(cv,v=>{ vis=v; if(v){ update(); draw(); if(!raf) raf=requestAnimationFrame(tick);} });
   const origDraw=draw; draw=function(){ const keep=p; p=shown; origDraw(); p=keep; };
   update(); shown=p;
+  langHooks.push(()=>draw());
 })();
 
 /* ================= LAYERS: CSS 3D explorer ================= */
@@ -671,23 +695,23 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
     {id:'coat',name:'Coprime®',zh:'網布塗層技術',en:'Mesh coating technology',top:T.coat,edge:'rgba(160,210,240,.35)',n:1,gap:0,base:58,spread:150,sw:'linear-gradient(135deg,#BFE3FA,#7FC0EA)',
       p:'中良目前最先進的網布塗層技術：耐磨週期提升 3 倍以上（Martindale 與 Stoll 測試），製程零耗水、零熱耗、零色變，且完全不含 VOCs、RSL 與溶劑。',
       pe:'Our most advanced mesh coating: 3× abrasion-cycle enhancement (Martindale & Stoll), zero water waste, zero excess heat, zero colour change — free of VOCs, RSLs and solvents.',
-      chips:['3× 耐磨週期','零耗水','零熱耗','零色變','無 VOCs／RSL／溶劑']},
+      chips:['3× 耐磨週期','零耗水','零熱耗','零色變','無 VOCs／RSL／溶劑'],ce:['3× abrasion cycles','Zero water waste','Zero excess heat','Zero colour change','No VOCs / RSLs / solvents']},
     {id:'face',name:'CORDURA®',zh:'耐磨面料',en:'Durable face fabric',top:T.face,edge:'#063A60',n:3,gap:2.2,base:46,spread:100,sw:'repeating-linear-gradient(90deg,#1789CF 0 4px,#9FD0F2 4px 7px)',
       p:'以高強度、耐磨、抗撕裂聞名的機能布料，常見於鞋舌內側、後跟補強與鞋面高磨耗區；也有 100% 再生聚酯的版本。',
       pe:'Known for strength and abrasion/tear resistance — tongue linings, heel reinforcement and high-wear zones. Available in 100% recycled polyester.',
-      chips:['高強度','耐磨抗撕裂','100% 再生聚酯選項']},
+      chips:['高強度','耐磨抗撕裂','100% 再生聚酯選項'],ce:['High strength','Abrasion & tear resistant','100% recycled polyester option']},
     {id:'foam',name:'ARIAPRENE®',zh:'TPE 發泡複合材料',en:'TPE foam package fabric',top:T.foam,edge:'#A4561A',n:8,gap:3.2,base:18,spread:40,sw:'radial-gradient(circle at 30% 30%,#FFC88F,#E7882F 60%,#B9611C)',
       p:'閉孔結構的 TPE 發泡材料。登山靴問「壓縮後多快回彈」、帽子問「戴久會不會悶」、獵犬背心問「泡水沾泥還撐得住嗎」——答案都指向同一個閉孔結構。AP Terra 含 25% 再生 TPE，並提供數位樣布加速開發。',
       pe:'Closed-cell TPE foam. Rebound, comfort and water resistance all point back to the same closed-cell structure. AP Terra contains 25% recycled TPE; digital swatches speed up development.',
-      chips:['閉孔結構','AP Terra 25% 再生 TPE','數位樣布','跨五大品類']},
+      chips:['閉孔結構','AP Terra 25% 再生 TPE','數位樣布','跨五大品類'],ce:['Closed-cell structure','AP Terra · 25% recycled TPE','Digital swatches','Five product categories']},
     {id:'ins',name:'3M™ Thinsulate™',zh:'輕量保暖',en:'Lightweight insulation',top:T.ins,edge:'#8E9DAA',n:4,gap:2.6,base:4,spread:-30,sw:'linear-gradient(135deg,#E5ECF2,#AEBBC7)',
       p:'以「輕、薄、暖」著稱的保暖材料。透過中良的貼合與整合技術，應用於鞋款與高性能雪靴，並推廣含回收纖維的保溫方案。',
       pe:'Thin, light and warm. Integrated through TLC lamination into footwear and high-performance winter boots — including insulation with recycled content.',
-      chips:['輕量保暖','抗潮','回收纖維方案']},
+      chips:['輕量保暖','抗潮','回收纖維方案'],ce:['Lightweight warmth','Moisture resistant','Recycled-content option']},
     {id:'mem',name:'Bio-based Membrane',zh:'生質防水膜',en:'Eco-friendly waterproof membrane',top:T.mem,edge:'#9DB7CC',n:2,gap:2,base:0,spread:-95,sw:'linear-gradient(135deg,#F2F8FD,#BBD3E6)',
       p:'以生質原料為基礎的環保防水膜，透過友善環境的貼合製程，整合進複合材料之中。',
       pe:'An eco-friendly waterproof membrane built on bio-based raw materials, integrated through environmentally friendly lamination.',
-      chips:['生質原料','防水','友善貼合製程']},
+      chips:['生質原料','防水','友善貼合製程'],ce:['Bio-based','Waterproof','Eco-friendly lamination']},
   ];
   const els={};
   LY.slice().reverse().forEach(l=>{
@@ -695,12 +719,13 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
     let h=''; for(let i=0;i<l.n;i++){ const isTop=i===l.n-1; h+=`<div class="lx-p ${isTop?'top':''}" style="background:${isTop?l.top:l.edge};transform:translateZ(${i*l.gap}px);${l.id==='coat'?'border:1px solid rgba(220,240,255,.5);':''}"></div>`; }
     d.innerHTML=h; stack.appendChild(d); els[l.id]=d;
   });
-  $('#lxList').innerHTML=LY.map(l=>`<button data-id="${l.id}"><i class="sw" style="background:${l.top.startsWith('url')?l.sw:l.top}"></i><span><b>${l.name}</b><small>${l.zh} · ${l.en}</small></span></button>`).join('');
+  function list(){ $('#lxList').innerHTML=LY.map(l=>`<button data-id="${l.id}"${l.id===sel?' class="on"':''}><i class="sw" style="background:${l.top.startsWith('url')?l.sw:l.top}"></i><span><b>${l.name}</b><small>${L(l.zh+' · '+l.en,l.en)}</small></span></button>`).join('');
+    $$('#lxList button').forEach(b=>{ b.onclick=()=>select(b.dataset.id); b.onmouseenter=()=>hov=b.dataset.id; b.onmouseleave=()=>hov=null; }); }
   let sel='foam', hov=null, ex=.62;
   function select(id){ sel=id; const l=LY.find(x=>x.id===id);
     $$('#lxList button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
-    $('#lxDetail').innerHTML=`<h3>${l.name}</h3><h4>${l.zh} · ${l.en}</h4><p>${l.p}</p><p class="en">${l.pe}</p><div class="chips">${l.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>`; }
-  $$('#lxList button').forEach(b=>{ b.onclick=()=>select(b.dataset.id); b.onmouseenter=()=>hov=b.dataset.id; b.onmouseleave=()=>hov=null; });
+    $('#lxDetail').innerHTML=LANG==='en'?`<h3>${l.name}</h3><h4>${l.en}</h4><p>${l.pe}</p><div class="chips">${l.ce.map(c=>`<span class="chip">${c}</span>`).join('')}</div>`:`<h3>${l.name}</h3><h4>${l.zh} · ${l.en}</h4><p>${l.p}</p><p class="en">${l.pe}</p><div class="chips">${l.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>`; }
+  list(); langHooks.push(()=>{ list(); select(sel); });
   Object.entries(els).forEach(([id,d])=>{ const top=d.querySelector('.top'); top.addEventListener('click',e=>{ if(moved<6) select(id); }); top.addEventListener('pointerenter',()=>hov=id); top.addEventListener('pointerleave',()=>hov=null); });
   select('foam');
   const exI=$('#lxExplode'); exI.oninput=()=>ex=exI.value/100;
@@ -724,7 +749,7 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
 (function(){
   const cv=$('#phyC'); let g,W,H;
   const NX=24, NY=8; let nodes=[], cons=[], baseY, H0, x0, x1, sx, sy;
-  let mode='press', cell='closed';
+  let mode='press', cell='closed', activeProd=null;
   const plate={x:0,w:200,y:-999,target:-999,active:false};
   let peak=0, prevComp=0, simT=0, mX=0, ball=null, drops=[], comp=0, relT=null, recMs=null, wasPressed=false, cyc=null, rainT=0, auto=null;
   function build(){
@@ -798,7 +823,7 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
     // drops
     for(const d of drops){ if(!isFinite(d.x+d.y)) continue; const dg=g.createRadialGradient(d.x-d.r*.3,d.y-d.r*.4,0,d.x,d.y,d.r); dg.addColorStop(0,'rgba(255,255,255,.95)'); dg.addColorStop(.5,'rgba(120,200,250,.75)'); dg.addColorStop(1,'rgba(0,125,194,.6)'); g.fillStyle=dg; g.beginPath(); g.arc(d.x,d.y,d.r,0,7); g.fill(); }
     // compression gauge
-    g.fillStyle='rgba(220,236,248,.5)'; g.font='600 11px "JetBrains Mono"'; g.textAlign='left'; g.fillText(cell==='closed'?'CLOSED-CELL · 閉孔':'OPEN-CELL · 開孔', x0, baseY+30);
+    g.fillStyle='rgba(220,236,248,.5)'; g.font='600 11px "JetBrains Mono"'; g.textAlign='left'; g.fillText(cell==='closed'?L('CLOSED-CELL · 閉孔','CLOSED-CELL'):L('OPEN-CELL · 開孔','OPEN-CELL'), x0, baseY+30);
   }
   function meters(){
     $('#mComp').innerHTML=`${Math.round(comp*100)}<small>%</small>`;
@@ -822,8 +847,12 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
   cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up);
   function setMode(m){ mode=m; $$('#phyMode button').forEach(b=>b.classList.toggle('on',b.dataset.m===m)); drops=[]; ball=null; auto=null;
     if(m!=='press'&&m!=='cycle'){ plate.active=false; plate.target=-300; }
-    const Q={press:['按住泡棉，再放開。','Press and hold the foam, then let go.'],impact:['點一下，讓球砸下來。','Tap to drop a ball — rebound in a fraction of a second.'],cycle:['一整天的步伐，反覆壓縮。','A whole day of strides — cyclic compression.'],rain:['淋水測試：切換閉孔／開孔看看差別。','Rain test — switch closed-cell / open-cell to compare.']};
-    if(!activeProd){ $('#phyQ').textContent=Q[m][0]; $('#phyQe').textContent=Q[m][1]; } }
+    showQ(); }
+  const Q={press:['按住泡棉，再放開。','Press and hold the foam, then let go.','Press and hold the foam — then let go.','Watch how fast the closed cells spring back.'],
+    impact:['點一下，讓球砸下來。','Tap to drop a ball — rebound in a fraction of a second.','Tap to drop a ball.','The same question, compressed into a fraction of a second.'],
+    cycle:['一整天的步伐，反覆壓縮。','A whole day of strides — cyclic compression.','A whole day of strides.','Cyclic compression, again and again.'],
+    rain:['淋水測試：切換閉孔／開孔看看差別。','Rain test — switch closed-cell / open-cell to compare.','Rain test.','Switch between closed-cell and open-cell to see the difference.']};
+  function showQ(){ const a=activeProd; if(a){ $('#phyQ').textContent=L(a.q,a.eq); $('#phyQe').textContent=L(a.qe,a.es); } else { const q=Q[mode]; $('#phyQ').textContent=L(q[0],q[2]); $('#phyQe').textContent=L(q[1],q[3]); } }
   $$('#phyMode button').forEach(b=>b.onclick=()=>{ activeProd=null; $$('.prod').forEach(x=>x.classList.remove('on')); setMode(b.dataset.m); });
   $$('#phyCell button').forEach(b=>b.onclick=()=>{ cell=b.dataset.c; $$('#phyCell button').forEach(x=>x.classList.toggle('on',x===b)); nodes.forEach(n=>n.w=0); });
   // products
@@ -833,19 +862,20 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
     cap:'<path d="M8 41c0-13 9-22 22-22s20 8 21 20v2z"/><path d="M51 39c6 0 10 2 12 5-6 1.5-12 1.5-17 0"/><path d="M30 19c3 6 4 14 4 22M22 21c-2 6-3 13-3 20"/><path d="M28 18h4"/><path d="M8 41h43" stroke="#EE9039"/>',
     dog:'<path d="M14 30c0-4 3-7 7-7h22c3 0 5-2 6-4l3-6c1-2 3-3 5-2l4 4c1 1 1 3 0 4l-5 4c-2 2-3 4-3 7v6c0 3-2 5-5 5H19c-3 0-5-2-5-5z"/><path d="M19 41v12M26 41v12M40 41v12M47 41v12"/><path d="M14 29c-4-2-6-6-6-10"/><path d="M22 23h20v18H22z" stroke="#EE9039"/><path d="M57 13l-1-5"/>'};
   const PRODS=[
-    {k:'boot',zh:'登山靴',en:'HOKA TenNine Hike GTX · 鞋舌',m:'press',auto:'hold',q:'壓縮之後，多快回彈？',qe:'The hiking boot asks: how fast does it recover after compression?'},
-    {k:'glove',zh:'曲棍球手套',en:'Epoch Integra Elite',m:'impact',q:'同一個問題，時間尺度縮到零點幾秒。',qe:'The lacrosse glove asks the same thing — compressed into fractions of a second. Tap to drop.'},
-    {k:'pack',zh:'背包',en:'lululemon More Miles Active Backpack 17L',m:'cycle',q:'背負一整天，反覆壓縮之後呢？',qe:'Carried all day — what happens after thousands of compressions?'},
-    {k:'cap',zh:'帽子',en:'Ciele Athletics GOCap Elite Circle C',m:'rain',q:'長時間戴著，會不會悶？',qe:'The cap asks: does it stay comfortable after hours of wear? Sweat beads instead of soaking in.'},
-    {k:'dog',zh:'獵犬背心',en:'Gunner Waterfowl Dog Vest',m:'rain',q:'泡水、沾泥之後，還撐得住嗎？',qe:'The dog vest asks: does it hold up after being soaked? Try open-cell to compare.'},
+    {k:'boot',zh:'登山靴',n:'Hiking boot',en:'HOKA TenNine Hike GTX · 鞋舌',ee:'HOKA TenNine Hike GTX · tongue',eq:'How fast does it recover after compression?',es:'The hiking boot’s question.',m:'press',auto:'hold',q:'壓縮之後，多快回彈？',qe:'The hiking boot asks: how fast does it recover after compression?'},
+    {k:'glove',zh:'曲棍球手套',n:'Lacrosse glove',en:'Epoch Integra Elite',ee:'Epoch Integra Elite',eq:'Same question — in a fraction of a second.',es:'The lacrosse glove compresses hours into milliseconds. Tap to drop again.',m:'impact',q:'同一個問題，時間尺度縮到零點幾秒。',qe:'The lacrosse glove asks the same thing — compressed into fractions of a second. Tap to drop.'},
+    {k:'pack',zh:'背包',n:'Backpack',en:'lululemon More Miles Active Backpack 17L',ee:'lululemon More Miles Active Backpack 17L',eq:'Carried all day — then what?',es:'Thousands of compressions in a single day.',m:'cycle',q:'背負一整天，反覆壓縮之後呢？',qe:'Carried all day — what happens after thousands of compressions?'},
+    {k:'cap',zh:'帽子',n:'Cap',en:'Ciele Athletics GOCap Elite Circle C',ee:'Ciele Athletics GOCap Elite Circle C',eq:'Still comfortable after hours of wear?',es:'Sweat beads on closed cells instead of soaking in.',m:'rain',q:'長時間戴著，會不會悶？',qe:'The cap asks: does it stay comfortable after hours of wear? Sweat beads instead of soaking in.'},
+    {k:'dog',zh:'獵犬背心',n:'Dog vest',en:'Gunner Waterfowl Dog Vest',ee:'Gunner Waterfowl Dog Vest',eq:'Soaked and muddy — does it hold up?',es:'Switch to open-cell to compare.',m:'rain',q:'泡水、沾泥之後，還撐得住嗎？',qe:'The dog vest asks: does it hold up after being soaked? Try open-cell to compare.'},
   ];
-  let activeProd=null;
-  $('#phySide').innerHTML=PRODS.map((p,i)=>`<button class="prod" data-i="${i}"><svg viewBox="0 0 64 64" fill="none" stroke="#E9F4FB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ICO[p.k]}</svg><span><b>${p.zh}</b><small>${p.en}</small></span></button>`).join('')+`<p class="note">以上五項產品皆使用 ARIAPRENE®（公開資料）· All five run on ARIAPRENE® (public references).</p>`;
-  $$('.prod').forEach(b=>b.onclick=()=>{ const p=PRODS[+b.dataset.i]; activeProd=p; $$('.prod').forEach(x=>x.classList.toggle('on',x===b));
-    setMode(p.m); $('#phyQ').textContent=p.q; $('#phyQe').textContent=p.qe;
+  function prods(){ $('#phySide').innerHTML=PRODS.map((p,i)=>`<button class="prod${p===activeProd?' on':''}" data-i="${i}"><svg viewBox="0 0 64 64" fill="none" stroke="#E9F4FB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ICO[p.k]}</svg><span><b>${L(p.zh,p.n)}</b><small>${L(p.en,p.ee)}</small></span></button>`).join('')+`<p class="note">${L('以上五項產品皆使用 ARIAPRENE®（公開資料）· All five run on ARIAPRENE® (public references).','All five run on ARIAPRENE® (public references).')}</p>`;
+    $$('.prod').forEach(b=>b.onclick=()=>pickProd(b)); }
+  function pickProd(b){ const p=PRODS[+b.dataset.i]; $$('.prod').forEach(x=>x.classList.toggle('on',x===b));
+    activeProd=p; setMode(p.m);
     if(p.auto==='hold'){ plate.x=W/2; plate.y=-200; auto={kind:'hold',t0:performance.now()}; }
     if(p.m==='impact'){ ball={x:W/2,y:-40,vx:0,vy:16,r:36,t:0}; }
-    if(p.k==='dog'){ /* keep current cell type */ } });
+  }
+  prods(); showQ(); langHooks.push(()=>{ prods(); showQ(); });
   let run=false;
   function loop(t){ if(!run) return; scenario(t); physics(); physics(); draw(); meters(); requestAnimationFrame(loop); }
   build(); addEventListener('resize',build);
@@ -856,22 +886,22 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
 (function(){
   const box=$('#mapBox'), cv=$('#mapC'); let g,W,H, pr;
   const SITES=[
-    {zh:'台灣・台中',en:'TAIWAN · TAICHUNG',tag:'HQ',cls:'hq',ll:[120.58,24.22],lx:16,ly:-10,d:'<strong>總部・台中沙鹿</strong>集團營運與研發核心。國際認證團隊在這裡每月同步調度各廠區的國際認證。<br><span class="mono" style="font-size:12px;color:var(--dim)">HQ · Shalu, Taichung — operations, R&amp;D and the monthly cross-site certification cadence.</span>'},
-    {zh:'中國・福清',en:'CHINA · FUQING',tag:'PLANT',cls:'',ll:[119.38,25.72],lx:-150,ly:-34,d:'<strong>中國・福清</strong>中國生產基地之一，與台灣總部隔海相望。<br><span class="mono" style="font-size:12px;color:var(--dim)">Production base in Fujian, China.</span>'},
-    {zh:'中國・中山',en:'CHINA · ZHONGSHAN',tag:'PLANT',cls:'',ll:[113.39,22.52],lx:-176,ly:-14,d:'<strong>中國・中山</strong>位於珠三角的中國生產基地。<br><span class="mono" style="font-size:12px;color:var(--dim)">Production base in the Pearl River Delta, China.</span>'},
-    {zh:'越南',en:'VIETNAM',tag:'PLANT',cls:'ctry',ll:[107.6,14.2],country:3,lx:16,ly:-12,d:'<strong>越南</strong>東南亞生產基地，就近服務在地製鞋供應鏈。<br><span class="mono" style="font-size:12px;color:var(--dim)">Southeast Asia production base close to the regional footwear supply chain.</span>'},
-    {zh:'印尼',en:'INDONESIA',tag:'布局中',cls:'exp ctry',ll:[110.2,-7.3],country:4,lx:16,ly:-12,d:'<strong>印尼・新據點布局中</strong>持續擴大東南亞布局。<br><span class="mono" style="font-size:12px;color:var(--dim)">Expanding — a new base in development.</span>'},
+    {zh:'台灣・台中',n:'Taiwan · Taichung',role:'HEADQUARTERS',te:'HQ',de:'<strong>Headquarters · Shalu, Taichung</strong>Operations and R&amp;D. Every month, our certification team coordinates international standards across all sites from here.',en:'TAIWAN · TAICHUNG',tag:'HQ',cls:'hq',ll:[120.58,24.22],lx:16,ly:-10,d:'<strong>總部・台中沙鹿</strong>集團營運與研發核心。國際認證團隊在這裡每月同步調度各廠區的國際認證。<br><span class="mono" style="font-size:12px;color:var(--dim)">HQ · Shalu, Taichung — operations, R&amp;D and the monthly cross-site certification cadence.</span>'},
+    {zh:'中國・福清',n:'China · Fuqing',role:'PRODUCTION',te:'PLANT',de:'<strong>China · Fuqing</strong>A production base in Fujian, just across the strait from headquarters.',en:'CHINA · FUQING',tag:'PLANT',cls:'',ll:[119.38,25.72],lx:-150,ly:-34,d:'<strong>中國・福清</strong>中國生產基地之一，與台灣總部隔海相望。<br><span class="mono" style="font-size:12px;color:var(--dim)">Production base in Fujian, China.</span>'},
+    {zh:'中國・中山',n:'China · Zhongshan',role:'PRODUCTION',te:'PLANT',de:'<strong>China · Zhongshan</strong>A production base in the Pearl River Delta.',en:'CHINA · ZHONGSHAN',tag:'PLANT',cls:'',ll:[113.39,22.52],lx:-176,ly:-14,d:'<strong>中國・中山</strong>位於珠三角的中國生產基地。<br><span class="mono" style="font-size:12px;color:var(--dim)">Production base in the Pearl River Delta, China.</span>'},
+    {zh:'越南',n:'Vietnam',role:'PRODUCTION',te:'PLANT',de:'<strong>Vietnam</strong>A Southeast Asia production base close to the regional footwear supply chain.',en:'VIETNAM',tag:'PLANT',cls:'ctry',ll:[107.6,14.2],country:3,lx:16,ly:-12,d:'<strong>越南</strong>東南亞生產基地，就近服務在地製鞋供應鏈。<br><span class="mono" style="font-size:12px;color:var(--dim)">Southeast Asia production base close to the regional footwear supply chain.</span>'},
+    {zh:'印尼',n:'Indonesia',role:'NEW BASE',te:'EXPANDING',de:'<strong>Indonesia · Expanding</strong>A new base in development as we grow across Southeast Asia.',en:'INDONESIA',tag:'布局中',cls:'exp ctry',ll:[110.2,-7.3],country:4,lx:16,ly:-12,d:'<strong>印尼・新據點布局中</strong>持續擴大東南亞布局。<br><span class="mono" style="font-size:12px;color:var(--dim)">Expanding — a new base in development.</span>'},
   ];
   const LON0=92, LON1=134, LAT0=-11, LAT1=34;
   const dots=DOTS.filter(d=>d[0]>=LON0-1&&d[0]<=LON1+1&&d[1]>=LAT0-1&&d[1]<=LAT1+1);
   let sel=0, mouse={x:-999,y:-999}, t0=performance.now(), run=false;
   function layout(){ [g,W,H]=fitCanvas(cv); const s=Math.min(W/(LON1-LON0),H/(LAT1-LAT0)); const ox=(W-s*(LON1-LON0))/2, oy=(H-s*(LAT1-LAT0))/2; pr=(lon,lat)=>[ox+(lon-LON0)*s, oy+(LAT1-lat)*s, s];
-    $('#mapPins').innerHTML=SITES.map((st,i)=>{ const [x,y]=pr(...st.ll); return `<button class="mpin ${st.cls}" data-i="${i}" style="left:${x}px;top:${y}px" aria-label="${st.zh}"></button><div class="mlbl" style="left:${x+st.lx}px;top:${y+st.ly}px">${st.zh}<small>${st.en}${st.tag==='布局中'?' · 布局中':''}</small></div>`; }).join('');
+    $('#mapPins').innerHTML=SITES.map((st,i)=>{ const [x,y]=pr(...st.ll); return `<button class="mpin ${st.cls}" data-i="${i}" style="left:${x}px;top:${y}px" aria-label="${L(st.zh,st.n)}"></button><div class="mlbl" style="left:${x+st.lx}px;top:${y+st.ly}px">${L(st.zh,st.n)}<small>${L(st.en+(st.tag==='布局中'?' · 布局中':''),st.role)}</small></div>`; }).join('');
     $$('.mpin').forEach(b=>{ b.onclick=()=>pick(+b.dataset.i); b.onmouseenter=()=>pick(+b.dataset.i); }); }
-  $('#siteList').innerHTML=SITES.map((s,i)=>`<button data-i="${i}"><i class="${s.cls.replace('ctry','').trim()}"></i><b>${s.zh}</b><small>${s.tag}</small></button>`).join('');
-  $$('#siteList button').forEach(b=>b.onclick=()=>pick(+b.dataset.i));
-  function pick(i){ sel=i; $$('#siteList button').forEach((b,k)=>b.classList.toggle('on',k===i)); $('#siteDesc').innerHTML=SITES[i].d; }
-  pick(0);
+  function slist(){ $('#siteList').innerHTML=SITES.map((s,i)=>`<button data-i="${i}"${i===sel?' class="on"':''}><i class="${s.cls.replace('ctry','').trim()}"></i><b>${L(s.zh,s.n)}</b><small>${L(s.tag,s.te)}</small></button>`).join('');
+    $$('#siteList button').forEach(b=>b.onclick=()=>pick(+b.dataset.i)); }
+  function pick(i){ sel=i; $$('#siteList button').forEach((b,k)=>b.classList.toggle('on',k===i)); $('#siteDesc').innerHTML=L(SITES[i].d,SITES[i].de); }
+  slist(); pick(0); langHooks.push(()=>{ layout(); slist(); pick(sel); });
   function draw(){
     const t=(performance.now()-t0)/1000; g.clearRect(0,0,W,H);
     const s=pr(0,0)[2], r=Math.max(1.2,s*.42*.48);
@@ -902,15 +932,66 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
 /* ================= ESG cards ================= */
 (function(){
   const C=[
-    ['Higg FEM','環境績效量化','量化製造過程中的環保表現，讓品牌有數據可以用。','Quantified environmental performance across manufacturing — data brands can use.'],
-    ['ZDHC','有害化學物質零排放','各廠區同步推進 ZDHC 報告與廢水檢測，化學品管理對齊全球最嚴格標準。','ZDHC reporting and wastewater testing, synchronised across sites.'],
-    ['GHG','組織型溫室氣體盤查','全供應鏈碳追蹤，不只算自己廠的排放。','Organisational GHG inventory — carbon tracked across the supply chain, not just our own sites.'],
-    ['GRS','全球回收標準','取得 GRS 認證，以再生聚酯等原料支持品牌的回收材料目標。','GRS-certified, supporting brand targets with recycled polyester and more.'],
-    ['Energy','能源管理系統','系統性降低生產碳排放：有數據、有趨勢。Coprime® 製程更做到零耗水、零熱耗。','Systematic, measurable carbon reduction — and Coprime® runs with zero water waste and zero excess heat.'],
+    ['Higg FEM','環境績效量化','量化製造過程中的環保表現，讓品牌有數據可以用。','Quantified environmental performance across manufacturing — data brands can use.','Environmental performance'],
+    ['ZDHC','有害化學物質零排放','各廠區同步推進 ZDHC 報告與廢水檢測，化學品管理對齊全球最嚴格標準。','ZDHC reporting and wastewater testing, synchronised across sites to the strictest global standard.','Zero discharge of hazardous chemicals'],
+    ['GHG','組織型溫室氣體盤查','全供應鏈碳追蹤，不只算自己廠的排放。','Carbon tracked across the supply chain — not just our own factories.','Organisational GHG inventory'],
+    ['GRS','全球回收標準','取得 GRS 認證，以再生聚酯等原料支持品牌的回收材料目標。','GRS-certified, supporting brand targets with recycled polyester and more.','Global Recycled Standard'],
+    ['Energy','能源管理系統','系統性降低生產碳排放：有數據、有趨勢。Coprime® 製程更做到零耗水、零熱耗。','Systematic, measurable carbon reduction — and Coprime® runs with zero water waste and zero excess heat.','Energy management system'],
   ];
-  $('#esgCards').innerHTML=C.map((c,i)=>`<div class="ec" data-rv style="transition-delay:${i*.07}s"><svg class="hex" viewBox="0 0 142 142"><polygon points="71,6 127,38.5 127,103.5 71,136 15,103.5 15,38.5" fill="rgba(0,125,194,.14)" stroke="#EE9039" stroke-width="3"/><text x="71" y="80" text-anchor="middle" fill="#F3F8FC" font-family="Manrope" font-weight="800" font-size="${c[0].length>4?24:30}">${c[0]==='Higg FEM'?'Higg':c[0]==='Energy'?'EnMS':c[0]}</text></svg><h3>${c[0]==='Energy'?'能源管理':c[0]}</h3><h4>${c[1]}</h4><p>${c[2]}<i>${c[3]}</i></p></div>`).join('');
-  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
-  $$('#esgCards [data-rv]').forEach(el=>io.observe(el));
+  function cards(){ $('#esgCards').innerHTML=C.map((c,i)=>`<div class="ec" data-rv style="transition-delay:${i*.07}s"><svg class="hex" viewBox="0 0 142 142"><polygon points="71,6 127,38.5 127,103.5 71,136 15,103.5 15,38.5" fill="rgba(0,125,194,.14)" stroke="#EE9039" stroke-width="3"/><text x="71" y="80" text-anchor="middle" fill="#F3F8FC" font-family="Manrope" font-weight="800" font-size="${c[0].length>4?24:30}">${c[0]==='Higg FEM'?'Higg':c[0]==='Energy'?'EnMS':c[0]}</text></svg><h3>${c[0]==='Energy'?L('能源管理','Energy'):c[0]}</h3><h4>${L(c[1],c[4])}</h4><p>${L(c[2]+'<i>'+c[3]+'</i>',c[3])}</p></div>`).join('');
+    $$('#esgCards [data-rv]').forEach(el=>{ if(seen) el.classList.add('in'); else io.observe(el); }); }
+  let seen=false; const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ seen=true; e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+  cards(); langHooks.push(cards);
+})();
+/* ================= LANGUAGE ================= */
+(function(){
+  const EN=[
+    ['#nav ul a',['Film','Craft','Materials','Lab','Footprint','ESG']],
+    ['#hero .tag','Tiong Liong Industrial · Taiwan'],
+    ['#hero h1','Layer by layer,<br>a <em>solid foundation</em><br>for the brands we serve.'],
+    ['#hero .sub',"From yarn to engineered composites — performance textiles for the world's leading athletic and outdoor brands."],
+    ['#hero .btns a',['▶ Watch the 30s film','Explore the layers']],
+    ['#hero .hint','<i>✋</i>DRAG THE FABRIC'],
+    ['#stats .st span',['Countries across Asia','Core techniques','Fabric categories','Coprime® abrasion cycles']],
+    ['#film .h2','Tiong Liong in thirty seconds.'],
+    ['#film .h2-en','Six chapters — from a single thread to an engineered package.'],
+    ['#vidMissing','Video not found — keep the media folder next to this page.'],
+    ['#craft .h2','From a single yarn<br>to an engineered material.'],
+    ['#craftSteps h3',['Weaving','Dyeing &amp; Finishing','Treatment &amp; Coating','Lamination']],
+    ['#craftSteps p',['Warp and weft interlace into structure — the foundation of strength and hand-feel.','Precise colour and finishing for a consistent shade and texture.','Water repellency, odour control, abrasion resistance — engineered in through treatment and Coprime® coating.','Face fabric, foam, insulation and membrane bonded into one engineered package.']],
+    ['#layers .h2','Take a TLC fabric apart.'],
+    ['#lxStage .ui span',['BONDED','EXPLODED']],
+    ['#lxInfo > .note','Illustrative stack-up; actual constructions vary by specification.'],
+    ['#physics .h2','Five categories.<br>One physics question.'],
+    ['#phyMode button',['Press','Impact','Cycle','Rain']],
+    ['#phyCell button',['Closed-cell','Open-cell']],
+    ['.meter span',['Compression','Recovery time','Water uptake']],
+    ['#physics .grid > div:first-child > .note','Illustrative simulation — not test data.'],
+    ['#footprint .h2','Four countries.<br>One governance standard.'],
+    ['.big4 span','countries<br>across Asia'],
+    ['#esg .quote',"Cross-border ESG isn't about slogans — it's about <em>data integrity and governance discipline</em>."],
+    ['#esg .story h3',"Fabric left over from our development runs<br>became someone else's price tag."],
+    ['#esg .story p:not(.en)',['Taiwanese brand Pasont — “afraid of waste” — has spent two years making bags from Tiong Liong’s development leftovers. Even their price tags and business cards are cut from scraps, and no two look alike, because no two batches are alike. One line runs on a 100% recycled-polyester CORDURA® fabric.','ESG isn’t only a report. Sometimes it’s the same fabric — first holding up a shoe, then a bag someone is happy to carry.']],
+    ['#esg .story img',null,['alt',['Pasont price tags cut from leather and fabric offcuts','Pasont business cards made from different batches of leftover fabric']]],
+    ['#contact .bigline','Compliance is the floor.<br>Innovation is why you choose a partner.'],
+    ['#contact .btns a',['Visit tiongliong.com <small>↗</small>','Coprime® technology <small>↗</small>','LinkedIn <small>↗</small>']],
+    ['footer .l p','TIONG LIONG INDUSTRIAL CO., LTD. · SHALU, TAICHUNG, TAIWAN'],
+  ];
+  const HIDE=['#stats .st small'];
+  const store=[];
+  EN.forEach(([sel,val,attr])=>{ $$(sel).forEach((el,i)=>{
+    if(attr){ store.push({el,attr:attr[0],zh:el.getAttribute(attr[0]),en:attr[1][i]}); return; }
+    const en=Array.isArray(val)?val[i]:val; if(en==null) return; store.push({el,zh:el.innerHTML,en}); }); });
+  HIDE.forEach(sel=>$$(sel).forEach(el=>el.setAttribute('data-hide-en','')));
+  const TITLE={zh:document.title,en:'Tiong Liong Industrial — Layer by Layer'};
+  function setLang(l,init){
+    LANG=l; document.documentElement.lang=l==='en'?'en':'zh-Hant'; document.body.classList.toggle('en',l==='en'); document.title=TITLE[l];
+    store.forEach(s=>{ if(s.attr) s.el.setAttribute(s.attr,l==='en'?s.en:s.zh); else s.el.innerHTML=l==='en'?s.en:s.zh; });
+    $$('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+    if(!init){ langHooks.forEach(f=>f()); try{ localStorage.setItem('tlc-lang',l); }catch(e){} const u=new URL(location.href); u.searchParams.set('lang',l); history.replaceState(null,'',u); }
+  }
+  $$('#lang button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+  setLang(LANG,true);
 })();
 </script>
 </body>
