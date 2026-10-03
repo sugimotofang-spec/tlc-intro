@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中良工業 Tiong Liong — 一層一層</title>
+<meta name="description" content="中良工業（Tiong Liong Industrial, TLC）互動介紹：核心工藝、工程化複合材料、ARIAPRENE® 物理實驗室、四國布局與 ESG。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#06121F; --navy-2:#0A1A2B; --panel:#0D2136; --panel-2:#10283F;
+  --line:rgba(140,203,242,.14); --line-2:rgba(140,203,242,.26);
+  --blue:#007DC2; --blue-2:#36A9EC; --sky:#8CCBF2; --ice:#E9F4FB; --orange:#EE9039; --orange-2:#F6B06E;
+  --ink:#F3F8FC; --mute:rgba(220,236,248,.66); --dim:rgba(220,236,248,.40);
+  --serif:"Noto Serif TC",serif; --sans:"Manrope","Noto Sans TC",system-ui,sans-serif; --zh:"Noto Sans TC",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --gutter:clamp(16px,4vw,64px); --maxw:1320px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--navy);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+canvas{display:block}
+::selection{background:var(--orange);color:var(--navy)}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+.tag{font:600 12px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--orange)}
+.h2{font:700 clamp(32px,4.6vw,58px)/1.18 var(--serif);letter-spacing:.04em;margin-top:18px}
+.h2-en{font:500 clamp(16px,1.6vw,20px)/1.55 var(--sans);color:var(--mute);margin-top:14px;max-width:62ch}
+.sec{position:relative;padding:clamp(88px,12vw,160px) 0}
+.sec-head{max-width:880px}
+.mono{font-family:var(--mono)}
+.note{font:500 12px/1.6 var(--mono);color:var(--dim);letter-spacing:.06em}
+[data-rv]{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+[data-rv].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}[data-rv]{opacity:1;transform:none;transition:none}}
+
+/* ---------- NAV ---------- */
+#nav{position:fixed;inset:0 0 auto 0;z-index:50;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--gutter);
+  background:linear-gradient(180deg,rgba(6,18,31,.82),rgba(6,18,31,.0));transition:background .4s}
+#nav.solid{background:rgba(6,18,31,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+#nav .logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+#nav .logo svg{height:30px;width:auto}
+#nav .logo span{font:600 11px var(--mono);letter-spacing:.28em;color:var(--mute)}
+#nav ul{display:flex;gap:6px;list-style:none}
+#nav ul a{display:block;padding:8px 12px;border-radius:999px;font:600 13px var(--zh);letter-spacing:.08em;color:var(--mute);text-decoration:none;transition:color .2s,background .2s}
+#nav ul a:hover,#nav ul a.on{color:var(--ink);background:rgba(140,203,242,.10)}
+#nav .cta{padding:9px 16px;border-radius:999px;border:1px solid var(--line-2);font:600 13px var(--zh);letter-spacing:.06em;text-decoration:none;display:flex;gap:8px;align-items:center}
+#nav .cta:hover{border-color:var(--orange);color:var(--orange)}
+#prog{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--blue),var(--orange));z-index:60}
+@media (max-width:980px){#nav ul{display:none}#nav .logo span{display:none}}
+
+/* ---------- HERO ---------- */
+#hero{position:relative;height:100vh;min-height:640px;overflow:hidden}
+#cloth{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+#cloth.drag{cursor:grabbing}
+#hero .shade{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(6,18,31,.94) 0%,rgba(6,18,31,.78) 34%,rgba(6,18,31,.10) 64%,rgba(6,18,31,0) 100%),linear-gradient(0deg,var(--navy) 0%,rgba(6,18,31,0) 26%)}
+#hero .copy{position:absolute;left:var(--gutter);bottom:clamp(110px,16vh,190px);max-width:680px;pointer-events:none}
+#hero .copy>*{pointer-events:auto}
+#hero h1{font:700 clamp(40px,6.2vw,86px)/1.12 var(--serif);letter-spacing:.04em;margin-top:22px}
+#hero h1 em{font-style:normal;color:var(--orange)}
+#hero .sub{font:500 clamp(16px,1.6vw,21px)/1.6 var(--sans);color:var(--mute);margin-top:22px;max-width:52ch}
+#hero .btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font:700 15px var(--zh);letter-spacing:.06em;text-decoration:none;transition:transform .2s,background .2s,border-color .2s,color .2s}
+.btn small{font:600 12px var(--sans);letter-spacing:.04em;opacity:.75}
+.btn.pri{background:var(--orange);color:#1a0d02}
+.btn.pri:hover{transform:translateY(-2px);background:var(--orange-2)}
+.btn.sec{border:1px solid var(--line-2);background:rgba(6,18,31,.5)}
+.btn.sec:hover{border-color:var(--sky);transform:translateY(-2px)}
+#hero .hint{position:absolute;right:var(--gutter);bottom:clamp(110px,16vh,190px);font:500 12px var(--mono);letter-spacing:.2em;color:var(--dim);display:flex;align-items:center;gap:10px;pointer-events:none}
+#hero .hint i{width:28px;height:28px;border:1px solid var(--line-2);border-radius:50%;display:grid;place-items:center;font-style:normal;animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(238,144,57,.35)}50%{box-shadow:0 0 0 10px rgba(238,144,57,0)}}
+#stats{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--line);background:rgba(6,18,31,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+#stats .st{padding:20px 0 22px;border-left:1px solid var(--line);padding-left:22px}
+#stats .st:first-child{border-left:0;padding-left:0}
+#stats b{font:800 34px/1 var(--sans);letter-spacing:-.01em}
+#stats b sup{font-size:14px;color:var(--orange);margin-left:2px}
+#stats span{display:block;font:600 13px var(--zh);letter-spacing:.06em;margin-top:8px}
+#stats small{display:block;font:500 11px var(--mono);letter-spacing:.12em;color:var(--dim);margin-top:2px;text-transform:uppercase}
+@media (max-width:760px){#stats .wrap{grid-template-columns:repeat(2,1fr)}#stats .st{padding:14px 0 14px 14px}#stats .st:nth-child(3){border-left:0;padding-left:0}#stats b{font-size:26px}#hero .hint{display:none}#hero .copy{bottom:200px}}
+
+/* ---------- FILM ---------- */
+#film .player{position:relative;margin-top:48px;border-radius:18px;overflow:hidden;background:#000;border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.45);aspect-ratio:16/9}
+#film video{width:100%;height:100%;display:block;object-fit:cover;background:#000}
+#film .big{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 50%,rgba(6,18,31,.15),rgba(6,18,31,.55));transition:opacity .4s}
+#film .big.hide{opacity:0;pointer-events:none}
+#film .big button{width:96px;height:96px;border-radius:50%;background:var(--orange);display:grid;place-items:center;box-shadow:0 0 0 14px rgba(238,144,57,.18);transition:transform .25s}
+#film .big button:hover{transform:scale(1.07)}
+#film .bar{position:absolute;left:0;right:0;bottom:0;padding:16px 20px 14px;background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,0));display:flex;align-items:center;gap:14px;opacity:0;transition:opacity .3s}
+#film .player:hover .bar,#film .player.paused .bar,#film .player:focus-within .bar{opacity:1}
+#film .bar button{width:34px;height:34px;display:grid;place-items:center;border-radius:8px}
+#film .bar button:hover{background:rgba(255,255,255,.12)}
+#film .time{font:500 12px var(--mono);color:var(--mute);min-width:84px}
+#film .track{flex:1;height:22px;position:relative;cursor:pointer}
+#film .track .rail{position:absolute;left:0;right:0;top:10px;height:3px;background:rgba(255,255,255,.2);border-radius:2px}
+#film .track .fill{position:absolute;left:0;top:10px;height:3px;background:var(--orange);border-radius:2px}
+#film .track .tick{position:absolute;top:6px;width:2px;height:11px;background:rgba(255,255,255,.55)}
+#film .chaps{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}
+#film .chap{text-align:left;padding:14px 14px 12px;border-radius:12px;border:1px solid var(--line);background:var(--navy-2);transition:border-color .25s,background .25s}
+#film .chap:hover{border-color:var(--line-2)}
+#film .chap.on{border-color:var(--orange);background:rgba(238,144,57,.08)}
+#film .chap b{display:block;font:500 11px var(--mono);letter-spacing:.14em;color:var(--orange)}
+#film .chap span{display:block;font:700 15px var(--zh);letter-spacing:.06em;margin-top:6px}
+#film .chap small{display:block;font:500 12px var(--sans);color:var(--dim)}
+#film .missing{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:30px;color:var(--mute);font:500 15px var(--zh)}
+@media (max-width:900px){#film .chaps{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- CRAFT (scroll-scrubbed) ---------- */
+#craft{padding:0}
+#craft .tall{height:420vh;position:relative}
+#craft .sticky{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:minmax(320px,.9fr) 1.2fr;align-items:center;gap:40px;max-width:var(--maxw);margin:0 auto;padding:68px var(--gutter) 0}
+#craft .steps{margin-top:40px;position:relative}
+#craft .step{position:relative;padding:18px 0 18px 26px;border-top:1px solid var(--line);opacity:.34;transition:opacity .4s}
+#craft .step.on{opacity:1}
+#craft .step .rail{position:absolute;left:0;top:18px;bottom:18px;width:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+#craft .step .rail i{position:absolute;left:0;top:0;width:100%;height:0;background:var(--orange)}
+#craft .step b{font:500 12px var(--mono);letter-spacing:.2em;color:var(--orange)}
+#craft .step h3{font:700 clamp(22px,2.3vw,30px)/1.3 var(--zh);letter-spacing:.08em;margin-top:4px}
+#craft .step h3 small{font:500 15px var(--sans);letter-spacing:.02em;color:var(--mute);margin-left:10px}
+#craft .step p{font:500 15px/1.7 var(--zh);color:var(--mute);margin-top:6px;max-height:0;overflow:hidden;transition:max-height .5s}
+#craft .step.on p{max-height:120px}
+#craft .step p i{display:block;font:500 13.5px/1.6 var(--sans);font-style:normal;color:var(--dim);margin-top:4px}
+#craftC{width:100%;height:min(76vh,720px)}
+#craft .scrollhint{font:500 12px var(--mono);letter-spacing:.2em;color:var(--dim);margin-top:26px}
+@media (max-width:900px){#craft .sticky{grid-template-columns:1fr;align-content:start;gap:0;padding-top:72px;overflow:hidden}#craftC{height:34vh;order:-1}#craft .h2{font-size:26px;margin-top:8px}#craft .step{padding:9px 0 9px 20px}#craft .step h3{font-size:18px}#craft .step h3 small{font-size:12px}#craft .step p{font-size:13px}#craft .step p i{display:none}#craft .scrollhint{display:none}#craft .step p{display:none}#craft .step.on p{display:block}#craft .steps{margin-top:16px}#craft .head .h2-en{display:none}}
+
+/* ---------- LAYERS (3D explorer) ---------- */
+#layers .grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;margin-top:56px;align-items:stretch}
+#lxStage{position:relative;height:620px;border-radius:20px;border:1px solid var(--line);background:radial-gradient(ellipse at 50% 40%,rgba(0,125,194,.16),rgba(6,18,31,0) 70%),var(--navy-2);perspective:2200px;perspective-origin:50% 38%;overflow:hidden;touch-action:none;cursor:grab;user-select:none}
+#lxStage.drag{cursor:grabbing}
+#lxStack{position:absolute;left:50%;top:50%;width:360px;height:360px;margin:-180px 0 0 -180px;transform-style:preserve-3d}
+.lx-l{position:absolute;inset:0;transform-style:preserve-3d;transition:filter .3s}
+.lx-p{position:absolute;inset:0}
+.lx-l .top{cursor:pointer;transition:box-shadow .3s}
+.lx-l.hl .top{box-shadow:0 0 0 2px var(--orange),0 0 40px rgba(238,144,57,.55)}
+#lxStage .ui{position:absolute;left:18px;right:18px;bottom:16px;display:flex;align-items:center;gap:14px;font:500 12px var(--mono);color:var(--mute);letter-spacing:.12em}
+#lxStage .ui input{flex:1;accent-color:var(--orange)}
+#lxStage .drag-hint{position:absolute;left:18px;top:16px;font:500 12px var(--mono);letter-spacing:.16em;color:var(--dim)}
+#lxInfo{border-radius:20px;border:1px solid var(--line);background:var(--panel);padding:30px;display:flex;flex-direction:column}
+#lxList{display:flex;flex-direction:column;gap:8px}
+#lxList button{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;border:1px solid transparent;text-align:left;transition:background .2s,border-color .2s}
+#lxList button:hover{background:rgba(140,203,242,.06)}
+#lxList button.on{border-color:var(--orange);background:rgba(238,144,57,.08)}
+#lxList .sw{width:34px;height:22px;border-radius:5px;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+#lxList b{display:block;font:800 16px var(--sans)}
+#lxList small{display:block;font:500 13px var(--zh);color:var(--mute);letter-spacing:.04em}
+#lxDetail{margin-top:22px;padding-top:22px;border-top:1px solid var(--line);flex:1}
+#lxDetail h3{font:800 26px var(--sans)}
+#lxDetail h4{font:700 16px var(--zh);color:var(--orange);letter-spacing:.08em;margin-top:4px}
+#lxDetail p{font:500 15px/1.75 var(--zh);color:var(--ink);margin-top:14px}
+#lxDetail p.en{font:500 14px/1.65 var(--sans);color:var(--mute);margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font:600 12px var(--zh);letter-spacing:.04em;padding:6px 11px;border-radius:999px;border:1px solid var(--line-2);color:var(--sky)}
+@media (max-width:980px){#layers .grid{grid-template-columns:1fr}#lxStage{height:460px}}
+
+/* ---------- PHYSICS ---------- */
+#physics .grid{display:grid;grid-template-columns:1fr 360px;gap:32px;margin-top:52px}
+#phyBox{position:relative;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,var(--navy-2),#081625);overflow:hidden}
+#phyC{width:100%;height:460px;touch-action:none;cursor:pointer}
+#phyBox .q{position:absolute;left:24px;top:20px;right:24px;pointer-events:none}
+#phyBox .q b{font:600 clamp(20px,2.1vw,28px)/1.35 var(--serif);letter-spacing:.04em}
+#phyBox .q small{display:block;font:500 14px var(--sans);color:var(--mute);margin-top:6px}
+#phyBox .bar{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--line);align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;padding:3px}
+.seg button{padding:7px 13px;border-radius:999px;font:600 13px var(--zh);letter-spacing:.04em;color:var(--mute)}
+.seg button.on{background:var(--ice);color:var(--navy)}
+#phyBox .bar .sp{flex:1}
+#phySide{display:flex;flex-direction:column;gap:12px}
+.prod{display:flex;align-items:center;gap:16px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--navy-2);text-align:left;transition:border-color .2s,transform .2s}
+.prod:hover{border-color:var(--line-2);transform:translateX(3px)}
+.prod.on{border-color:var(--orange);background:rgba(238,144,57,.07)}
+.prod svg{width:46px;height:46px;flex:none}
+.prod b{display:block;font:700 16px var(--zh);letter-spacing:.06em}
+.prod small{display:block;font:500 12.5px var(--sans);color:var(--mute);line-height:1.45}
+.meters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.meter{border-radius:14px;border:1px solid var(--line);padding:14px 14px 12px;background:var(--panel)}
+.meter b{display:block;font:800 26px/1 var(--sans);font-variant-numeric:tabular-nums}
+.meter b small{font-size:13px;color:var(--mute);margin-left:2px}
+.meter span{display:block;font:600 12px var(--zh);color:var(--mute);margin-top:8px;letter-spacing:.04em}
+@media (max-width:1000px){#physics .grid{grid-template-columns:1fr}#phySide{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}#phyC{height:380px}}
+
+/* ---------- FOOTPRINT ---------- */
+#footprint .grid{display:grid;grid-template-columns:1.35fr .8fr;gap:36px;margin-top:52px;align-items:start}
+#mapBox{position:relative;border-radius:20px;border:1px solid var(--line);background:var(--navy-2);overflow:hidden;aspect-ratio:1/1;max-height:760px}
+#mapC{position:absolute;inset:0;width:100%;height:100%}
+.mpin{position:absolute;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;display:grid;place-items:center}
+.mpin::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--sky);box-shadow:0 0 0 4px rgba(140,203,242,.25)}
+.mpin.hq::after{background:var(--orange);box-shadow:0 0 0 4px rgba(238,144,57,.3)}
+.mpin.exp::after{background:transparent;border:2px dashed var(--orange);box-shadow:none;width:14px;height:14px}
+.mpin.ctry::after{width:10px;height:10px}
+.mlbl{position:absolute;pointer-events:none;white-space:nowrap;font:700 14px var(--zh);letter-spacing:.06em;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.mlbl small{display:block;font:500 10.5px var(--mono);letter-spacing:.14em;color:var(--mute)}
+#siteCard{border-radius:20px;border:1px solid var(--line);background:var(--panel);padding:28px}
+#siteList{display:flex;flex-direction:column;gap:6px;margin-top:18px}
+#siteList button{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;text-align:left;border:1px solid transparent}
+#siteList button:hover{background:rgba(140,203,242,.06)}
+#siteList button.on{border-color:var(--line-2);background:rgba(140,203,242,.08)}
+#siteList i{width:10px;height:10px;border-radius:50%;background:var(--sky);flex:none}
+#siteList i.hq{background:var(--orange)}
+#siteList i.exp{background:transparent;border:2px dashed var(--orange)}
+#siteList b{font:700 15px var(--zh);letter-spacing:.06em}
+#siteList small{font:500 11px var(--mono);letter-spacing:.12em;color:var(--dim);margin-left:auto}
+#siteDesc{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font:500 15px/1.75 var(--zh);color:var(--mute);min-height:120px}
+#siteDesc strong{color:var(--ink);display:block;font:700 18px var(--zh);letter-spacing:.06em;margin-bottom:6px}
+.big4{display:flex;align-items:flex-end;gap:14px}
+.big4 b{font:800 120px/0.8 var(--sans);letter-spacing:-.04em;background:linear-gradient(180deg,#A9DCFF,#007DC2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.big4 span{font:900 30px/1.2 var(--zh);letter-spacing:.08em;padding-bottom:4px}
+@media (max-width:980px){#footprint .grid{grid-template-columns:1fr}}
+@media (max-width:600px){.mlbl{font-size:11px}.mlbl small{display:none}#film .time{display:none}#film .bar{opacity:1;padding:10px 12px}}
+
+/* ---------- ESG ---------- */
+#esg .quote{font:600 clamp(26px,3.4vw,44px)/1.45 var(--serif);letter-spacing:.04em;max-width:24em;margin-top:24px}
+#esg .quote em{font-style:normal;color:var(--orange)}
+#esg .quote-en{font:italic 500 clamp(15px,1.4vw,19px)/1.6 var(--sans);color:var(--mute);margin-top:14px;max-width:60ch}
+#esg .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:56px}
+.ec{position:relative;border-radius:16px;border:1px solid var(--line);background:var(--navy-2);padding:22px 20px 20px;overflow:hidden;min-height:250px;transition:border-color .3s,transform .3s}
+.ec:hover{border-color:var(--orange);transform:translateY(-4px)}
+.ec .hex{width:58px;height:58px}
+.ec h3{font:800 20px var(--sans);margin-top:16px}
+.ec h4{font:700 14px var(--zh);color:var(--orange);letter-spacing:.06em;margin-top:2px}
+.ec p{font:500 14px/1.7 var(--zh);color:var(--mute);margin-top:10px}
+.ec p i{display:block;font:500 12.5px/1.55 var(--sans);font-style:normal;color:var(--dim);margin-top:6px}
+#esg .story{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:90px;align-items:center}
+#esg .story .pics{position:relative;height:440px}
+#esg .story .pics img{position:absolute;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+#esg .story .pics img:nth-child(1){left:0;top:0;width:58%;transform:rotate(-4deg)}
+#esg .story .pics img:nth-child(2){right:0;bottom:0;width:62%;transform:rotate(3deg)}
+#esg .story .pics:hover img:nth-child(1){transform:rotate(-7deg) translate(-12px,-8px)}
+#esg .story .pics:hover img:nth-child(2){transform:rotate(5deg) translate(12px,8px)}
+#esg .story h3{font:700 clamp(24px,2.6vw,34px)/1.4 var(--serif);letter-spacing:.04em;margin-top:16px}
+#esg .story p{font:500 16px/1.85 var(--zh);color:var(--mute);margin-top:16px}
+#esg .story p.en{font:500 14.5px/1.7 var(--sans);color:var(--dim)}
+@media (max-width:1100px){#esg .cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){#esg .story{grid-template-columns:1fr}#esg .story .pics{height:320px}}
+@media (max-width:520px){#esg .cards{grid-template-columns:1fr}}
+
+/* ---------- CONTACT ---------- */
+#contact{padding:clamp(100px,14vw,180px) 0 60px;text-align:center;position:relative;overflow:hidden}
+#contact .bigline{font:700 clamp(34px,5.2vw,72px)/1.25 var(--serif);letter-spacing:.04em}
+#contact .bigline-en{font:500 clamp(16px,1.6vw,21px) var(--sans);color:var(--mute);margin-top:18px}
+#contact .btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:40px}
+#contact .stripes{position:absolute;inset:0;pointer-events:none;opacity:.5;background:repeating-linear-gradient(-45deg,rgba(0,125,194,.07) 0 2px,transparent 2px 26px)}
+footer{border-top:1px solid var(--line);padding:30px 0 40px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .l{display:flex;align-items:center;gap:16px}
+footer svg{height:26px;width:auto}
+footer p{font:500 12px var(--mono);letter-spacing:.1em;color:var(--dim)}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav id="nav" aria-label="主選單">
+  <a class="logo" href="#hero" aria-label="中良工業 TLC 首頁">/*LOGO_NAV*/<span>TIONG LIONG INDUSTRIAL</span></a>
+  <ul>
+    <li><a href="#film">影片</a></li>
+    <li><a href="#craft">工藝</a></li>
+    <li><a href="#layers">材料</a></li>
+    <li><a href="#physics">物理</a></li>
+    <li><a href="#footprint">布局</a></li>
+    <li><a href="#esg">永續</a></li>
+  </ul>
+  <a class="cta" href="https://www.tiongliong.com" target="_blank" rel="noopener">tiongliong.com ↗</a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="hero">
+  <canvas id="cloth" aria-label="可互動的織布模擬：拖曳布料、移動滑鼠產生波動"></canvas>
+  <div class="shade"></div>
+  <div class="copy">
+    <div class="tag">Tiong Liong Industrial · 中良工業</div>
+    <h1>一層一層，<br>成為品牌<em>最堅實</em>的後盾。</h1>
+    <p class="sub">From yarn to engineered composites — performance textiles for the world's leading athletic and outdoor brands. Sustainability · Innovation · Performance.</p>
+    <div class="btns">
+      <a class="btn pri" href="#film">▶ 觀看 30 秒影片 <small>Watch the film</small></a>
+      <a class="btn sec" href="#layers">拆開一塊布 <small>Explore the layers</small></a>
+    </div>
+  </div>
+  <div class="hint"><i>✋</i>拖曳布料試試 · DRAG THE FABRIC</div>
+  <div id="stats"><div class="wrap">
+    <div class="st"><b data-count="4">0</b><span>國布局</span><small>Countries across Asia</small></div>
+    <div class="st"><b data-count="4">0</b><span>道核心工藝</span><small>Core techniques</small></div>
+    <div class="st"><b data-count="6">0</b><span>大機能布種</span><small>Fabric categories</small></div>
+    <div class="st"><b data-count="3" data-suf="×">0</b><span>Coprime® 耐磨週期</span><small>Abrasion cycles</small></div>
+  </div></div>
+</header>
+
+<main>
+<!-- ================= FILM ================= -->
+<section id="film" class="sec"><div class="wrap">
+  <div class="sec-head" data-rv>
+    <div class="tag">00 / The Film</div>
+    <h2 class="h2">三十秒，認識中良。</h2>
+    <p class="h2-en">Thirty seconds, six chapters — from a single thread to an engineered package.</p>
+  </div>
+  <div class="player paused" id="player" data-rv>
+    <video id="vid" preload="metadata" playsinline poster="/*POSTER*/"><source src="/*VIDEO*/" type="video/mp4"></video>
+    <div class="missing" id="vidMissing">找不到影片檔，請確認「/*VIDEO*/」與此網頁放在同一個資料夾。</div>
+    <div class="big" id="bigPlay"><button aria-label="播放影片"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#1a0d02"/></svg></button></div>
+    <div class="bar">
+      <button id="pp" aria-label="播放／暫停"><svg width="18" height="18" viewBox="0 0 24 24" id="ppIco"><path d="M8 5v14l11-7z" fill="#fff"/></svg></button>
+      <span class="time" id="vtime">0:00 / 0:30</span>
+      <div class="track" id="track" role="slider" aria-label="影片進度" tabindex="0"><div class="rail"></div><div class="fill" id="vfill"></div></div>
+      <button id="mute" aria-label="靜音切換"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 9v6h4l5 4V5L8 9z" fill="#fff"/><path id="muteWave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></button>
+      <button id="fs" aria-label="全螢幕"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+  </div>
+  <div class="chaps" id="chaps" data-rv></div>
+</div></section>
+
+<!-- ================= CRAFT ================= -->
+<section id="craft"><div class="tall" id="craftTall"><div class="sticky">
+  <div>
+    <div class="head">
+      <div class="tag">01 / Core Craft</div>
+      <h2 class="h2">從一根紗，<br>到一塊工程材料。</h2>
+      <p class="h2-en">Four core textile techniques under one roof. Scroll to run the line.</p>
+    </div>
+    <div class="steps" id="craftSteps">
+      <div class="step"><div class="rail"><i></i></div><b>01</b><h3>織造<small>Weaving</small></h3><p>經紗與緯紗交織成布，決定布料的結構、強度與手感。<i>Warp and weft interlace into structure — the foundation of strength and hand-feel.</i></p></div>
+      <div class="step"><div class="rail"><i></i></div><b>02</b><h3>染整<small>Dyeing &amp; Finishing</small></h3><p>精準上色與後整理，讓色彩與質感穩定一致。<i>Precise colour and finishing for a consistent shade and texture.</i></p></div>
+      <div class="step"><div class="rail"><i></i></div><b>03</b><h3>機能處理與塗佈<small>Treatment &amp; Coating</small></h3><p>防潑水、抗菌防臭、耐磨——機能透過處理與 Coprime® 塗層技術加上去。<i>Water repellency, odour control, abrasion resistance — engineered in through treatment and Coprime® coating.</i></p></div>
+      <div class="step"><div class="rail"><i></i></div><b>04</b><h3>貼合<small>Lamination</small></h3><p>面料、發泡、保暖與防水膜貼合為一體，成為工程化複合材料。<i>Face fabric, foam, insulation and membrane bonded into one engineered package.</i></p></div>
+    </div>
+    <div class="scrollhint" id="craftHint">↓ SCROLL TO WEAVE</div>
+  </div>
+  <canvas id="craftC" aria-label="織造、染整、塗佈、貼合的流程動畫，隨捲動進行"></canvas>
+</div></div></section>
+
+<!-- ================= LAYERS ================= -->
+<section id="layers" class="sec"><div class="wrap">
+  <div class="sec-head" data-rv>
+    <div class="tag">02 / The Engineered Package</div>
+    <h2 class="h2">拆開一塊中良的布。</h2>
+    <p class="h2-en">Cushioning, durability and function — bonded into one solution. Drag to rotate, slide to explode, tap a layer to read it.</p>
+  </div>
+  <div class="grid">
+    <div id="lxStage" data-rv>
+      <div class="drag-hint">⟲ DRAG TO ROTATE</div>
+      <div id="lxStack"></div>
+      <div class="ui"><span>壓合 BONDED</span><input id="lxExplode" type="range" min="0" max="100" value="62" aria-label="展開程度"><span>展開 EXPLODED</span></div>
+    </div>
+    <div id="lxInfo" data-rv>
+      <div id="lxList"></div>
+      <div id="lxDetail"></div>
+      <p class="note" style="margin-top:18px">示意疊構，實際組合依產品規格而定 · Illustrative stack-up; constructions vary by spec.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================= PHYSICS ================= -->
+<section id="physics" class="sec" style="padding-top:40px"><div class="wrap">
+  <div class="sec-head" data-rv>
+    <div class="tag">03 / ARIAPRENE® Lab</div>
+    <h2 class="h2">五個品類，同一個物理問題。</h2>
+    <p class="h2-en">A hiking boot, a backpack, a lacrosse glove, a cap and a dog vest share one foam. Each asks a different version of the same question. Press the foam — or pick a product.</p>
+  </div>
+  <div class="grid">
+    <div>
+      <div id="phyBox" data-rv>
+        <div class="q"><b id="phyQ">按住泡棉，再放開。</b><small id="phyQe">Press and hold the foam, then let go.</small></div>
+        <canvas id="phyC" aria-label="閉孔泡棉物理模擬：按壓、衝擊、淋水"></canvas>
+        <div class="bar">
+          <div class="seg" id="phyMode"><button data-m="press" class="on">按壓</button><button data-m="impact">衝擊</button><button data-m="cycle">循環</button><button data-m="rain">淋水</button></div>
+          <div class="sp"></div>
+          <div class="seg" id="phyCell"><button data-c="closed" class="on">閉孔 Closed-cell</button><button data-c="open">開孔 Open-cell</button></div>
+        </div>
+      </div>
+      <div class="meters" data-rv>
+        <div class="meter"><b id="mComp">0<small>%</small></b><span>壓縮率 Compression</span></div>
+        <div class="meter"><b id="mRec">—<small>ms</small></b><span>回彈時間 Recovery</span></div>
+        <div class="meter"><b id="mWet">0<small>%</small></b><span>吸水 Water uptake</span></div>
+      </div>
+      <p class="note" style="margin-top:12px">物理示意模擬，數值非實驗量測 · Illustrative simulation — not test data.</p>
+    </div>
+    <div id="phySide" data-rv></div>
+  </div>
+</div></section>
+
+<!-- ================= FOOTPRINT ================= -->
+<section id="footprint" class="sec"><div class="wrap">
+  <div class="sec-head" data-rv>
+    <div class="tag">04 / Global Footprint</div>
+    <h2 class="h2">四國布局，一套治理標準。</h2>
+    <p class="h2-en">Every month our certification team coordinates international standards across production bases in Taiwan, China and Southeast Asia.</p>
+  </div>
+  <div class="grid">
+    <div id="mapBox" data-rv><canvas id="mapC" aria-label="亞洲點陣地圖與中良據點"></canvas><div id="mapPins"></div></div>
+    <div id="siteCard" data-rv>
+      <div class="big4"><b>4</b><span>國布局</span></div>
+      <p class="note" style="margin-top:12px">TAIWAN · CHINA · VIETNAM · INDONESIA</p>
+      <div id="siteList"></div>
+      <div id="siteDesc"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================= ESG ================= -->
+<section id="esg" class="sec" style="padding-top:40px"><div class="wrap">
+  <div data-rv>
+    <div class="tag">05 / ESG in Practice</div>
+    <p class="quote">跨國 ESG 的落地，考驗的從來不是口號，而是<em>數據的真實性與治理紀律</em>。</p>
+    <p class="quote-en">Cross-border ESG isn't about slogans — it's about data integrity and governance discipline.</p>
+  </div>
+  <div class="cards" id="esgCards"></div>
+  <div class="story">
+    <div class="pics" data-rv><img src="/*PASONT1*/" alt="Pasont 以皮革與布料邊角料製作的價目卡"><img src="/*PASONT2*/" alt="Pasont 以不同批次餘料拼貼的名片"></div>
+    <div data-rv>
+      <div class="tag">Circular Story · Pasont 怕剩</div>
+      <h3>我們開發用剩的布，<br>變成了別人的價目卡。</h3>
+      <p>台灣品牌 Pasont（怕剩）兩年來用中良工業的開發餘料做包包——連價目卡和名片都用邊角料裁成，每一張都不一樣，因為每一批餘料都不一樣。其中一個系列，用的正是一支 100% 再生聚酯的 CORDURA® 布。</p>
+      <p>ESG 不是只有報告書。有時候，它就是同一塊布料，先撐起了一雙鞋，後來又撐起了一個有人願意背出門的包。</p>
+      <p class="en">Fabric left over from our development runs became Pasont's bags — and even their price tags and business cards. ESG isn't only a report; sometimes it's the same fabric holding up a shoe, then a bag someone is happy to carry.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact"><div class="stripes"></div><div class="wrap" data-rv>
+  <div class="tag">Let's build your next material</div>
+  <p class="bigline" style="margin-top:22px">合規是底線，<br>創新才是選擇夥伴的理由。</p>
+  <p class="bigline-en">Compliance is the floor. Innovation is why you choose a partner.</p>
+  <div class="btns">
+    <a class="btn pri" href="https://www.tiongliong.com" target="_blank" rel="noopener">前往官網 <small>tiongliong.com ↗</small></a>
+    <a class="btn sec" href="https://www.tiongliong.com/zh-TW/product/Coprime-Technology.html" target="_blank" rel="noopener">Coprime® 技術 <small>↗</small></a>
+    <a class="btn sec" href="https://www.linkedin.com/company/tiong-liong-corporation/" target="_blank" rel="noopener">LinkedIn <small>↗</small></a>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <div class="l">/*LOGO_FOOT*/<p>中良工業股份有限公司 · TIONG LIONG INDUSTRIAL CO., LTD. · 台中沙鹿</p></div>
+  <p>SUSTAINABILITY · INNOVATION · PERFORMANCE</p>
+</div></footer>
+
+<script>
+const LOGO=/*LOGO_PARTS*/null;
+const DOTS=/*MAPDOTS*/null;
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), lerp=(a,b,t)=>a+(b-a)*t, P=(t,a,b)=>clamp((t-a)/(b-a));
+const ease={out:x=>1-Math.pow(1-x,3),inOut:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,back:x=>{const c=1.6;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)}};
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function fitCanvas(c){const d=Math.min(devicePixelRatio||1,2);const w=c.clientWidth,h=c.clientHeight;if(c.width!==Math.round(w*d)||c.height!==Math.round(h*d)){c.width=Math.round(w*d);c.height=Math.round(h*d);}const g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);return [g,w,h];}
+function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb(e.isIntersecting)),{rootMargin:'100px'});io.observe(el);}
+
+/* ================= NAV / REVEAL / PROGRESS ================= */
+(function(){
+  const nav=$('#nav'), prog=$('#prog'), links=$$('#nav ul a');
+  const secs=links.map(a=>$(a.getAttribute('href')));
+  function onScroll(){
+    const y=scrollY, H=document.documentElement.scrollHeight-innerHeight;
+    prog.style.transform=`scaleX(${H>0?y/H:0})`;
+    nav.classList.toggle('solid',y>40);
+    let cur=-1; secs.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top<innerHeight*.4) cur=i; });
+    links.forEach((a,i)=>a.classList.toggle('on',i===cur));
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+  $$('[data-rv]').forEach(el=>io.observe(el));
+  // stat counters
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{ if(!e.isIntersecting) return; cio.unobserve(e.target);
+    const el=e.target, n=+el.dataset.count, suf=el.dataset.suf||''; const t0=performance.now();
+    (function f(t){ const k=ease.out(clamp((t-t0)/1200)); el.innerHTML=Math.round(n*k)+(suf?`<sup>${suf}</sup>`:''); if(k<1) requestAnimationFrame(f); })(t0);
+  }),{threshold:.5});
+  $$('[data-count]').forEach(el=>cio.observe(el));
+})();
+
+/* ================= HERO: 3D verlet cloth ================= */
+(function(){
+  const cv=$('#cloth'); let g,W,H, cols,rows,sp, pts=[], cons=[], running=false, t0=performance.now();
+  const mouse={x:-999,y:-999,vx:0,vy:0,active:false}; let grab=null;
+  const F=950;
+  function build(){
+    [g,W,H]=fitCanvas(cv);
+    cols=W<700?24:44; sp=(W*1.08)/(cols-1); rows=Math.ceil((H*1.02)/sp)+1;
+    pts=[]; cons=[];
+    for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+      const x=W/2+(i-(cols-1)/2)*sp, y=j*sp-sp*.5;
+      pts.push({x,y,z:0,px:x,py:y,pz:0,pin:j===0,i,j});
+    }
+    const id=(i,j)=>j*cols+i;
+    for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+      if(i<cols-1) cons.push([id(i,j),id(i+1,j),sp]);
+      if(j<rows-1) cons.push([id(i,j),id(i,j+1),sp]);
+    }
+  }
+  function proj(p){ const s=F/(F+p.z); return [W/2+(p.x-W/2)*s, H*.42+(p.y-H*.42)*s, s]; }
+  function step(t){
+    const amp=RM?.25:1;
+    for(const p of pts){
+      if(p.pin) continue;
+      const vx=(p.x-p.px)*.975, vy=(p.y-p.py)*.975, vz=(p.z-p.pz)*.975;
+      p.px=p.x; p.py=p.y; p.pz=p.z;
+      const wz=amp*(Math.sin(p.x*.0042+t*1.25)*Math.cos(p.y*.0055-t*.85)*.55+Math.sin(p.x*.011-p.y*.007+t*2.1)*.22)*(.25+p.j/rows);
+      p.x+=vx; p.y+=vy+.18; p.z+=vz+wz;
+      if(mouse.active){
+        const [sx,sy]=proj(p); const dx=sx-mouse.x, dy=sy-mouse.y, d2=dx*dx+dy*dy, R=150;
+        if(d2<R*R){ const f=Math.pow(1-Math.sqrt(d2)/R,2); p.z+=f*7; p.x+=mouse.vx*f*.12; p.y+=mouse.vy*f*.12; }
+      }
+    }
+    if(grab){ const p=pts[grab.i]; p.x=lerp(p.x,grab.x,.5); p.y=lerp(p.y,grab.y,.5); p.z=lerp(p.z,-60,.3); }
+    for(let it=0;it<3;it++) for(const [a,b,r] of cons){
+      const A=pts[a],B=pts[b]; const dx=B.x-A.x,dy=B.y-A.y,dz=B.z-A.z; const d=Math.sqrt(dx*dx+dy*dy+dz*dz)||1; const k=(d-r)/d*.5;
+      const am=A.pin||(grab&&grab.i===a)?0:1, bm=B.pin||(grab&&grab.i===b)?0:1; const s=am+bm; if(!s) continue;
+      A.x+=dx*k*2*am/s; A.y+=dy*k*2*am/s; A.z+=dz*k*2*am/s; B.x-=dx*k*2*bm/s; B.y-=dy*k*2*bm/s; B.z-=dz*k*2*bm/s;
+    }
+    mouse.vx*=.8; mouse.vy*=.8;
+  }
+  const L=(()=>{const v=[-.45,-.7,-.9];const n=Math.hypot(...v);return v.map(x=>x/n)})();
+  function shadeAt(i,j){
+    const P=(a,b)=>pts[clamp(b,0,rows-1)*cols+clamp(a,0,cols-1)];
+    const l=P(i-1,j),r=P(i+1,j),u=P(i,j-1),d=P(i,j+1);
+    const du=[r.x-l.x,r.y-l.y,r.z-l.z], dv=[d.x-u.x,d.y-u.y,d.z-u.z];
+    let n=[-(du[1]*dv[2]-du[2]*dv[1]),-(du[2]*dv[0]-du[0]*dv[2]),-(du[0]*dv[1]-du[1]*dv[0])];
+    const m=Math.hypot(...n)||1; n=n.map(x=>x/m);
+    const diff=Math.max(0,n[0]*L[0]+n[1]*L[1]+n[2]*L[2]);
+    const hv=[L[0],L[1],L[2]-1]; const hm=Math.hypot(...hv); const spec=Math.pow(Math.max(0,(n[0]*hv[0]+n[1]*hv[1]+n[2]*hv[2])/hm),24);
+    return [.32+.78*diff, spec*.55];
+  }
+  const C={warp:[16,120,190],weft:[214,233,246],acc:[238,144,57]};
+  const col=(c,s,sp)=>`rgb(${Math.min(255,c[0]*s+255*sp)|0},${Math.min(255,c[1]*s+255*sp)|0},${Math.min(255,c[2]*s+255*sp)|0})`;
+  function draw(){
+    g.clearRect(0,0,W,H);
+    const bgG=g.createLinearGradient(0,0,0,H); bgG.addColorStop(0,'#071628'); bgG.addColorStop(1,'#06121F'); g.fillStyle=bgG; g.fillRect(0,0,W,H);
+    const Pp=pts.map(proj), S=pts.map(p=>shadeAt(p.i,p.j));
+    g.lineCap='butt';
+    // warps (under)
+    for(let i=0;i<cols;i++){ const acc=i%13===6; for(let j=0;j<rows-1;j++){ const a=j*cols+i,b=a+cols; const s=(S[a][0]+S[b][0])/2*.72;
+      g.strokeStyle=col(acc?C.acc:C.warp,s,0); g.lineWidth=sp*.5*Pp[a][2]; g.beginPath(); g.moveTo(Pp[a][0],Pp[a][1]); g.lineTo(Pp[b][0],Pp[b][1]); g.stroke(); } }
+    // wefts
+    for(let j=0;j<rows;j++){ const acc=j%11===5; for(let i=0;i<cols-1;i++){ const a=j*cols+i,b=a+1; const s=(S[a][0]+S[b][0])/2, sp2=(S[a][1]+S[b][1])/2;
+      g.strokeStyle=col(acc?C.acc:C.weft,s*.86,sp2*.6); g.lineWidth=sp*.58*Pp[a][2]; g.beginPath(); g.moveTo(Pp[a][0],Pp[a][1]); g.lineTo(Pp[b][0],Pp[b][1]); g.stroke(); } }
+    // warp overs
+    for(let i=0;i<cols;i++){ const acc=i%13===6; for(let j=1;j<rows-1;j++){ if((i+j)&1) continue; const a=j*cols+i, u=a-cols, d=a+cols;
+      const x0=(Pp[u][0]+Pp[a][0])/2, y0=(Pp[u][1]+Pp[a][1])/2, x1=(Pp[a][0]+Pp[d][0])/2, y1=(Pp[a][1]+Pp[d][1])/2;
+      g.strokeStyle=col(acc?C.acc:C.warp,S[a][0],S[a][1]*.5); g.lineWidth=sp*.5*Pp[a][2]; g.beginPath(); g.moveTo(x0,y0); g.lineTo(x1,y1); g.stroke(); } }
+  }
+  function loop(){ if(!running) return; const t=(performance.now()-t0)/1000; step(t); draw(); requestAnimationFrame(loop); }
+  build(); addEventListener('resize',()=>{ build(); });
+  onVisible(cv,v=>{ if(v&&!running){ running=true; requestAnimationFrame(loop);} else if(!v) running=false; });
+  const pos=e=>{const r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+  cv.addEventListener('pointermove',e=>{ const [x,y]=pos(e); if(mouse.x>-900){mouse.vx=x-mouse.x; mouse.vy=y-mouse.y;} mouse.x=x; mouse.y=y; mouse.active=true; if(grab){grab.x=x;grab.y=y;} });
+  cv.addEventListener('pointerleave',()=>{ mouse.active=false; mouse.x=-999; });
+  cv.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse') { const [x,y]=pos(e); mouse.x=x; mouse.y=y; mouse.vx=0; mouse.vy=-30; mouse.active=true; return; }
+    const [x,y]=pos(e); let best=-1,bd=70*70; pts.forEach((p,i)=>{ if(p.pin) return; const q=proj(p); const d=(q[0]-x)**2+(q[1]-y)**2; if(d<bd){bd=d;best=i;} });
+    if(best>=0){ grab={i:best,x,y}; cv.classList.add('drag'); cv.setPointerCapture(e.pointerId);} });
+  addEventListener('pointerup',()=>{ grab=null; cv.classList.remove('drag'); });
+})();
+
+/* ================= FILM PLAYER ================= */
+(function(){
+  const v=$('#vid'), pl=$('#player'), big=$('#bigPlay'), fill=$('#vfill'), track=$('#track'), tm=$('#vtime');
+  const CH=[[0,'開場','Hook'],[4,'品牌','Brand'],[8,'核心工藝','Craft'],[14,'複合材料','Materials'],[20,'布局・ESG','Footprint'],[26,'結語','Close']];
+  $('#chaps').innerHTML=CH.map((c,i)=>`<button class="chap" data-t="${c[0]}"><b>0:${String(c[0]).padStart(2,'0')}</b><span>${c[1]}</span><small>${c[2]}</small></button>`).join('');
+  track.insertAdjacentHTML('beforeend',CH.slice(1).map(c=>`<div class="tick" style="left:${c[0]/30*100}%"></div>`).join(''));
+  const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  const ico=p=>$('#ppIco').innerHTML=p?'<path d="M8 5v14l11-7z" fill="#fff"/>':'<path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="#fff"/>';
+  const play=()=>{ v.play().catch(()=>{}); };
+  big.querySelector('button').onclick=play; $('#pp').onclick=()=>v.paused?play():v.pause();
+  v.addEventListener('click',()=>v.paused?play():v.pause());
+  v.addEventListener('play',()=>{ big.classList.add('hide'); pl.classList.remove('paused'); ico(false); });
+  v.addEventListener('pause',()=>{ pl.classList.add('paused'); ico(true); });
+  v.addEventListener('ended',()=>{ big.classList.remove('hide'); });
+  v.addEventListener('timeupdate',()=>{ const d=v.duration||30; fill.style.width=(v.currentTime/d*100)+'%'; tm.textContent=`${fmt(v.currentTime)} / ${fmt(d)}`;
+    $$('.chap').forEach((b,i)=>{ const a=CH[i][0], z=i<CH.length-1?CH[i+1][0]:99; b.classList.toggle('on',v.currentTime>=a&&v.currentTime<z&&(!v.paused||v.currentTime>0)); }); });
+  const seek=e=>{ const r=track.getBoundingClientRect(); v.currentTime=clamp((e.clientX-r.left)/r.width)*(v.duration||30); };
+  track.addEventListener('pointerdown',e=>{ seek(e); track.setPointerCapture(e.pointerId); track.onpointermove=seek; });
+  track.addEventListener('pointerup',()=>{ track.onpointermove=null; });
+  track.addEventListener('keydown',e=>{ if(e.key==='ArrowRight') v.currentTime+=2; if(e.key==='ArrowLeft') v.currentTime-=2; });
+  $$('.chap').forEach(b=>b.onclick=()=>{ v.currentTime=+b.dataset.t; play(); });
+  $('#mute').onclick=()=>{ v.muted=!v.muted; $('#muteWave').style.opacity=v.muted?.2:1; };
+  $('#fs').onclick=()=>{ (pl.requestFullscreen||pl.webkitRequestFullscreen||(()=>{})).call(pl); };
+  v.addEventListener('error',()=>{ $('#vidMissing').style.display='grid'; },true);
+  v.querySelector('source').addEventListener('error',()=>{ $('#vidMissing').style.display='grid'; big.classList.add('hide'); });
+})();
+
+/* ================= CRAFT: scroll-scrubbed isometric line ================= */
+(function(){
+  const cv=$('#craftC'), tall=$('#craftTall'), steps=$$('#craftSteps .step');
+  let g,W,H, p=0, shown=0, raf=0, vis=false;
+  const S=300, n=24, sp=S/n, tw=sp*.62;
+  const ISO=(k,cx,cy,z)=>{ const c=Math.cos(Math.PI/6)*k, s=.5*k; return [c,s,-c,s,cx,cy-z*k]; };
+  function slabSides(k,cx,cy,z,h,cL,cR){
+    const pt=(u,v,zz)=>[cx+Math.cos(Math.PI/6)*k*(u-v), cy-zz*k+.5*k*(u+v)];
+    let a=pt(S,0,z),b=pt(S,S,z),c=pt(S,S,z-h),d=pt(S,0,z-h);
+    g.fillStyle=cR; g.beginPath(); g.moveTo(...a); g.lineTo(...b); g.lineTo(...c); g.lineTo(...d); g.fill();
+    a=pt(0,S,z); d=pt(0,S,z-h);
+    g.fillStyle=cL; g.beginPath(); g.moveTo(...a); g.lineTo(...b); g.lineTo(...c); g.lineTo(...d); g.fill();
+  }
+  const pats={};
+  function pattern(name,fn){ if(pats[name]) return pats[name]; const c=document.createElement('canvas'); c.width=c.height=300; fn(c.getContext('2d')); return pats[name]=g.createPattern(c,'no-repeat'); }
+  function foamPat(){ return pattern('foam',x=>{ x.fillStyle='#E7882F'; x.fillRect(0,0,300,300); const r=7; for(let y=0,row=0;y<310;y+=r*1.72,row++) for(let xx=(row%2)*r;xx<310;xx+=r*2){ const rr=r*(.8+rnd(xx*3+y)*.28); const gr=x.createRadialGradient(xx-rr*.3,y-rr*.3,0,xx,y,rr); gr.addColorStop(0,'#FFC88F'); gr.addColorStop(.55,'#F29A45'); gr.addColorStop(1,'#B9611C'); x.fillStyle=gr; x.beginPath(); x.arc(xx,y,rr,0,7); x.fill(); } }); }
+  function insPat(){ return pattern('ins',x=>{ x.fillStyle='#D9E2EA'; x.fillRect(0,0,300,300); for(let i=0;i<1400;i++){ const a=rnd(i+3e3)*Math.PI, l=6+rnd(i+7e3)*18, xx=rnd(i)*300, y=rnd(i+9e3)*300; x.strokeStyle=`rgba(${120+rnd(i+1)*90|0},${140+rnd(i+2)*80|0},${160+rnd(i+4)*70|0},.55)`; x.lineWidth=.6+rnd(i+5); x.beginPath(); x.moveTo(xx,y); x.lineTo(xx+Math.cos(a)*l,y+Math.sin(a)*l); x.stroke(); } }); }
+  function memPat(){ return pattern('mem',x=>{ x.fillStyle='#EAF5FF'; x.fillRect(0,0,300,300); x.fillStyle='rgba(0,125,194,.18)'; for(let y=4;y<300;y+=8) for(let xx=4+(y/8%2)*4;xx<300;xx+=8){ x.beginPath(); x.arc(xx,y,1.2,0,7); x.fill(); } }); }
+  function weave(q,dye){ // q weaving progress 0..1, dye 0..1
+    const rows=q*n;
+    const mix=(isW,u,v)=>{ const front=dye*1.5-.25, d=(u+v)/(2*S), m=clamp((front-d)/.18); const raw=isW?[214,206,190]:[234,228,214], dy=isW?[0,112,178]:[124,192,238]; return raw.map((x,k)=>lerp(x,dy[k],m)|0); };
+    const rgb=(c,f)=>`rgb(${c.map(x=>Math.min(255,x*f)|0).join(',')})`;
+    g.fillStyle='#0C2238'; g.fillRect(0,0,S,S);
+    for(let i=0;i<n;i++){ const x=i*sp+sp/2, c=mix(true,x,S/2); g.fillStyle=rgb(c,.62); g.fillRect(x-tw/2,0,tw,S); g.fillStyle=rgb(c,1); g.fillRect(x-tw*.22,0,tw*.44,S); }
+    for(let j=0;j<n;j++){ const e=clamp(rows-j); if(e<=0) continue; const y=S-(j*sp+sp/2), xe=S*ease.out(e), c=mix(false,S/2,y);
+      g.fillStyle='rgba(0,0,0,.4)'; g.fillRect(0,y-tw/2-1.5,xe,tw+3); g.fillStyle=rgb(c,.8); g.fillRect(0,y-tw/2,xe,tw); g.fillStyle=rgb(c,1.04); g.fillRect(0,y-tw*.2,xe,tw*.4);
+      for(let i=0;i<n;i++){ if((i+j)&1) continue; const x=i*sp+sp/2; if(x>xe) break; const cw=mix(true,x,y); g.fillStyle=rgb(cw,.62); g.fillRect(x-tw/2,y-tw/2-2,tw,tw+4); g.fillStyle=rgb(cw,1); g.fillRect(x-tw*.22,y-tw/2-2,tw*.44,tw+4); }
+      if(e<1){ const gr=g.createRadialGradient(xe,y,0,xe,y,26); gr.addColorStop(0,'rgba(255,200,140,.95)'); gr.addColorStop(1,'rgba(238,144,57,0)'); g.fillStyle=gr; g.fillRect(xe-26,y-26,52,52); }
+    }
+  }
+  function draw(){
+    [g,W,H]=fitCanvas(cv);
+    g.clearRect(0,0,W,H);
+    const k=Math.min(W/(2*Math.cos(Math.PI/6)*S)*.86, H/(S*1.0+330)*1.0);
+    const cx=W/2, cy=H*.5-.5*k*S+ 70*k;
+    const ph=p*4;                 // 0..4
+    const q=clamp(ph), dye=clamp(ph-1), coat=clamp(ph-2), lam=clamp(ph-3);
+    const rise=ease.inOut(clamp(lam/.6)), press=ease.inOut(clamp((lam-.6)/.35));
+    const Z={memb:0,ins:9,foam:30,weave:40,coat:43};
+    const gap={memb:-110,ins:-70,foam:-30,weave:0,coat:0};
+    const z={}; ['memb','ins','foam'].forEach(nm=>z[nm]=lerp(Z[nm]-330,Z[nm]+gap[nm],rise)); ['memb','ins','foam'].forEach(nm=>z[nm]=lerp(z[nm],Z[nm],press));
+    z.weave=Z.weave; z.coat=lerp(Z.coat+170,Z.coat,ease.out(coat));
+    const op=nm=>nm==='weave'?1:nm==='coat'?ease.out(coat):rise;
+    // shadow
+    g.save(); g.setTransform(...ISO(k,cx,cy,-40).map((v,i)=>i<4?v:v)); g.globalAlpha=.35; const sg=g.createRadialGradient(S/2,S/2,0,S/2,S/2,S*.75); sg.addColorStop(0,'rgba(0,0,0,.8)'); sg.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle=sg; g.fillRect(-S*.3,-S*.3,S*1.6,S*1.6); g.restore();
+    const dpr=Math.min(devicePixelRatio||1,2);
+    const setIso=zz=>{ const m=ISO(k,cx,cy,zz); g.setTransform(m[0]*dpr,m[1]*dpr,m[2]*dpr,m[3]*dpr,m[4]*dpr,m[5]*dpr); };
+    const layer=(nm,h,top,cL,cR)=>{ const o=op(nm); if(o<=0.01) return; g.save(); g.globalAlpha=o; g.setTransform(dpr,0,0,dpr,0,0); slabSides(k,cx,cy,z[nm],h,cL,cR); setIso(z[nm]); top(); g.restore(); };
+    layer('memb',3,()=>{ g.fillStyle=memPat(); g.fillRect(0,0,S,S); },'#9DB7CC','#B9CEDD');
+    layer('ins',8,()=>{ g.fillStyle=insPat(); g.fillRect(0,0,S,S); },'#7F8E9B','#9AA9B5');
+    layer('foam',18,()=>{ g.fillStyle=foamPat(); g.fillRect(0,0,S,S); },'#9B4F16','#C26A22');
+    layer('weave',4,()=>weave(q,dye),'#06243B','#0A3555');
+    if(coat>0){ g.save(); g.globalAlpha=ease.out(coat); setIso(z.coat);
+      g.fillStyle='rgba(190,228,255,.16)'; g.fillRect(0,0,S,S); g.strokeStyle='rgba(220,240,255,.5)'; g.lineWidth=1/k; g.strokeRect(0,0,S,S);
+      const sx=lerp(-S*.6,S*1.6,clamp((coat-.1)/.6)); const lg=g.createLinearGradient(sx-60,sx-60,sx+60,sx+60); lg.addColorStop(0,'rgba(255,255,255,0)'); lg.addColorStop(.5,'rgba(255,255,255,.35)'); lg.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle=lg; g.fillRect(0,0,S,S);
+      for(let i=0;i<22;i++){ const b=ease.back(clamp((coat-.35-rnd(i)*.25)/.25)); if(b<=0) continue; const roll=clamp((coat-.75)/.25)*S*.9*(.6+rnd(i+40)*.6); const u=20+rnd(i*7+1)*260+roll, v=20+rnd(i*7+2)*260, r=(5+rnd(i*7+3)*9)*b; if(u>S+8) continue; const fade=clamp((S+8-u)/30);
+        g.globalAlpha=ease.out(coat)*fade*(1-lam); const dg=g.createRadialGradient(u-r*.35,v-r*.35,0,u,v,r); dg.addColorStop(0,'rgba(255,255,255,.95)'); dg.addColorStop(.4,'rgba(170,220,255,.55)'); dg.addColorStop(1,'rgba(60,150,210,.25)'); g.fillStyle=dg; g.beginPath(); g.arc(u,v,Math.max(r,.1),0,7); g.fill(); }
+      g.restore(); }
+    // lamination glow
+    if(press>0&&press<1){ g.save(); g.globalAlpha=Math.sin(press*Math.PI)*.8; g.globalCompositeOperation='lighter'; [Z.foam,Z.ins,Z.weave].forEach(zz=>{ setIso(zz); g.strokeStyle='rgba(238,144,57,.9)'; g.lineWidth=3/k; g.strokeRect(0,0,S,S); }); g.restore(); }
+    // labels at the end
+    g.setTransform(dpr,0,0,dpr,0,0);
+    const lab=clamp((lam-.92)/.08);
+    if(ph<1){ label('織造 WEAVING',q); } else if(ph<2){ label('染整 DYEING',1); } else if(ph<3){ label('塗佈 COATING',1); } else { label(lam<.95?'貼合 LAMINATION':'工程化複合材料 ENGINEERED PACKAGE',1); }
+    function label(t,a){ g.globalAlpha=1; g.font='600 12px "JetBrains Mono"'; g.fillStyle='rgba(220,236,248,.55)'; g.textAlign='center'; g.fillText(t,W/2,H-18); }
+  }
+  function update(){
+    const r=tall.getBoundingClientRect(); const tot=r.height-innerHeight; p=clamp(-r.top/tot);
+    const ph=p*4; steps.forEach((s,i)=>{ s.classList.toggle('on',ph>=i&&(ph<i+1||i===3&&ph>=3)); s.querySelector('.rail i').style.height=(clamp(ph-i)*100)+'%'; });
+    $('#craftHint').style.opacity=p>.02?0:1;
+  }
+  function tick(){ raf=0; if(Math.abs(shown-p)>.0005){ shown=lerp(shown,p,.22); draw(); raf=requestAnimationFrame(tick);} }
+  addEventListener('scroll',()=>{ update(); if(!raf&&vis) raf=requestAnimationFrame(tick); },{passive:true});
+  addEventListener('resize',()=>{ update(); draw(); });
+  onVisible(cv,v=>{ vis=v; if(v){ update(); draw(); if(!raf) raf=requestAnimationFrame(tick);} });
+  const origDraw=draw; draw=function(){ const keep=p; p=shown; origDraw(); p=keep; };
+  update(); shown=p;
+})();
+
+/* ================= LAYERS: CSS 3D explorer ================= */
+(function(){
+  const stage=$('#lxStage'), stack=$('#lxStack');
+  const tex=(fn)=>{ const c=document.createElement('canvas'); c.width=c.height=360; fn(c.getContext('2d'),360); return c.toDataURL(); };
+  const T={
+    coat:'linear-gradient(135deg,rgba(200,232,255,.30),rgba(140,203,242,.12))',
+    face:`url(${tex((x,s)=>{ x.fillStyle='#0B2A44'; x.fillRect(0,0,s,s); const n=24, sp=s/n, tw=sp*.62; for(let i=0;i<n;i++){ const X=i*sp+sp/2; x.fillStyle='#04588F'; x.fillRect(X-tw/2,0,tw,s); x.fillStyle='#1789CF'; x.fillRect(X-tw*.22,0,tw*.44,s);} for(let j=0;j<n;j++){ const Y=j*sp+sp/2; x.fillStyle='rgba(0,0,0,.4)'; x.fillRect(0,Y-tw/2-1,s,tw+2); x.fillStyle='#5FA9DA'; x.fillRect(0,Y-tw/2,s,tw); x.fillStyle='#9FD0F2'; x.fillRect(0,Y-tw*.2,s,tw*.4); for(let i=0;i<n;i++){ if((i+j)&1) continue; const X=i*sp+sp/2; x.fillStyle='#04588F'; x.fillRect(X-tw/2,Y-tw/2-2,tw,tw+4); x.fillStyle='#1789CF'; x.fillRect(X-tw*.22,Y-tw/2-2,tw*.44,tw+4);} } })}) center/cover`,
+    foam:`url(${tex((x,s)=>{ x.fillStyle='#E7882F'; x.fillRect(0,0,s,s); const r=9; for(let y=0,row=0;y<s+r;y+=r*1.72,row++) for(let X=(row%2)*r;X<s+r;X+=r*2){ const rr=r*(.8+rnd(X*3+y)*.28); const gr=x.createRadialGradient(X-rr*.3,y-rr*.3,0,X,y,rr); gr.addColorStop(0,'#FFC88F'); gr.addColorStop(.55,'#F29A45'); gr.addColorStop(1,'#B9611C'); x.fillStyle=gr; x.beginPath(); x.arc(X,y,rr,0,7); x.fill(); } })}) center/cover`,
+    ins:`url(${tex((x,s)=>{ x.fillStyle='#D9E2EA'; x.fillRect(0,0,s,s); for(let i=0;i<1800;i++){ const a=rnd(i+3e3)*Math.PI,l=6+rnd(i+7e3)*20,X=rnd(i)*s,y=rnd(i+9e3)*s; x.strokeStyle=`rgba(${120+rnd(i+1)*90|0},${140+rnd(i+2)*80|0},${160+rnd(i+4)*70|0},.55)`; x.lineWidth=.6+rnd(i+5); x.beginPath(); x.moveTo(X,y); x.lineTo(X+Math.cos(a)*l,y+Math.sin(a)*l); x.stroke(); } })}) center/cover`,
+    mem:`url(${tex((x,s)=>{ x.fillStyle='#EAF5FF'; x.fillRect(0,0,s,s); x.fillStyle='rgba(0,125,194,.2)'; for(let y=5;y<s;y+=10) for(let X=5+(y/10%2)*5;X<s;X+=10){ x.beginPath(); x.arc(X,y,1.4,0,7); x.fill(); } })}) center/cover`,
+  };
+  const LY=[
+    {id:'coat',name:'Coprime®',zh:'網布塗層技術',en:'Mesh coating technology',top:T.coat,edge:'rgba(160,210,240,.35)',n:1,gap:0,base:58,spread:150,sw:'linear-gradient(135deg,#BFE3FA,#7FC0EA)',
+      p:'中良目前最先進的網布塗層技術：耐磨週期提升 3 倍以上（Martindale 與 Stoll 測試），製程零耗水、零熱耗、零色變，且完全不含 VOCs、RSL 與溶劑。',
+      pe:'Our most advanced mesh coating: 3× abrasion-cycle enhancement (Martindale & Stoll), zero water waste, zero excess heat, zero colour change — free of VOCs, RSLs and solvents.',
+      chips:['3× 耐磨週期','零耗水','零熱耗','零色變','無 VOCs／RSL／溶劑']},
+    {id:'face',name:'CORDURA®',zh:'耐磨面料',en:'Durable face fabric',top:T.face,edge:'#063A60',n:3,gap:2.2,base:46,spread:100,sw:'repeating-linear-gradient(90deg,#1789CF 0 4px,#9FD0F2 4px 7px)',
+      p:'以高強度、耐磨、抗撕裂聞名的機能布料，常見於鞋舌內側、後跟補強與鞋面高磨耗區；也有 100% 再生聚酯的版本。',
+      pe:'Known for strength and abrasion/tear resistance — tongue linings, heel reinforcement and high-wear zones. Available in 100% recycled polyester.',
+      chips:['高強度','耐磨抗撕裂','100% 再生聚酯選項']},
+    {id:'foam',name:'ARIAPRENE®',zh:'TPE 發泡複合材料',en:'TPE foam package fabric',top:T.foam,edge:'#A4561A',n:8,gap:3.2,base:18,spread:40,sw:'radial-gradient(circle at 30% 30%,#FFC88F,#E7882F 60%,#B9611C)',
+      p:'閉孔結構的 TPE 發泡材料。登山靴問「壓縮後多快回彈」、帽子問「戴久會不會悶」、獵犬背心問「泡水沾泥還撐得住嗎」——答案都指向同一個閉孔結構。AP Terra 含 25% 再生 TPE，並提供數位樣布加速開發。',
+      pe:'Closed-cell TPE foam. Rebound, comfort and water resistance all point back to the same closed-cell structure. AP Terra contains 25% recycled TPE; digital swatches speed up development.',
+      chips:['閉孔結構','AP Terra 25% 再生 TPE','數位樣布','跨五大品類']},
+    {id:'ins',name:'3M™ Thinsulate™',zh:'輕量保暖',en:'Lightweight insulation',top:T.ins,edge:'#8E9DAA',n:4,gap:2.6,base:4,spread:-30,sw:'linear-gradient(135deg,#E5ECF2,#AEBBC7)',
+      p:'以「輕、薄、暖」著稱的保暖材料。透過中良的貼合與整合技術，應用於鞋款與高性能雪靴，並推廣含回收纖維的保溫方案。',
+      pe:'Thin, light and warm. Integrated through TLC lamination into footwear and high-performance winter boots — including insulation with recycled content.',
+      chips:['輕量保暖','抗潮','回收纖維方案']},
+    {id:'mem',name:'Bio-based Membrane',zh:'生質防水膜',en:'Eco-friendly waterproof membrane',top:T.mem,edge:'#9DB7CC',n:2,gap:2,base:0,spread:-95,sw:'linear-gradient(135deg,#F2F8FD,#BBD3E6)',
+      p:'以生質原料為基礎的環保防水膜，透過友善環境的貼合製程，整合進複合材料之中。',
+      pe:'An eco-friendly waterproof membrane built on bio-based raw materials, integrated through environmentally friendly lamination.',
+      chips:['生質原料','防水','友善貼合製程']},
+  ];
+  const els={};
+  LY.slice().reverse().forEach(l=>{
+    const d=document.createElement('div'); d.className='lx-l'; d.dataset.id=l.id;
+    let h=''; for(let i=0;i<l.n;i++){ const isTop=i===l.n-1; h+=`<div class="lx-p ${isTop?'top':''}" style="background:${isTop?l.top:l.edge};transform:translateZ(${i*l.gap}px);${l.id==='coat'?'border:1px solid rgba(220,240,255,.5);':''}"></div>`; }
+    d.innerHTML=h; stack.appendChild(d); els[l.id]=d;
+  });
+  $('#lxList').innerHTML=LY.map(l=>`<button data-id="${l.id}"><i class="sw" style="background:${l.top.startsWith('url')?l.sw:l.top}"></i><span><b>${l.name}</b><small>${l.zh} · ${l.en}</small></span></button>`).join('');
+  let sel='foam', hov=null, ex=.62;
+  function select(id){ sel=id; const l=LY.find(x=>x.id===id);
+    $$('#lxList button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+    $('#lxDetail').innerHTML=`<h3>${l.name}</h3><h4>${l.zh} · ${l.en}</h4><p>${l.p}</p><p class="en">${l.pe}</p><div class="chips">${l.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>`; }
+  $$('#lxList button').forEach(b=>{ b.onclick=()=>select(b.dataset.id); b.onmouseenter=()=>hov=b.dataset.id; b.onmouseleave=()=>hov=null; });
+  Object.entries(els).forEach(([id,d])=>{ const top=d.querySelector('.top'); top.addEventListener('click',e=>{ if(moved<6) select(id); }); top.addEventListener('pointerenter',()=>hov=id); top.addEventListener('pointerleave',()=>hov=null); });
+  select('foam');
+  const exI=$('#lxExplode'); exI.oninput=()=>ex=exI.value/100;
+  let ax=58, az=-38, vax=0, vaz=0, drag=false, lx=0, ly=0, moved=0, idle=0, lifted={};
+  stage.addEventListener('pointerdown',e=>{ if(e.target===exI) return; drag=true; moved=0; lx=e.clientX; ly=e.clientY; stage.classList.add('drag'); });
+  addEventListener('pointermove',e=>{ if(!drag) return; const dx=e.clientX-lx, dy=e.clientY-ly; lx=e.clientX; ly=e.clientY; moved+=Math.abs(dx)+Math.abs(dy); vaz=dx*.35; vax=-dy*.25; az+=vaz; ax=clamp(ax+vax,8,82); idle=0; });
+  addEventListener('pointerup',()=>{ drag=false; stage.classList.remove('drag'); });
+  let run=false;
+  function frame(){ if(!run) return;
+    if(!drag){ az+=vaz; ax=clamp(ax+vax,8,82); vaz*=.94; vax*=.9; idle++; if(idle>120&&!RM) az+=.06; }
+    const sc=Math.min(1,stage.clientWidth/600);
+    stack.style.transform=`scale(${sc.toFixed(3)}) rotateX(${ax}deg) rotateZ(${az}deg)`;
+    LY.forEach(l=>{ const target=(hov===l.id||sel===l.id)?1:0; lifted[l.id]=lerp(lifted[l.id]||0,target,.15);
+      const z=l.base+l.spread*ex+lifted[l.id]*(hov===l.id?22:10);
+      els[l.id].style.transform=`translateZ(${z.toFixed(2)}px)`; els[l.id].classList.toggle('hl',hov===l.id||sel===l.id); });
+    requestAnimationFrame(frame); }
+  onVisible(stage,v=>{ if(v&&!run){ run=true; requestAnimationFrame(frame);} else if(!v) run=false; });
+})();
+
+/* ================= PHYSICS: closed-cell foam lab ================= */
+(function(){
+  const cv=$('#phyC'); let g,W,H;
+  const NX=24, NY=8; let nodes=[], cons=[], baseY, H0, x0, x1, sx, sy;
+  let mode='press', cell='closed';
+  const plate={x:0,w:200,y:-999,target:-999,active:false};
+  let peak=0, prevComp=0, simT=0, mX=0, ball=null, drops=[], comp=0, relT=null, recMs=null, wasPressed=false, cyc=null, rainT=0, auto=null;
+  function build(){
+    [g,W,H]=fitCanvas(cv);
+    x0=Math.max(30,W*.06); x1=W-x0; baseY=H-70; H0=Math.min(200,H*.42);
+    sx=(x1-x0)/(NX-1); sy=H0/(NY-1); nodes=[]; cons=[];
+    for(let j=0;j<NY;j++) for(let i=0;i<NX;i++){ const x=x0+i*sx, y=baseY-j*sy; nodes.push({x,y,px:x,py:y,rx:x,ry:y,pin:j===0,w:0,i,j}); }
+    const id=(i,j)=>j*NX+i; const add=(a,b,k)=>{ const A=nodes[a],B=nodes[b]; cons.push([a,b,Math.hypot(A.x-B.x,A.y-B.y),k]); };
+    for(let j=0;j<NY;j++) for(let i=0;i<NX;i++){ if(i<NX-1) add(id(i,j),id(i+1,j),.5); if(j<NY-1) add(id(i,j),id(i,j+1),.075); if(i<NX-1&&j<NY-1){ add(id(i,j),id(i+1,j+1),.05); add(id(i+1,j),id(i,j+1),.05);} }
+    plate.w=Math.min(240,W*.3); plate.x=W/2; mX=W/2;
+  }
+  const top=()=>nodes.slice((NY-1)*NX);
+  function surfaceY(x){ const T=top(); if(x<T[0].x||x>T[NX-1].x) return Infinity; for(let i=0;i<NX-1;i++){ if(x>=T[i].x&&x<=T[i+1].x){ const u=(x-T[i].x)/(T[i+1].x-T[i].x||1); return lerp(T[i].y,T[i+1].y,u);} } return Infinity; }
+  function physics(dt){
+    simT+=1000/120;
+    for(const n of nodes){ if(n.pin) continue; const vx=(n.x-n.px)*.93, vy=(n.y-n.py)*.93; n.px=n.x; n.py=n.y; n.x+=vx+(n.rx-n.x)*.004; n.y+=vy+(n.ry-n.y)*.005+.02*(1+n.w*6); }
+    // plate
+    plate.y=lerp(plate.y,plate.target,.35);
+    if(plate.y>-900){ for(const n of nodes){ if(n.pin) continue; if(Math.abs(n.x-plate.x)<plate.w/2&&n.y<plate.y){ n.y=plate.y; } } }
+    // ball
+    if(ball){ ball.vy+=.5; ball.x+=ball.vx; ball.y+=ball.vy; ball.t++;
+      for(const n of nodes){ if(n.pin) continue; const dx=n.x-ball.x, dy=n.y-ball.y, d=Math.hypot(dx,dy); if(d<ball.r&&d>0){ const pen=ball.r-d; n.x+=dx/d*pen; n.y+=dy/d*pen; n.px+=dx/d*pen*.3; n.py+=dy/d*pen*.3; ball.vx-=dx/d*pen*.012; ball.vy-=dy/d*pen*.05; } }
+      ball.vx*=.99;
+      if(ball.y>H+80||ball.t>420||(ball.y<-60&&ball.vy<0)) ball=null; }
+    for(let it=0;it<3;it++) for(const [a,b,r,k] of cons){ const A=nodes[a],B=nodes[b]; const dx=B.x-A.x,dy=B.y-A.y; const d=Math.hypot(dx,dy)||1; const f=(d-r)/d*.5*k; const am=A.pin?0:1,bm=B.pin?0:1; const s=am+bm; if(!s) continue; A.x+=dx*f*2*am/s; A.y+=dy*f*2*am/s; B.x-=dx*f*2*bm/s; B.y-=dy*f*2*bm/s; }
+    if(plate.y>-900) for(const n of nodes){ if(n.pin) continue; if(Math.abs(n.x-plate.x)<plate.w/2&&n.y<plate.y) n.y=plate.y; }
+    // keep cells from folding: every node stays above the one beneath it (closed cells resist collapse)
+    for(let j=1;j<NY;j++) for(let i=0;i<NX;i++){ const n=nodes[j*NX+i], b=nodes[(j-1)*NX+i]; const lim=b.y-sy*.28; if(n.y>lim){ n.y=lim; } if(n.y>baseY-sy*.28*j) n.y=baseY-sy*.28*j; }
+    // drops
+    for(const d of drops){ if(!d.alive) continue; d.vy+=.32; d.x+=d.vx; d.y+=d.vy; const sfc=surfaceY(d.x);
+      if(isFinite(sfc)&&d.y+d.r>sfc){ if(cell==='closed'){ d.y=sfc-d.r; const a=surfaceY(d.x-4), b=surfaceY(d.x+4); const sl=(isFinite(a)&&isFinite(b))?(b-a)/8:0; d.vx=clamp((d.vx+sl*1.6+(d.x<W/2?-.07:.07))*.985,-7,7); d.vy=-Math.abs(d.vy)*.18; }
+        else { d.alive=false; const T=top(); let bi=0,bd=1e9; T.forEach((n,i)=>{ const dd=Math.abs(n.x-d.x); if(dd<bd){bd=dd;bi=i;} }); T[bi].w=Math.min(1,T[bi].w+.22); if(T[bi-1]) T[bi-1].w=Math.min(1,T[bi-1].w+.08); if(T[bi+1]) T[bi+1].w=Math.min(1,T[bi+1].w+.08); } }
+      if(d.y>H+30||!isFinite(d.x+d.y)) d.alive=false; }
+    drops=drops.filter(d=>d.alive);
+    if(cell==='open'){ // diffuse wetness downward/sideways
+      for(let j=NY-1;j>0;j--) for(let i=0;i<NX;i++){ const n=nodes[j*NX+i], b=nodes[(j-1)*NX+i]; const f=(n.w-b.w)*.03; n.w-=f; b.w+=f; if(i<NX-1){ const r=nodes[j*NX+i+1]; const f2=(n.w-r.w)*.02; n.w-=f2; r.w+=f2; } } }
+    // measurement
+    const T=top(); let sum=0,c=0; if(plate.active) mX=plate.x; else if(ball) mX=ball.x; T.forEach(n=>{ if(Math.abs(n.x-mX)<Math.min(plate.w/2,110)){ sum+=n.y-n.ry; c++; } }); comp=Math.max(0,(sum/Math.max(c,1))/H0);
+    const pressed=plate.active&&comp>.05;
+    if(pressed) peak=Math.max(peak,comp);
+    if(wasPressed&&!pressed&&peak>.05){ relT=simT; recMs=null; peak=0; }
+    if(ball&&!ball.peaked&&comp>.05&&comp<prevComp){ ball.peaked=true; relT=simT; recMs=null; }
+    if(relT!=null&&comp<.03){ recMs=simT-relT; relT=null; }
+    prevComp=comp;
+    wasPressed=pressed;
+  }
+  function draw(){
+    g.clearRect(0,0,W,H);
+    // floor
+    g.fillStyle='rgba(140,203,242,.06)'; g.fillRect(0,baseY+2,W,H-baseY);
+    g.strokeStyle='rgba(140,203,242,.2)'; g.beginPath(); g.moveTo(0,baseY+2); g.lineTo(W,baseY+2); g.stroke();
+    // slab outline (cell walls)
+    const N=(i,j)=>nodes[j*NX+i];
+    g.beginPath(); for(let i=0;i<NX;i++){ const n=N(i,NY-1); i?g.lineTo(n.x,n.y):g.moveTo(n.x,n.y); } for(let j=NY-2;j>=0;j--) g.lineTo(N(NX-1,j).x,N(NX-1,j).y); for(let i=NX-2;i>=0;i--) g.lineTo(N(i,0).x,N(i,0).y); for(let j=1;j<NY;j++) g.lineTo(N(0,j).x,N(0,j).y); g.closePath();
+    g.fillStyle=cell==='open'?'#7C5A3C':'#A9561A'; g.fill();
+    const mid=(a,b)=>[(a.x+b.x)/2,(a.y+b.y)/2];
+    for(let j=0;j<NY-1;j++) for(let i=0;i<NX-1;i++){
+      const a=N(i,j+1), b=N(i+1,j+1), c=N(i+1,j), d=N(i,j); const cx=(a.x+b.x+c.x+d.x)/4, cy=(a.y+b.y+c.y+d.y)/4;
+      const sh=p=>[cx+(p[0]-cx)*.88, cy+(p[1]-cy)*.88]; const S=n=>sh([n.x,n.y]);
+      const m1=sh(mid(a,b)),m2=sh(mid(b,c)),m3=sh(mid(c,d)),m4=sh(mid(d,a));
+      const w=(a.w+b.w+c.w+d.w)/4; const rr=Math.max(4,Math.min(Math.abs(b.x-a.x),Math.abs(a.y-d.y))*.6);
+      const gr=g.createRadialGradient(cx-rr*.3,cy-rr*.35,0,cx,cy,rr*1.1);
+      if(cell==='open'){ const ww=clamp(w*2.6); gr.addColorStop(0,`rgb(${lerp(236,96,ww)|0},${lerp(206,128,ww)|0},${lerp(160,168,ww)|0})`); gr.addColorStop(1,`rgb(${lerp(178,36,ww)|0},${lerp(130,62,ww)|0},${lerp(86,96,ww)|0})`); }
+      else { gr.addColorStop(0,'#FFD3A0'); gr.addColorStop(.55,'#F39C48'); gr.addColorStop(1,'#B5601C'); }
+      g.fillStyle=gr; g.beginPath(); g.moveTo(...m1); g.quadraticCurveTo(...S(b),...m2); g.quadraticCurveTo(...S(c),...m3); g.quadraticCurveTo(...S(d),...m4); g.quadraticCurveTo(...S(a),...m1); g.fill();
+    }
+    // plate
+    if(plate.y>-900){ const py=plate.y; const pg=g.createLinearGradient(0,py-26,0,py); pg.addColorStop(0,'#5E7487'); pg.addColorStop(1,'#C5D4E0'); g.fillStyle=pg; g.beginPath(); g.roundRect(plate.x-plate.w/2,py-26,plate.w,26,6); g.fill(); g.fillStyle='#8DA3B5'; g.fillRect(plate.x-16,py-26-400,32,400); }
+    // ball
+    if(ball){ const bg=g.createRadialGradient(ball.x-ball.r*.35,ball.y-ball.r*.4,2,ball.x,ball.y,ball.r); bg.addColorStop(0,'#fff'); bg.addColorStop(.4,'#8CCBF2'); bg.addColorStop(1,'#005B8F'); g.fillStyle=bg; g.beginPath(); g.arc(ball.x,ball.y,ball.r,0,7); g.fill(); }
+    // drops
+    for(const d of drops){ if(!isFinite(d.x+d.y)) continue; const dg=g.createRadialGradient(d.x-d.r*.3,d.y-d.r*.4,0,d.x,d.y,d.r); dg.addColorStop(0,'rgba(255,255,255,.95)'); dg.addColorStop(.5,'rgba(120,200,250,.75)'); dg.addColorStop(1,'rgba(0,125,194,.6)'); g.fillStyle=dg; g.beginPath(); g.arc(d.x,d.y,d.r,0,7); g.fill(); }
+    // compression gauge
+    g.fillStyle='rgba(220,236,248,.5)'; g.font='600 11px "JetBrains Mono"'; g.textAlign='left'; g.fillText(cell==='closed'?'CLOSED-CELL · 閉孔':'OPEN-CELL · 開孔', x0, baseY+30);
+  }
+  function meters(){
+    $('#mComp').innerHTML=`${Math.round(comp*100)}<small>%</small>`;
+    $('#mRec').innerHTML=recMs!=null?`${Math.round(recMs)}<small>ms</small>`:(relT!=null?`…<small>ms</small>`:`—<small>ms</small>`);
+    const wet=nodes.reduce((s,n)=>s+n.w,0)/nodes.length; $('#mWet').innerHTML=`${Math.min(100,Math.round(wet*100*2.2))}<small>%</small>`;
+  }
+  // scenario automation
+  function scenario(t){
+    if(mode==='cycle'){ const ph=(t/1000)%1.1; plate.active=ph<.45; plate.target=plate.active?nodes[(NY-1)*NX].ry+H0*.32:-999; if(!plate.active) plate.target=-300; }
+    if(mode==='rain'){ if(t-rainT>70){ rainT=t; drops.push({x:x0+40+Math.random()*(x1-x0-80),y:-10,vx:(Math.random()-.5)*.6,vy:2,r:4+Math.random()*4,alive:true}); } }
+    if(auto){ const k=(t-auto.t0)/1000; if(auto.kind==='hold'){ plate.active=k<1.6; plate.target=plate.active?nodes[(NY-1)*NX].ry+H0*lerp(0,.48,clamp(k/0.7)):-300; if(k>1.6) auto=null; } }
+  }
+  const pos=e=>{const r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+  cv.addEventListener('pointerdown',e=>{ const [x,y]=pos(e); cv.setPointerCapture(e.pointerId);
+    if(mode==='impact'){ ball={x:clamp(x,x0+30,x1-30),y:-40,vx:0,vy:16,r:36,t:0}; return; }
+    if(mode==='rain') return;
+    mode==='cycle'&&setMode('press');
+    plate.active=true; plate.x=clamp(x,x0+plate.w/2-30,x1-plate.w/2+30); plate.y=Math.min(plate.y>-900?plate.y:-200,y); plate.target=Math.max(y,nodes[(NY-1)*NX].ry-10); });
+  cv.addEventListener('pointermove',e=>{ if(!plate.active||mode!=='press') return; const [x,y]=pos(e); plate.x=clamp(x,x0+plate.w/2-30,x1-plate.w/2+30); plate.target=clamp(y,-200,baseY-H0*.25); });
+  const up=()=>{ if(mode==='press'&&plate.active){ plate.active=false; plate.target=-300; } };
+  cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up);
+  function setMode(m){ mode=m; $$('#phyMode button').forEach(b=>b.classList.toggle('on',b.dataset.m===m)); drops=[]; ball=null; auto=null;
+    if(m!=='press'&&m!=='cycle'){ plate.active=false; plate.target=-300; }
+    const Q={press:['按住泡棉，再放開。','Press and hold the foam, then let go.'],impact:['點一下，讓球砸下來。','Tap to drop a ball — rebound in a fraction of a second.'],cycle:['一整天的步伐，反覆壓縮。','A whole day of strides — cyclic compression.'],rain:['淋水測試：切換閉孔／開孔看看差別。','Rain test — switch closed-cell / open-cell to compare.']};
+    if(!activeProd){ $('#phyQ').textContent=Q[m][0]; $('#phyQe').textContent=Q[m][1]; } }
+  $$('#phyMode button').forEach(b=>b.onclick=()=>{ activeProd=null; $$('.prod').forEach(x=>x.classList.remove('on')); setMode(b.dataset.m); });
+  $$('#phyCell button').forEach(b=>b.onclick=()=>{ cell=b.dataset.c; $$('#phyCell button').forEach(x=>x.classList.toggle('on',x===b)); nodes.forEach(n=>n.w=0); });
+  // products
+  const ICO={boot:'<path d="M14 10h13l1.6 14c11 2 19 7 24 13 3 3 4 6 4 9v4H12V13c0-2 1-3 2-3z"/><path d="M9 54h50"/><path d="M20 17l9 2M20 23l10 2.6M21 29l12 2.4"/><path d="M27.5 9.5c2-2 5-1 5.5 2l.6 11" stroke="#EE9039"/>',
+    pack:'<path d="M20 15c0-5 5-8 12-8s12 3 12 8l2 36c0 3-2 5-5 5H23c-3 0-5-2-5-5z"/><path d="M27 7c0-3 2-5 5-5s5 2 5 5"/><path d="M24 34h16v13H24z"/><path d="M23 22c6 3 12 3 18 0"/><path d="M17 20c-5 10-5 20 1 30M47 20c5 10 5 20-1 30" stroke="#EE9039"/>',
+    glove:'<path d="M19 31V15c0-2 1.3-3 3-3s3 1 3 3v16M25 31V11c0-2 1.3-3 3-3s3 1 3 3v20M31 31V12c0-2 1.3-3 3-3s3 1 3 3v19M37 31V16c0-2 1.3-3 3-3s3 1 3 3v17"/><path d="M19 31c-4-3-8-1-8 3 0 3 4 6 8 9"/><path d="M19 31v14h24V33"/><path d="M16 46h30v11H16z" stroke="#EE9039"/>',
+    cap:'<path d="M8 41c0-13 9-22 22-22s20 8 21 20v2z"/><path d="M51 39c6 0 10 2 12 5-6 1.5-12 1.5-17 0"/><path d="M30 19c3 6 4 14 4 22M22 21c-2 6-3 13-3 20"/><path d="M28 18h4"/><path d="M8 41h43" stroke="#EE9039"/>',
+    dog:'<path d="M14 30c0-4 3-7 7-7h22c3 0 5-2 6-4l3-6c1-2 3-3 5-2l4 4c1 1 1 3 0 4l-5 4c-2 2-3 4-3 7v6c0 3-2 5-5 5H19c-3 0-5-2-5-5z"/><path d="M19 41v12M26 41v12M40 41v12M47 41v12"/><path d="M14 29c-4-2-6-6-6-10"/><path d="M22 23h20v18H22z" stroke="#EE9039"/><path d="M57 13l-1-5"/>'};
+  const PRODS=[
+    {k:'boot',zh:'登山靴',en:'HOKA TenNine Hike GTX · 鞋舌',m:'press',auto:'hold',q:'壓縮之後，多快回彈？',qe:'The hiking boot asks: how fast does it recover after compression?'},
+    {k:'glove',zh:'曲棍球手套',en:'Epoch Integra Elite',m:'impact',q:'同一個問題，時間尺度縮到零點幾秒。',qe:'The lacrosse glove asks the same thing — compressed into fractions of a second. Tap to drop.'},
+    {k:'pack',zh:'背包',en:'lululemon More Miles Active Backpack 17L',m:'cycle',q:'背負一整天，反覆壓縮之後呢？',qe:'Carried all day — what happens after thousands of compressions?'},
+    {k:'cap',zh:'帽子',en:'Ciele Athletics GOCap Elite Circle C',m:'rain',q:'長時間戴著，會不會悶？',qe:'The cap asks: does it stay comfortable after hours of wear? Sweat beads instead of soaking in.'},
+    {k:'dog',zh:'獵犬背心',en:'Gunner Waterfowl Dog Vest',m:'rain',q:'泡水、沾泥之後，還撐得住嗎？',qe:'The dog vest asks: does it hold up after being soaked? Try open-cell to compare.'},
+  ];
+  let activeProd=null;
+  $('#phySide').innerHTML=PRODS.map((p,i)=>`<button class="prod" data-i="${i}"><svg viewBox="0 0 64 64" fill="none" stroke="#E9F4FB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ICO[p.k]}</svg><span><b>${p.zh}</b><small>${p.en}</small></span></button>`).join('')+`<p class="note">以上五項產品皆使用 ARIAPRENE®（公開資料）· All five run on ARIAPRENE® (public references).</p>`;
+  $$('.prod').forEach(b=>b.onclick=()=>{ const p=PRODS[+b.dataset.i]; activeProd=p; $$('.prod').forEach(x=>x.classList.toggle('on',x===b));
+    setMode(p.m); $('#phyQ').textContent=p.q; $('#phyQe').textContent=p.qe;
+    if(p.auto==='hold'){ plate.x=W/2; plate.y=-200; auto={kind:'hold',t0:performance.now()}; }
+    if(p.m==='impact'){ ball={x:W/2,y:-40,vx:0,vy:16,r:36,t:0}; }
+    if(p.k==='dog'){ /* keep current cell type */ } });
+  let run=false;
+  function loop(t){ if(!run) return; scenario(t); physics(); physics(); draw(); meters(); requestAnimationFrame(loop); }
+  build(); addEventListener('resize',build);
+  onVisible(cv,v=>{ if(v&&!run){ run=true; requestAnimationFrame(loop);} else if(!v) run=false; });
+})();
+
+/* ================= FOOTPRINT MAP ================= */
+(function(){
+  const box=$('#mapBox'), cv=$('#mapC'); let g,W,H, pr;
+  const SITES=[
+    {zh:'台灣・台中',en:'TAIWAN · TAICHUNG',tag:'HQ',cls:'hq',ll:[120.58,24.22],lx:16,ly:-10,d:'<strong>總部・台中沙鹿</strong>集團營運與研發核心。國際認證團隊在這裡每月同步調度各廠區的國際認證。<br><span class="mono" style="font-size:12px;color:var(--dim)">HQ · Shalu, Taichung — operations, R&amp;D and the monthly cross-site certification cadence.</span>'},
+    {zh:'中國・福清',en:'CHINA · FUQING',tag:'PLANT',cls:'',ll:[119.38,25.72],lx:-150,ly:-34,d:'<strong>中國・福清</strong>中國生產基地之一，與台灣總部隔海相望。<br><span class="mono" style="font-size:12px;color:var(--dim)">Production base in Fujian, China.</span>'},
+    {zh:'中國・中山',en:'CHINA · ZHONGSHAN',tag:'PLANT',cls:'',ll:[113.39,22.52],lx:-176,ly:-14,d:'<strong>中國・中山</strong>位於珠三角的中國生產基地。<br><span class="mono" style="font-size:12px;color:var(--dim)">Production base in the Pearl River Delta, China.</span>'},
+    {zh:'越南',en:'VIETNAM',tag:'PLANT',cls:'ctry',ll:[107.6,14.2],country:3,lx:16,ly:-12,d:'<strong>越南</strong>東南亞生產基地，就近服務在地製鞋供應鏈。<br><span class="mono" style="font-size:12px;color:var(--dim)">Southeast Asia production base close to the regional footwear supply chain.</span>'},
+    {zh:'印尼',en:'INDONESIA',tag:'布局中',cls:'exp ctry',ll:[110.2,-7.3],country:4,lx:16,ly:-12,d:'<strong>印尼・新據點布局中</strong>持續擴大東南亞布局。<br><span class="mono" style="font-size:12px;color:var(--dim)">Expanding — a new base in development.</span>'},
+  ];
+  const LON0=92, LON1=134, LAT0=-11, LAT1=34;
+  const dots=DOTS.filter(d=>d[0]>=LON0-1&&d[0]<=LON1+1&&d[1]>=LAT0-1&&d[1]<=LAT1+1);
+  let sel=0, mouse={x:-999,y:-999}, t0=performance.now(), run=false;
+  function layout(){ [g,W,H]=fitCanvas(cv); const s=Math.min(W/(LON1-LON0),H/(LAT1-LAT0)); const ox=(W-s*(LON1-LON0))/2, oy=(H-s*(LAT1-LAT0))/2; pr=(lon,lat)=>[ox+(lon-LON0)*s, oy+(LAT1-lat)*s, s];
+    $('#mapPins').innerHTML=SITES.map((st,i)=>{ const [x,y]=pr(...st.ll); return `<button class="mpin ${st.cls}" data-i="${i}" style="left:${x}px;top:${y}px" aria-label="${st.zh}"></button><div class="mlbl" style="left:${x+st.lx}px;top:${y+st.ly}px">${st.zh}<small>${st.en}${st.tag==='布局中'?' · 布局中':''}</small></div>`; }).join('');
+    $$('.mpin').forEach(b=>{ b.onclick=()=>pick(+b.dataset.i); b.onmouseenter=()=>pick(+b.dataset.i); }); }
+  $('#siteList').innerHTML=SITES.map((s,i)=>`<button data-i="${i}"><i class="${s.cls.replace('ctry','').trim()}"></i><b>${s.zh}</b><small>${s.tag}</small></button>`).join('');
+  $$('#siteList button').forEach(b=>b.onclick=()=>pick(+b.dataset.i));
+  function pick(i){ sel=i; $$('#siteList button').forEach((b,k)=>b.classList.toggle('on',k===i)); $('#siteDesc').innerHTML=SITES[i].d; }
+  pick(0);
+  function draw(){
+    const t=(performance.now()-t0)/1000; g.clearRect(0,0,W,H);
+    const s=pr(0,0)[2], r=Math.max(1.2,s*.42*.48);
+    const hq=pr(...SITES[0].ll);
+    for(const d of dots){ const [x,y]=pr(d[0],d[1]); let k=0, o=0;
+      const dm=Math.hypot(x-mouse.x,y-mouse.y); const spot=clamp(1-dm/120);
+      const st=SITES[sel]; if(st.country){ if(d[2]===st.country) k=st.cls.includes('exp')?0:.8, o=st.cls.includes('exp')?.7:0; } else { const [sx,sy]=pr(...st.ll); k=clamp(1-Math.hypot(x-sx,y-sy)/(s*3.2))*.9; }
+      SITES.forEach((q,qi)=>{ if(qi===sel||q.country) return; const [sx,sy]=pr(...q.ll); k=Math.max(k,clamp(1-Math.hypot(x-sx,y-sy)/(s*1.6))*.45); });
+      const wave=Math.max(0,1-Math.abs(((t*.35)%1.4)*Math.max(W,H)-Math.hypot(x-hq[0],y-hq[1]))/40)*.35;
+      const R=lerp(62,o?238:96,Math.max(k,o)), G2=lerp(104,o?144:182,Math.max(k,o)), B=lerp(145,o?57:240,Math.max(k,o));
+      g.fillStyle=`rgba(${R+spot*120|0},${G2+spot*80|0},${B+spot*40|0},${(.55+Math.max(k,o,spot,wave)*.45).toFixed(3)})`;
+      g.beginPath(); g.arc(x,y,r*(1+spot*.7+wave*.5),0,7); g.fill(); }
+    // arcs from HQ
+    SITES.slice(1).forEach((st,i)=>{ const a=hq, b=pr(...st.ll); const mx=(a[0]+b[0])/2-(b[1]-a[1])*.28, my=(a[1]+b[1])/2+(b[0]-a[0])*.28;
+      g.strokeStyle=`rgba(238,144,57,${st.cls.includes('exp')?.5:.6})`; g.lineWidth=1.6; g.setLineDash(st.cls.includes('exp')?[6,6]:[]); g.beginPath(); g.moveTo(...a); g.quadraticCurveTo(mx,my,b[0],b[1]); g.stroke(); g.setLineDash([]);
+      const u=((t*.45)+i*.27)%1; const x=(1-u)**2*a[0]+2*(1-u)*u*mx+u*u*b[0], y=(1-u)**2*a[1]+2*(1-u)*u*my+u*u*b[1];
+      const rg=g.createRadialGradient(x,y,0,x,y,10); rg.addColorStop(0,'rgba(255,214,170,1)'); rg.addColorStop(1,'rgba(238,144,57,0)'); g.fillStyle=rg; g.fillRect(x-10,y-10,20,20); });
+    // pulse ring at selected
+    const [px,py]=pr(...SITES[sel].ll); for(let k=0;k<2;k++){ const ph=(t*.8+k*.5)%1; g.strokeStyle=`rgba(238,144,57,${(1-ph)*.7})`; g.lineWidth=2; g.beginPath(); g.arc(px,py,8+ph*34,0,7); g.stroke(); }
+  }
+  function loop(){ if(!run) return; draw(); requestAnimationFrame(loop); }
+  layout(); addEventListener('resize',layout);
+  box.addEventListener('pointermove',e=>{ const r=box.getBoundingClientRect(); mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; });
+  box.addEventListener('pointerleave',()=>{ mouse.x=mouse.y=-999; });
+  onVisible(box,v=>{ if(v&&!run){ run=true; requestAnimationFrame(loop);} else if(!v) run=false; });
+})();
+
+/* ================= ESG cards ================= */
+(function(){
+  const C=[
+    ['Higg FEM','環境績效量化','量化製造過程中的環保表現，讓品牌有數據可以用。','Quantified environmental performance across manufacturing — data brands can use.'],
+    ['ZDHC','有害化學物質零排放','各廠區同步推進 ZDHC 報告與廢水檢測，化學品管理對齊全球最嚴格標準。','ZDHC reporting and wastewater testing, synchronised across sites.'],
+    ['GHG','組織型溫室氣體盤查','全供應鏈碳追蹤，不只算自己廠的排放。','Organisational GHG inventory — carbon tracked across the supply chain, not just our own sites.'],
+    ['GRS','全球回收標準','取得 GRS 認證，以再生聚酯等原料支持品牌的回收材料目標。','GRS-certified, supporting brand targets with recycled polyester and more.'],
+    ['Energy','能源管理系統','系統性降低生產碳排放：有數據、有趨勢。Coprime® 製程更做到零耗水、零熱耗。','Systematic, measurable carbon reduction — and Coprime® runs with zero water waste and zero excess heat.'],
+  ];
+  $('#esgCards').innerHTML=C.map((c,i)=>`<div class="ec" data-rv style="transition-delay:${i*.07}s"><svg class="hex" viewBox="0 0 142 142"><polygon points="71,6 127,38.5 127,103.5 71,136 15,103.5 15,38.5" fill="rgba(0,125,194,.14)" stroke="#EE9039" stroke-width="3"/><text x="71" y="80" text-anchor="middle" fill="#F3F8FC" font-family="Manrope" font-weight="800" font-size="${c[0].length>4?24:30}">${c[0]==='Higg FEM'?'Higg':c[0]==='Energy'?'EnMS':c[0]}</text></svg><h3>${c[0]==='Energy'?'能源管理':c[0]}</h3><h4>${c[1]}</h4><p>${c[2]}<i>${c[3]}</i></p></div>`).join('');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+  $$('#esgCards [data-rv]').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>

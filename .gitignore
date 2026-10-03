@@ -1,0 +1,7 @@
+node_modules/
+build/frames/
+build/*.wav
+build/pv_*.png
+build/site_*.png
+build/*sheet*.png
+__pycache__/

@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>TLC 30s Film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+:root{
+  --navy:#06121F; --navy2:#0B1D30; --blue:#007DC2; --blue2:#36A9EC; --sky:#8CCBF2;
+  --ice:#E9F4FB; --orange:#EE9039; --ink:#F3F8FC; --mute:rgba(220,236,248,.62); --dim:rgba(220,236,248,.34);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000;overflow:hidden;width:100%;height:100%}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;background:var(--navy);
+  transform-origin:0 0;font-family:"Manrope","Noto Sans TC",sans-serif;color:var(--ink);
+  -webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.abs{position:absolute}
+.scene{position:absolute;inset:0;display:none}
+canvas{display:block}
+.serif{font-family:"Noto Serif TC",serif}
+.zh{font-family:"Noto Sans TC",sans-serif}
+.mono{font-family:"JetBrains Mono",monospace}
+.w{display:inline-block;will-change:transform,opacity}
+div.w{display:block}
+.hl{color:var(--orange)}
+.tag{font:600 15px "JetBrains Mono",monospace;letter-spacing:.28em;color:var(--orange);text-transform:uppercase}
+
+/* S1 */
+#s1 .hook{left:0;right:0;top:232px;text-align:center}
+#s1 .zh1{font:600 74px/1.2 "Noto Serif TC",serif;letter-spacing:.05em}
+#s1 .zh1 .w{margin:0 .18em}
+#s1 .en1{font:500 27px/1.4 Manrope;letter-spacing:.16em;color:var(--mute);margin-top:22px}
+#s1 .en1 .w{margin:0 .5em}
+#s1 .zh2{font:600 60px/1.2 "Noto Serif TC",serif;letter-spacing:.06em;margin-top:70px}
+#s1 .en2{font:500 27px/1.4 Manrope;letter-spacing:.16em;color:var(--mute);margin-top:20px}
+
+/* S2 */
+#s2 .name{left:0;right:0;top:640px;text-align:center}
+#s2 .zhname{font:900 92px/1 "Noto Sans TC";letter-spacing:.42em;padding-left:.42em}
+#s2 .enname{font:600 22px Manrope;letter-spacing:.5em;color:var(--mute);margin-top:30px;padding-left:.5em}
+#s2 .pillars{display:flex;justify-content:center;gap:0;margin-top:58px}
+#s2 .pill{display:flex;align-items:baseline;gap:16px;padding:0 44px;border-left:1px solid rgba(255,255,255,.18)}
+#s2 .pill:first-child{border-left:none}
+#s2 .pill b{font:700 34px "Noto Sans TC";letter-spacing:.12em}
+#s2 .pill i{font:500 16px "JetBrains Mono";letter-spacing:.22em;font-style:normal;color:var(--sky)}
+
+/* HUD */
+#hud{inset:0;pointer-events:none}
+#hud .brand{left:64px;top:50px;display:flex;align-items:center;gap:16px;font:500 13px "JetBrains Mono";letter-spacing:.32em;color:var(--mute)}
+#hud .chap{right:64px;top:54px;display:flex;gap:30px;font:500 13px "JetBrains Mono";letter-spacing:.22em}
+#hud .chap span{color:var(--dim);transition:none}
+#hud .chap span.on{color:var(--ink)}
+#hud .bar{left:64px;right:64px;bottom:44px;height:1px;background:rgba(255,255,255,.12)}
+#hud .bar i{position:absolute;left:0;top:0;height:1px;background:var(--orange)}
+
+/* S3 */
+.left-col{left:120px;top:150px;width:560px}
+.h-zh{font:900 66px/1.15 "Noto Sans TC";letter-spacing:.06em;margin-top:22px}
+.h-en{font:500 25px/1.4 Manrope;color:var(--mute);margin-top:16px;letter-spacing:.02em}
+#steps{margin-top:70px}
+.step{position:relative;padding:20px 0 20px 34px;border-top:1px solid rgba(255,255,255,.08)}
+.step .n{font:500 14px "JetBrains Mono";color:var(--orange);letter-spacing:.2em}
+.step .t{font:700 38px/1.25 "Noto Sans TC";letter-spacing:.08em;margin-top:6px}
+.step .e{font:500 18px Manrope;color:var(--mute);margin-top:4px;letter-spacing:.04em}
+.step .rail{position:absolute;left:0;top:20px;bottom:20px;width:3px;background:rgba(255,255,255,.08)}
+.step .rail i{position:absolute;left:0;top:0;width:3px;background:var(--orange)}
+#stackView{left:640px;top:0;width:1280px;height:1080px;perspective:2600px;perspective-origin:50% 40%}
+#stack{position:absolute;left:330px;top:250px;width:620px;height:620px;transform-style:preserve-3d}
+.ly{position:absolute;left:0;top:0;width:620px;height:620px;transform-style:preserve-3d}
+.pl{position:absolute;inset:0;backface-visibility:visible}
+.anch{position:absolute;width:2px;height:2px}
+
+/* S4 */
+.lbl4{position:absolute;display:flex;align-items:center;gap:0}
+.lbl4 .ln{height:1px;background:linear-gradient(90deg,rgba(255,255,255,.0),rgba(255,255,255,.55));}
+.lbl4 .dot{width:9px;height:9px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 5px rgba(238,144,57,.18)}
+.lbl4 .txt{padding-left:18px;white-space:nowrap}
+.lbl4 .b{font:800 30px Manrope;letter-spacing:.02em}
+.lbl4 .s{font:500 19px "Noto Sans TC";color:var(--mute);letter-spacing:.06em;margin-top:4px}
+#s4b .title{left:120px;top:128px}
+#s4b .q{font:600 60px/1.2 "Noto Serif TC";letter-spacing:.05em}
+#s4b .qe{font:500 25px Manrope;color:var(--mute);margin-top:16px;letter-spacing:.04em}
+#foamWrap{left:120px;top:400px}
+#icons .ico{position:absolute;left:1240px;width:560px;height:112px;display:flex;align-items:center;gap:30px}
+.ico svg{width:92px;height:92px;flex:none;overflow:visible}
+.ico .zt{font:700 30px "Noto Sans TC";letter-spacing:.1em}
+.ico .et{font:500 17px Manrope;color:var(--mute);margin-top:4px;letter-spacing:.06em}
+#s4b .note{left:120px;top:960px;font:500 16px Manrope;color:var(--dim);letter-spacing:.05em}
+
+/* S5 */
+.pin-l{position:absolute;white-space:nowrap}
+.pin-l .a{font:700 24px "Noto Sans TC";letter-spacing:.08em}
+.pin-l .b{font:500 14px "JetBrains Mono";color:var(--mute);letter-spacing:.16em;margin-top:2px}
+.pin-l .hq{display:inline-block;font:700 12px "JetBrains Mono";letter-spacing:.2em;color:#06121F;background:var(--orange);padding:3px 8px;border-radius:3px;margin-left:10px;vertical-align:4px}
+#panel5{left:1180px;top:120px;width:640px}
+#panel5 .big{display:flex;align-items:flex-end;gap:22px;margin-top:20px}
+#panel5 .num{font:800 200px/0.8 Manrope;letter-spacing:-.04em;background:linear-gradient(180deg,#9AD6FF,#007DC2);-webkit-background-clip:text;color:transparent}
+#panel5 .numt{font:900 50px/1.1 "Noto Sans TC";letter-spacing:.08em;padding-bottom:6px}
+#panel5 .nume{font:500 21px Manrope;color:var(--mute);margin-top:10px}
+#esg{margin-top:96px}
+#badges{display:flex;gap:22px;margin-top:26px}
+.bdg{width:142px;text-align:center}
+.bdg .hex{width:142px;height:142px;position:relative}
+.bdg .hex svg{position:absolute;inset:0}
+.bdg .hex span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:800 23px Manrope;letter-spacing:.01em;text-align:center;line-height:1.05}
+.bdg .c{font:500 16px "Noto Sans TC";color:var(--mute);margin-top:10px;letter-spacing:.08em}
+#quote5{margin-top:46px}
+#quote5 .z{font:600 33px/1.35 "Noto Serif TC";letter-spacing:.05em}
+#quote5 .e{font:italic 500 20px Manrope;color:var(--mute);margin-top:10px}
+
+/* S6 */
+#sheet{left:0;top:0;width:3600px;height:3600px;background:#F5F9FC;
+  background-image:repeating-linear-gradient(0deg,rgba(0,125,194,.035) 0 2px,transparent 2px 14px),repeating-linear-gradient(90deg,rgba(0,125,194,.03) 0 2px,transparent 2px 14px);
+  box-shadow:-40px 0 160px rgba(0,0,0,.55);transform-origin:0 0}
+#s6c{inset:0;color:#0B1E31;text-align:center}
+#s6c .tz{position:absolute;left:0;right:0;top:236px;font:600 56px/1.3 "Noto Serif TC";letter-spacing:.06em}
+#s6c .te{position:absolute;left:0;right:0;top:330px;font:500 24px Manrope;color:#4D6378;letter-spacing:.06em}
+#s6c .co{position:absolute;left:0;right:0;top:722px}
+#s6c .co .a{font:700 28px "Noto Sans TC";letter-spacing:.5em;padding-left:.5em}
+#s6c .co .b{font:600 16px Manrope;letter-spacing:.46em;color:#4D6378;margin-top:14px;padding-left:.46em}
+#s6c .co .c{font:600 20px "JetBrains Mono";letter-spacing:.14em;color:var(--blue);margin-top:34px}
+#s6c .co .d{font:500 15px "JetBrains Mono";letter-spacing:.3em;color:#7A8C9D;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" class="abs" width="1920" height="1080" style="left:0;top:0"></canvas>
+
+  <!-- S1 HOOK -->
+  <div id="s1" class="scene">
+    <canvas id="fabric" class="abs" width="1920" height="1080" style="left:0;top:0"></canvas>
+    <div class="abs" id="s1fog" style="inset:0;background:linear-gradient(180deg,#06121F 0%,rgba(6,18,31,.97) 36%,rgba(6,18,31,.78) 52%,rgba(6,18,31,.25) 70%,rgba(6,18,31,0) 84%)"></div>
+    <div class="abs hook">
+      <div class="zh1"><span class="w" data-t="0.30">一雙登山靴。</span><span class="w" data-t="0.78">一個背包。</span><span class="w" data-t="1.26">一副手套。</span></div>
+      <div class="en1"><span class="w" data-t="0.42">A hiking boot.</span><span class="w" data-t="0.90">A backpack.</span><span class="w" data-t="1.38">A glove.</span></div>
+      <div class="zh2"><span class="w" data-t="1.95">答案，藏在</span><span class="w hl" data-t="2.18">同一層材料</span><span class="w" data-t="2.42">裡。</span></div>
+      <div class="en2"><span class="w" data-t="2.25">The answer lives in the same layer.</span></div>
+    </div>
+  </div>
+
+  <!-- S2 BRAND -->
+  <div id="s2" class="scene">
+    <div class="abs" id="logo2wrap" style="left:0;top:0;width:1920px;height:1080px"></div>
+    <div class="abs name">
+      <div class="zhname" id="zhname"></div>
+      <div class="enname w" id="enname">TIONG LIONG INDUSTRIAL CO., LTD.</div>
+      <div class="pillars">
+        <div class="pill w" data-t="6.70"><b>永續</b><i>SUSTAINABILITY</i></div>
+        <div class="pill w" data-t="7.00"><b>創新</b><i>INNOVATION</i></div>
+        <div class="pill w" data-t="7.30"><b>性能</b><i>PERFORMANCE</i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3 + S4a share the 3D stack -->
+  <div id="s3" class="scene">
+    <div class="abs" id="stackView"><div id="stack"></div></div>
+    <div class="abs left-col" id="s3left">
+      <div class="tag w" id="s3tag">01 / Core Craft</div>
+      <div class="h-zh w" id="s3h">四道核心工藝</div>
+      <div class="h-en w" id="s3e">Four core textile techniques, one integrated process.</div>
+      <div id="steps">
+        <div class="step"><div class="rail"><i></i></div><div class="n">01</div><div class="t">織造</div><div class="e">Weaving</div></div>
+        <div class="step"><div class="rail"><i></i></div><div class="n">02</div><div class="t">染整</div><div class="e">Dyeing &amp; Finishing</div></div>
+        <div class="step"><div class="rail"><i></i></div><div class="n">03</div><div class="t">機能處理與塗佈</div><div class="e">Functional Treatment &amp; Coating</div></div>
+        <div class="step"><div class="rail"><i></i></div><div class="n">04</div><div class="t">貼合</div><div class="e">Lamination</div></div>
+      </div>
+    </div>
+    <div class="abs left-col" id="s4left" style="top:150px;width:520px">
+      <div class="tag w" id="s4tag">02 / Materials</div>
+      <div class="h-zh w" id="s4h">工程化複合材料</div>
+      <div class="h-en w" id="s4e">The Engineered Package — cushioning, durability and function, bonded into one solution.</div>
+    </div>
+    <div class="abs" id="labels4" style="inset:0"></div>
+  </div>
+
+  <!-- S4b PHYSICS -->
+  <div id="s4b" class="scene">
+    <canvas id="lines4" class="abs" width="1920" height="1080" style="left:0;top:0"></canvas>
+    <div class="abs title">
+      <div class="tag w" id="s4btag">02 / Materials · ARIAPRENE®</div>
+      <div class="q w" id="s4bq" style="margin-top:22px">五個品類，同一個物理問題。</div>
+      <div class="qe w" id="s4bqe">Five categories. One physics question: <span style="color:var(--orange)">how fast does it recover?</span></div>
+    </div>
+    <div class="abs" id="foamWrap"><canvas id="foam" width="900" height="520"></canvas></div>
+    <div id="icons"></div>
+    <div class="abs note w" id="s4bnote">ARIAPRENE® 已應用於登山靴、背包、曲棍球手套、帽子與獵犬背心　·　示意動畫</div>
+  </div>
+
+  <!-- S5 FOOTPRINT + ESG -->
+  <div id="s5" class="scene">
+    <canvas id="map" class="abs" width="1920" height="1080" style="left:0;top:0"></canvas>
+    <div class="abs" id="pins5" style="inset:0"></div>
+    <div class="abs" id="panel5">
+      <div class="tag w" id="p5tag">03 / Global Footprint</div>
+      <div class="big w" id="p5big"><div class="num">4</div><div><div class="numt">國布局</div></div></div>
+      <div class="nume w" id="p5e">Four countries across Asia · one governance standard</div>
+      <div id="esg">
+        <div class="tag w" id="p5tag2">04 / ESG in Practice</div>
+        <div id="badges"></div>
+        <div id="quote5">
+          <div class="z w" id="q5z">合規是底線，創新才是選擇夥伴的理由。</div>
+          <div class="e w" id="q5e">Compliance is the floor. Innovation is why you choose a partner.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S6 CLOSING -->
+  <div id="s6" class="scene">
+    <div class="abs" id="sheet"></div>
+    <div class="abs" id="s6c">
+      <div class="tz"><span class="w" data-t="26.62">一層一層，</span><span class="w" data-t="26.86">成為品牌最堅實的後盾。</span></div>
+      <div class="te w" id="s6te">Layer by layer — a solid foundation for the brands we serve.</div>
+      <div class="abs" id="logo6wrap" style="left:0;top:0;width:1920px;height:1080px"></div>
+      <div class="co">
+        <div class="a w" id="co_a">中良工業股份有限公司</div>
+        <div class="b w" id="co_b">TIONG LIONG INDUSTRIAL CO., LTD.</div>
+        <div class="c w" id="co_c">tiongliong.com</div>
+        <div class="d w" id="co_d">SUSTAINABILITY · INNOVATION · PERFORMANCE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="abs">
+    <div class="abs brand" id="hudBrand"><span id="hudMark"></span>TIONG LIONG INDUSTRIAL</div>
+    <div class="abs chap" id="hudChap"><span>01 CRAFT</span><span>02 MATERIALS</span><span>03 FOOTPRINT</span><span>04 ESG</span></div>
+    <div class="abs bar" id="hudBar"><i></i></div>
+  </div>
+
+  <canvas id="fx" class="abs" width="1920" height="1080" style="left:0;top:0;pointer-events:none"></canvas>
+</div>
+
+<script>
+const LOGO = /*LOGO_PARTS*/null;
+const DOTS = /*MAPDOTS*/null;
+const DUR = 30;
+
+/* ---------- helpers ---------- */
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const lerp=(a,b,x)=>a+(b-a)*x;
+const E={
+  outCubic:x=>1-Math.pow(1-x,3), inCubic:x=>x*x*x,
+  inOutCubic:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,
+  outExpo:x=>x>=1?1:1-Math.pow(2,-10*x), inExpo:x=>x<=0?0:Math.pow(2,10*x-10),
+  outQuint:x=>1-Math.pow(1-x,5), inOutSine:x=>-(Math.cos(Math.PI*x)-1)/2,
+  outBack:x=>{const c1=1.5,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)},
+  inOutQuart:x=>x<.5?8*x*x*x*x:1-Math.pow(-2*x+2,4)/2,
+};
+const rnd=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function css(el,o,y=0,x=0,s=1,blur=0){
+  el.style.opacity=o.toFixed(3);
+  el.style.transform=`translate(${x.toFixed(2)}px,${y.toFixed(2)}px) scale(${s.toFixed(4)})`;
+  el.style.filter=blur>0.05?`blur(${blur.toFixed(2)}px)`:'none';
+}
+// reveal: fade/rise in at t0, optional out window
+function rev(el,t,t0,out0=99,out1=100,dist=28,dur=.6){
+  const a=E.outCubic(P(t,t0,t0+dur)), b=1-E.inCubic(P(t,out0,out1));
+  css(el,Math.min(a,b),(1-a)*dist-(1-b)*14,0,1,(1-a)*8);
+}
+function show(id,t,a,b){ $(id).style.display=(t>=a&&t<b)?'block':'none'; return t>=a&&t<b; }
+
+/* ---------- logo svg builder ---------- */
+function logoSVG(id,{text='#007DC2',mark='#007DC2',orange='#EE9039',w=1000}={}){
+  const L=LOGO, sk=L.skew, tx=L.tx;
+  let s=`<svg id="${id}" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -5 349 118" width="${w}" style="position:absolute;overflow:visible">`;
+  s+=`<defs><clipPath id="${id}clip"><rect x="120" y="22" width="232" height="86"/></clipPath></defs>`;
+  s+=`<g class="mk">`;
+  L.orange.forEach((d,i)=>s+=`<path class="st o" data-i="${i}" fill="${orange}" d="${d}"/>`);
+  L.blue.forEach((d,i)=>s+=`<path class="st b" data-i="${i}" fill="${mark}" d="${d}"/>`);
+  s+=`<path class="blob" fill="${mark}" d="${L.blob}"/></g>`;
+  s+=`<g clip-path="url(#${id}clip)"><g transform="translate(${tx} 0) skewX(${-sk})" fill="${text}">`;
+  ['T','L','C'].forEach(k=>s+=`<path class="lt" d="${L[k]}"/>`);
+  s+=`</g></g></svg>`;
+  return s;
+}
+// animate logo assembly; returns nothing. t relative seconds from start
+function animLogo(svg,t,{stripeD=420,stag=.075,dur=.75,blobAt=.42,textAt=.70}={}){
+  const R=Math.SQRT1_2;
+  const sts=svg.querySelectorAll('.st');
+  // order: alternate blue (upper-right) and orange (lower-left), outer first
+  sts.forEach((p,k)=>{
+    const isB=p.classList.contains('b'); const i=+p.dataset.i;
+    const order=isB?(2-i)*2:(i)*2+1; // interleave
+    const e=E.outExpo(P(t,order*stag,order*stag+dur));
+    const d=stripeD*(1-e)*(isB?1:-1);
+    p.setAttribute('transform',`translate(${(d*R).toFixed(2)} ${(-d*R).toFixed(2)})`);
+    p.style.opacity=clamp(e*1.6).toFixed(3);
+  });
+  const blob=svg.querySelector('.blob');
+  const eb=E.outBack(P(t,blobAt,blobAt+.55));
+  blob.setAttribute('transform',`translate(92 44) scale(${Math.max(eb,0.0001).toFixed(4)}) translate(-92 -44)`);
+  blob.style.opacity=clamp(P(t,blobAt,blobAt+.15)).toFixed(3);
+  svg.querySelectorAll('.lt').forEach((p,k)=>{
+    const e=E.outExpo(P(t,textAt+k*.09,textAt+k*.09+.7));
+    p.setAttribute('transform',`translate(0 ${(90*(1-e)).toFixed(2)})`);
+  });
+}
+
+/* ---------- static setup ---------- */
+$('#logo2wrap').innerHTML=logoSVG('logo2',{text:'#FFFFFF',mark:'#1A93DB',w:1000});
+$('#logo6wrap').innerHTML=logoSVG('logo6',{w:620});
+$('#hudMark').innerHTML=`<svg viewBox="-1 -5 118 118" width="30" height="30">${LOGO.orange.map(d=>`<path fill="#EE9039" d="${d}"/>`).join('')}${LOGO.blue.map(d=>`<path fill="#fff" d="${d}"/>`).join('')}<path fill="#fff" d="${LOGO.blob}"/></svg>`;
+$('#zhname').innerHTML=[...'中良工業'].map((c,i)=>`<span class="w" data-t="${(6.0+i*.09).toFixed(2)}">${c}</span>`).join('');
+
+/* ---------- background ---------- */
+const bg=$('#bg').getContext('2d');
+function drawBG(t){
+  const g=bg; g.setTransform(1,0,0,1,0,0);
+  g.fillStyle='#06121F'; g.fillRect(0,0,1920,1080);
+  // slow glows
+  const gx=960+Math.sin(t*.21)*260, gy=420+Math.cos(t*.17)*120;
+  let rg=g.createRadialGradient(gx,gy,0,gx,gy,1100);
+  rg.addColorStop(0,'rgba(0,125,194,0.20)'); rg.addColorStop(.5,'rgba(0,90,150,0.07)'); rg.addColorStop(1,'rgba(0,0,0,0)');
+  g.fillStyle=rg; g.fillRect(0,0,1920,1080);
+  const ox=1500+Math.cos(t*.13)*200, oy=900;
+  rg=g.createRadialGradient(ox,oy,0,ox,oy,700);
+  rg.addColorStop(0,'rgba(238,144,57,0.07)'); rg.addColorStop(1,'rgba(0,0,0,0)');
+  g.fillStyle=rg; g.fillRect(0,0,1920,1080);
+  // 45deg hairlines drifting
+  if(t>3.9){
+    g.save(); g.globalAlpha=0.055; g.strokeStyle='#8CCBF2'; g.lineWidth=1;
+    const sp=46, off=(t*18)%sp;
+    g.beginPath();
+    for(let k=-1200;k<3200;k+=sp){ g.moveTo(k+off,1080); g.lineTo(k+off+1080,0); }
+    g.stroke(); g.restore();
+  }
+  // vignette
+  rg=g.createRadialGradient(960,540,500,960,540,1250);
+  rg.addColorStop(0,'rgba(0,0,0,0)'); rg.addColorStop(1,'rgba(0,0,0,0.55)');
+  g.fillStyle=rg; g.fillRect(0,0,1920,1080);
+}
+
+/* ---------- S1 fabric (custom 3D camera) ---------- */
+const fab=$('#fabric').getContext('2d');
+const G=30, WW=18, WF=17;            // spacing, warp width, weft width (world units)
+const XR=2600, Z0=-300, Z1=3600;
+function project(cam,x,z){
+  const dx=x-cam.x, dy=-cam.h, dz=z-cam.z;
+  const s=Math.sin(cam.p), c=Math.cos(cam.p);
+  const rf=-dy*s+dz*c, ru=dy*c+dz*s;
+  if(rf<=8) return null;
+  const X=cam.F*dx/rf, Y=-cam.F*ru/rf;
+  const cr=Math.cos(cam.r), sr=Math.sin(cam.r);
+  return [960+X*cr-Y*sr, 540+X*sr+Y*cr, cam.F/rf, rf];
+}
+function quad(g,cam,x0,x1,z0,z1){
+  const a=project(cam,x0,z0),b=project(cam,x1,z0),c=project(cam,x1,z1),d=project(cam,x0,z1);
+  if(!a||!b||!c||!d) return false;
+  const mnx=Math.min(a[0],b[0],c[0],d[0]), mxx=Math.max(a[0],b[0],c[0],d[0]);
+  const mny=Math.min(a[1],b[1],c[1],d[1]), mxy=Math.max(a[1],b[1],c[1],d[1]);
+  if(mxx<-50||mnx>1970||mxy<-50||mny>1130) return false;
+  g.beginPath(); g.moveTo(a[0],a[1]); g.lineTo(b[0],b[1]); g.lineTo(c[0],c[1]); g.lineTo(d[0],d[1]); g.closePath(); g.fill();
+  return true;
+}
+function fogA(cam,z){ const rf=(z-cam.z)*Math.cos(cam.p)+cam.h*Math.sin(cam.p); return clamp(1-(rf-1000)/1900,0,1); }
+function drawFabric(t){
+  const g=fab; g.clearRect(0,0,1920,1080);
+  // camera: slow drift, then dive at 3.2-4.0
+  const k=E.inOutQuart(P(t,3.15,4.0));
+  const cam={x:lerp(-40+t*10,0,k), z:lerp(-700+t*55,560,k), h:lerp(760,150,E.inCubic(k)), p:lerp(0.52,Math.PI/2,k), r:lerp(0,Math.PI/4,k), F:1150};
+  const nW=Math.floor(XR/G);
+  // warps
+  for(let i=-nW;i<=nW;i++){
+    const x=i*G, ti=0.02+rnd(i+50)*.55, e=E.outCubic(P(t,ti,ti+.6));
+    if(e<=0) continue;
+    const zEnd=lerp(Z1,Z0,e);
+    const acc=(((i%15)+15)%15===7);
+    // draw in depth chunks for fog
+    for(let z=Z1;z>zEnd;z-=300){
+      const za=Math.max(zEnd,z-300); const f=fogA(cam,(z+za)/2)*clamp(e*1.5);
+      if(f<=0.01) continue;
+      g.globalAlpha=f;
+      g.fillStyle=acc?'#B4621F':'#0A4E7E'; quad(g,cam,x-WW/2,x+WW/2,za,z);
+      g.fillStyle=acc?'#EE9039':'#1789CF'; quad(g,cam,x-WW*.22,x+WW*.22,za,z);
+    }
+  }
+  // wefts woven row by row (near -> far)
+  const nRows=Math.floor((Z1-Z0)/G);
+  for(let j=0;j<nRows;j++){
+    const z=Z0+j*G+G/2, tj=0.50+j*0.022;
+    const e=P(t,tj,tj+.32); if(e<=0) continue;
+    const f=fogA(cam,z); if(f<=0.01) continue;
+    const xs=lerp(-XR,XR,E.outCubic(e));
+    const acc=(j%12===5);
+    g.globalAlpha=f;
+    g.fillStyle='rgba(0,0,0,0.55)'; quad(g,cam,-XR,xs,z-WF/2-3,z+WF/2+3);
+    g.fillStyle=acc?'#C06A22':'#8FB3CF'; quad(g,cam,-XR,xs,z-WF/2,z+WF/2);
+    g.fillStyle=acc?'#F6A65A':'#DCEBF6'; quad(g,cam,-XR,xs,z-WF*.2,z+WF*.2);
+    // crossings: warp over weft where (i+j)%2==0
+    const pc=project(cam,0,z); if(!pc) continue;
+    if(pc[2]*WW>2.2){
+      for(let i=-nW;i<=nW;i++){
+        if(((i+j)&1)!==0) continue;
+        const x=i*G; if(x>xs) break;
+        const ti=0.02+rnd(i+50)*.55; if(t<ti+.3) continue;
+        const acc2=(((i%15)+15)%15===7);
+        g.fillStyle=acc2?'#B4621F':'#0A4E7E'; quad(g,cam,x-WW/2,x+WW/2,z-WF/2-2,z+WF/2+2);
+        g.fillStyle=acc2?'#EE9039':'#1789CF'; quad(g,cam,x-WW*.22,x+WW*.22,z-WF/2-2,z+WF/2+2);
+      }
+    }
+    // shuttle glow at leading edge
+    if(e<1){
+      const p=project(cam,xs,z);
+      if(p){ const r=40*p[2]+6; const rg=g.createRadialGradient(p[0],p[1],0,p[0],p[1],r*3);
+        rg.addColorStop(0,'rgba(255,190,120,0.95)'); rg.addColorStop(.3,'rgba(238,144,57,0.45)'); rg.addColorStop(1,'rgba(238,144,57,0)');
+        g.globalAlpha=f; g.fillStyle=rg; g.fillRect(p[0]-r*3,p[1]-r*3,r*6,r*6); }
+    }
+  }
+  g.globalAlpha=1;
+}
+
+/* ---------- S3/S4 3D stack ---------- */
+function texCanvas(w,h,fn){const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);return c.toDataURL();}
+const TEX={
+  foam:texCanvas(620,620,(g,w,h)=>{
+    g.fillStyle='#E7882F'; g.fillRect(0,0,w,h);
+    const r=11; for(let y=0,row=0;y<h+r;y+=r*1.72,row++) for(let x=(row%2)*r;x<w+r;x+=r*2){
+      const rr=r*(0.78+rnd(x*3+y)*0.3);
+      const gr=g.createRadialGradient(x-rr*.3,y-rr*.3,0,x,y,rr);
+      gr.addColorStop(0,'#FFC88F'); gr.addColorStop(.55,'#F29A45'); gr.addColorStop(1,'#B9611C');
+      g.fillStyle=gr; g.beginPath(); g.arc(x,y,rr,0,7); g.fill(); }
+  }),
+  insul:texCanvas(620,620,(g,w,h)=>{
+    g.fillStyle='#D9E2EA'; g.fillRect(0,0,w,h);
+    for(let i=0;i<2600;i++){ const x=rnd(i)*w,y=rnd(i+9e3)*h,a=rnd(i+3e3)*Math.PI,l=10+rnd(i+7e3)*30;
+      g.strokeStyle=`rgba(${120+rnd(i+1)*90|0},${140+rnd(i+2)*80|0},${160+rnd(i+4)*70|0},0.55)`; g.lineWidth=0.8+rnd(i+5)*1.2;
+      g.beginPath(); g.moveTo(x,y); g.quadraticCurveTo(x+Math.cos(a)*l*.5+5,y+Math.sin(a)*l*.5-5,x+Math.cos(a)*l,y+Math.sin(a)*l); g.stroke(); }
+  }),
+  memb:texCanvas(620,620,(g,w,h)=>{
+    g.fillStyle='rgba(235,246,255,0.92)'; g.fillRect(0,0,w,h);
+    g.fillStyle='rgba(0,125,194,0.16)'; for(let y=6;y<h;y+=12) for(let x=6+(y/12%2)*6;x<w;x+=12){ g.beginPath(); g.arc(x,y,1.6,0,7); g.fill(); }
+  }),
+};
+const stack=$('#stack');
+const LAY={};
+function addLayer(name,planes){ // planes: [{bg, z}] relative
+  const ly=document.createElement('div'); ly.className='ly'; ly.dataset.name=name;
+  planes.forEach(pl=>{ const d=document.createElement('div'); d.className='pl'; d.style.background=pl.bg; if(pl.border) d.style.border=pl.border;
+    d.style.transform=`translateZ(${pl.z}px)`; if(pl.html) d.innerHTML=pl.html; ly.appendChild(d); });
+  // anchors at four corners on top plane
+  const top=planes[planes.length-1].z;
+  [[0,0],[620,0],[620,620],[0,620]].forEach(([x,y])=>{const a=document.createElement('div');a.className='anch';a.style.left=x+'px';a.style.top=y+'px';a.style.transform=`translateZ(${top}px)`;ly.appendChild(a);});
+  stack.appendChild(ly); LAY[name]=ly; return ly;
+}
+function slab(texture,edge,n,gap){ const arr=[]; for(let i=0;i<n;i++) arr.push({bg:i===n-1?`url(${texture}) center/cover`:edge,z:i*gap}); return arr; }
+addLayer('memb',[{bg:'#9DB7CC',z:0},{bg:`url(${TEX.memb}) center/cover`,z:3}]);
+addLayer('insul',slab(TEX.insul,'#8E9DAA',5,3));
+addLayer('foam',slab(TEX.foam,'#A4561A',10,3.4));
+// weave layer: base + live canvas
+(function(){
+  const ly=addLayer('weave',[{bg:'#0B2034',z:0},{bg:'#0D2840',z:2.5},{bg:'transparent',z:5,html:'<canvas id="weaveC" width="620" height="620" style="width:620px;height:620px"></canvas>'}]);
+})();
+addLayer('coat',[{bg:'linear-gradient(135deg,rgba(190,228,255,.20),rgba(140,203,242,.10))',border:'1px solid rgba(220,240,255,.45)',z:0,
+  html:'<div id="sheen" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);background-size:300% 100%"></div><div id="drops"></div>'}]);
+(function(){ const d=$('#drops'); let h='';
+  for(let i=0;i<26;i++){ const x=40+rnd(i*7+1)*540, y=40+rnd(i*7+2)*540, r=8+rnd(i*7+3)*16;
+    h+=`<i data-i="${i}" style="position:absolute;left:${x}px;top:${y}px;width:${r*2}px;height:${r*2}px;margin:-${r}px 0 0 -${r}px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95),rgba(180,225,255,.55) 35%,rgba(60,150,210,.25) 70%,rgba(255,255,255,.5) 100%);box-shadow:3px 4px 6px rgba(0,30,60,.35)"></i>`; }
+  d.innerHTML=h; })();
+const weave=$('#weaveC').getContext('2d');
+function drawWeave(t){
+  const g=weave; g.clearRect(0,0,620,620);
+  const n=31, sp=20, tw=13;
+  const pw=P(t,8.35,9.75);                   // weaving progress
+  const pd=P(t,9.70,11.0);                   // dye progress
+  const rows=pw*n;
+  const col=(isWarp,x,y)=>{
+    const front=pd*1.5-0.25, d=(x+y)/1240;
+    const m=clamp((front-d)/0.18);
+    const raw=isWarp?[214,206,190]:[232,226,212];
+    const dyed=isWarp?[0,112,178]:[120,190,236];
+    return raw.map((v,k)=>Math.round(lerp(v,dyed[k],m)));
+  };
+  const rgb=(c,f=1)=>`rgb(${c.map(v=>Math.round(v*f)).join(',')})`;
+  // warps (only show the part that is "on loom")
+  for(let i=0;i<n;i++){
+    const x=10+i*sp; const a=clamp(P(t,8.15+i*.004,8.45+i*.004));
+    if(a<=0) continue; g.globalAlpha=a;
+    const c=col(true,x,310);
+    g.fillStyle=rgb(c,.62); g.fillRect(x-tw/2,0,tw,620);
+    g.fillStyle=rgb(c,1); g.fillRect(x-tw*.22,0,tw*.44,620);
+  }
+  g.globalAlpha=1;
+  for(let j=0;j<n;j++){
+    const y=610-(10+j*sp);                    // weave from bottom (near) upward
+    const e=clamp(rows-j); if(e<=0) continue;
+    const xe=620*E.outCubic(e);
+    const c=col(false,300,y);
+    g.fillStyle='rgba(0,0,0,.45)'; g.fillRect(0,y-tw/2-2,xe,tw+4);
+    g.fillStyle=rgb(c,.78); g.fillRect(0,y-tw/2,xe,tw);
+    g.fillStyle=rgb(c,1.04); g.fillRect(0,y-tw*.2,xe,tw*.4);
+    for(let i=0;i<n;i++){ if(((i+j)&1)) continue; const x=10+i*sp; if(x>xe) break;
+      const cw=col(true,x,y);
+      g.fillStyle=rgb(cw,.62); g.fillRect(x-tw/2,y-tw/2-3,tw,tw+6);
+      g.fillStyle=rgb(cw,1); g.fillRect(x-tw*.22,y-tw/2-3,tw*.44,tw+6);
+    }
+    if(e<1){ const rg=g.createRadialGradient(xe,y,0,xe,y,40); rg.addColorStop(0,'rgba(255,200,140,.95)'); rg.addColorStop(1,'rgba(238,144,57,0)'); g.fillStyle=rg; g.fillRect(xe-40,y-40,80,80); }
+  }
+  // dye wave front glow
+  if(pd>0&&pd<1){
+    const front=pd*1.5-0.25; const d0=front*1240;
+    g.save(); g.globalCompositeOperation='lighter';
+    const lg=g.createLinearGradient(0,0,620,620);
+    const f0=clamp((d0-60)/1240*1), f1=clamp(d0/1240), f2=clamp((d0+40)/1240);
+    lg.addColorStop(0,'rgba(0,0,0,0)'); lg.addColorStop(Math.max(0,f0),'rgba(0,0,0,0)'); lg.addColorStop(f1,'rgba(80,190,255,.28)'); lg.addColorStop(Math.min(1,f2+.001),'rgba(0,0,0,0)'); lg.addColorStop(1,'rgba(0,0,0,0)');
+    g.fillStyle=lg; g.fillRect(0,0,620,620); g.restore();
+  }
+}
+function stackFrame(t){
+  // container transform
+  const k4=E.inOutCubic(P(t,14.0,14.9));
+  const rx=lerp(56,60,k4), rz=lerp(-42,-34,k4), sc=lerp(1,0.88,k4);
+  const left=lerp(330,60,k4), top=lerp(250,262,k4);
+  const enter=E.outCubic(P(t,8.05,8.7));
+  stack.style.left=left+'px'; stack.style.top=(top+(1-enter)*120)+'px';
+  stack.style.transform=`rotateX(${rx}deg) rotateZ(${rz}deg) scale(${sc})`;
+  $('#stackView').style.opacity=(enter*(1-E.inCubic(P(t,16.15,16.55)))).toFixed(3);
+  // layer z positions
+  const lam=E.inOutCubic(P(t,12.3,13.05));        // lower layers rise
+  const press=E.inOutCubic(P(t,13.05,13.45));     // close gaps
+  const expl=E.inOutCubic(P(t,14.05,15.0));       // explode for labels
+  const coatIn=E.outCubic(P(t,11.0,11.6));
+  const final={memb:0,insul:10,foam:26,weave:62,coat:70};
+  const gapd={memb:-90,insul:-50,foam:-20,weave:0,coat:30};
+  const exploded={memb:-150,insul:-40,foam:70,weave:210,coat:330};
+  const z={}, op={};
+  z.weave=lerp(final.weave+gapd.weave,final.weave,press); op.weave=1;
+  z.coat=lerp(final.coat+260,final.coat+gapd.coat,coatIn); z.coat=lerp(z.coat,final.coat,press); op.coat=coatIn;
+  ['memb','insul','foam'].forEach((n,i)=>{ const e=E.outCubic(P(t,12.3+i*.12,12.95+i*.12));
+    z[n]=lerp(final[n]-420,final[n]+gapd[n],e); z[n]=lerp(z[n],final[n],press); op[n]=e; });
+  Object.keys(z).forEach(n=>{ const zz=lerp(z[n],exploded[n],expl); LAY[n].style.transform=`translateZ(${zz.toFixed(2)}px)`; LAY[n].style.opacity=op[n].toFixed(3); });
+  // sheen + drops
+  $('#sheen').style.backgroundPosition=`${lerp(120,-20,P(t,11.15,12.0))}% 0`;
+  $$('#drops i').forEach((d,i)=>{ const t0=11.55+rnd(i*3+11)*.5; const e=E.outBack(P(t,t0,t0+.35)); const out=1-P(t,12.4,12.8);
+    d.style.transform=`scale(${Math.max(0.001,e).toFixed(3)})`; d.style.opacity=(clamp(e)*out).toFixed(3); });
+  drawWeave(t);
+}
+function anchorPos(ly){ // rightmost projected anchor
+  const st=$('#stage').getBoundingClientRect(), sc=st.width/1920;
+  let best=null; ly.querySelectorAll('.anch').forEach(a=>{ const r=a.getBoundingClientRect(); const p=[(r.left-st.left)/sc,(r.top-st.top)/sc]; if(!best||p[0]>best[0]) best=p; });
+  return best;
+}
+const LBL=[['coat','Coprime®','網布塗層技術　Mesh coating technology'],['weave','CORDURA®','耐磨面料　Durable face fabric'],['foam','ARIAPRENE®','TPE 發泡緩衝　TPE foam cushioning'],['insul','3M™ Thinsulate™','輕量保暖　Lightweight insulation'],['memb','Bio-based Membrane','生質防水膜　Waterproof membrane']];
+$('#labels4').innerHTML=LBL.map((l,i)=>`<div class="lbl4" id="lb${i}"><div class="dot"></div><div class="ln"></div><div class="txt"><div class="b">${l[1]}</div><div class="s">${l[2]}</div></div></div>`).join('');
+function labels4(t){
+  const vis=t>14.4&&t<16.6;
+  $('#labels4').style.display=vis?'block':'none'; if(!vis) return;
+  LBL.forEach((l,i)=>{
+    const el=$('#lb'+i); const p=anchorPos(LAY[l[0]]); if(!p) return;
+    const t0=14.75+i*.11, e=E.outCubic(P(t,t0,t0+.5)), out=1-E.inCubic(P(t,16.05,16.4));
+    const tx=1440, ty=262+i*134;
+    el.style.left=p[0]+'px'; el.style.top=(p[1]-5)+'px';
+    // line from anchor to label column (straight horizontal-ish via rotate)
+    const dx=tx-p[0], dy=ty-p[1];
+    const len=Math.hypot(dx,dy);
+    el.querySelector('.ln').style.width=(len*e)+'px';
+    el.style.transformOrigin='4px 5px';
+    el.style.transform=`rotate(${Math.atan2(dy,dx)}rad)`;
+    const txt=el.querySelector('.txt'); txt.style.transform=`rotate(${-Math.atan2(dy,dx)}rad) translate(${(1-e)*20}px,-22px)`; txt.style.transformOrigin='0 0';
+    el.style.opacity=(Math.min(clamp(e*2),out)).toFixed(3);
+  });
+}
+
+/* ---------- S4b physics ---------- */
+const foam=$('#foam').getContext('2d');
+function compAt(t){
+  let c=0;
+  if(t>=16.9&&t<17.3) c=0.5*E.inOutCubic(P(t,16.9,17.3));
+  else if(t>=17.3&&t<17.5) c=0.5;
+  else if(t>=17.5&&t<18.4){ const u=t-17.5; c=0.5*Math.exp(-u*6.5)*Math.cos(u*17); }
+  else if(t>=18.4&&t<18.5){ c=0.40*E.outCubic(P(t,18.4,18.5)); }
+  else if(t>=18.5){ const u=t-18.5; c=0.40*Math.exp(-u*8)*Math.cos(u*21); }
+  return Math.max(c,-0.05);
+}
+function drawFoam(t){
+  const g=foam; g.clearRect(0,0,900,520);
+  const W=860, base=330, H0=220, c=compAt(t);
+  const top=base-H0*(1-c);
+  const reveal=E.outCubic(P(t,16.45,16.95));
+  g.save(); g.globalAlpha=reveal;
+  // slab
+  g.save(); g.beginPath(); g.rect(0,top,W,base-top); g.clip();
+  g.fillStyle='#E07F28'; g.fillRect(0,top,W,base-top);
+  const r=17;
+  for(let row=0, y=base-r; y>base-H0-r; y-=r*1.72,row++){
+    for(let x=(row%2)*r+4; x<W+r; x+=r*2.02){
+      const yy=base-(base-y)*(1-c);
+      const rx=r*(1+c*.4)*(.86+rnd(x+y*7)*.18), ry=r*Math.pow(1-c,1.05)*(.86+rnd(x*3+y)*.18);
+      const gr=g.createRadialGradient(x-rx*.3,yy-ry*.35,0,x,yy,Math.max(rx,ry));
+      gr.addColorStop(0,'#FFD3A0'); gr.addColorStop(.55,'#F39C48'); gr.addColorStop(1,'#A9561A');
+      g.fillStyle=gr; g.beginPath(); g.ellipse(x,yy,rx,Math.max(ry,1),0,0,7); g.fill();
+    }
+  }
+  g.restore();
+  g.strokeStyle='rgba(255,255,255,.35)'; g.lineWidth=1.5; g.strokeRect(0.75,top,W-1.5,base-top);
+  // press plate
+  const plateY=top-22;
+  const pg=g.createLinearGradient(0,plateY-30,0,plateY);
+  pg.addColorStop(0,'#5E7487'); pg.addColorStop(1,'#B9CAD8');
+  g.fillStyle=pg; g.fillRect(250,plateY-30,360,30);
+  g.fillStyle='#8DA3B5'; g.fillRect(410,plateY-120,40,90);
+  // arrows / label
+  g.font='600 15px "JetBrains Mono"'; g.fillStyle='rgba(220,236,248,.7)';
+  g.fillText(`COMPRESSION ${(Math.max(c,0)*100).toFixed(0).padStart(2,'0')}%`,640,plateY-12);
+  // graph
+  const gx=0, gy=380, gw=W, gh=110;
+  g.strokeStyle='rgba(255,255,255,.12)'; g.lineWidth=1;
+  g.beginPath(); g.moveTo(gx,gy+gh); g.lineTo(gx+gw,gy+gh); g.moveTo(gx,gy+20); g.lineTo(gx+gw,gy+20); g.stroke();
+  g.fillStyle='rgba(220,236,248,.45)'; g.font='500 13px "JetBrains Mono"';
+  g.fillText('RECOVERY · 示意',gx,gy+8);
+  const tA=16.6,tB=20.0; g.beginPath();
+  for(let s=tA;s<=Math.min(t,tB);s+=1/120){ const x=gx+(s-tA)/(tB-tA)*gw, y=gy+gh-(compAt(s)/0.55)*(gh-24)-6; s===tA?g.moveTo(x,y):g.lineTo(x,y); }
+  g.strokeStyle='#EE9039'; g.lineWidth=2.5; g.stroke();
+  if(t>tA){ const x=gx+(Math.min(t,tB)-tA)/(tB-tA)*gw, y=gy+gh-(compAt(t)/0.55)*(gh-24)-6; g.fillStyle='#fff'; g.beginPath(); g.arc(x,y,4.5,0,7); g.fill(); }
+  g.restore();
+}
+const ICONS=[
+  ['登山靴','Hiking boot','<path d="M14 10h13l1.6 14c11 2 19 7 24 13 3 3 4 6 4 9v4H12V13c0-2 1-3 2-3z"/><path d="M9 54h50"/><path d="M20 17l9 2M20 23l10 2.6M21 29l12 2.4"/><path d="M27.5 9.5c2-2 5-1 5.5 2l.6 11" stroke="#EE9039"/>'],
+  ['背包','Backpack','<path d="M20 15c0-5 5-8 12-8s12 3 12 8l2 36c0 3-2 5-5 5H23c-3 0-5-2-5-5z"/><path d="M27 7c0-3 2-5 5-5s5 2 5 5"/><path d="M24 34h16v13H24z"/><path d="M23 22c6 3 12 3 18 0"/><path d="M17 20c-5 10-5 20 1 30M47 20c5 10 5 20-1 30" stroke="#EE9039"/>'],
+  ['曲棍球手套','Lacrosse glove','<path d="M19 31V15c0-2 1.3-3 3-3s3 1 3 3v16M25 31V11c0-2 1.3-3 3-3s3 1 3 3v20M31 31V12c0-2 1.3-3 3-3s3 1 3 3v19M37 31V16c0-2 1.3-3 3-3s3 1 3 3v17"/><path d="M19 31c-4-3-8-1-8 3 0 3 4 6 8 9"/><path d="M19 31v14h24V33"/><path d="M16 46h30v11H16z" stroke="#EE9039"/>'],
+  ['帽子','Cap','<path d="M8 41c0-13 9-22 22-22s20 8 21 20v2z"/><path d="M51 39c6 0 10 2 12 5-6 1.5-12 1.5-17 0"/><path d="M30 19c3 6 4 14 4 22M22 21c-2 6-3 13-3 20"/><path d="M28 18h4"/><path d="M8 41h43" stroke="#EE9039"/>'],
+  ['獵犬背心','Dog vest','<path d="M14 30c0-4 3-7 7-7h22c3 0 5-2 6-4l3-6c1-2 3-3 5-2l4 4c1 1 1 3 0 4l-5 4c-2 2-3 4-3 7v6c0 3-2 5-5 5H19c-3 0-5-2-5-5z"/><path d="M19 41v12M26 41v12M40 41v12M47 41v12"/><path d="M14 29c-4-2-6-6-6-10"/><path d="M22 23h20v18H22z" stroke="#EE9039"/><path d="M57 13l-1-5"/>'],
+];
+$('#icons').innerHTML=ICONS.map((ic,i)=>`<div class="ico w" id="ic${i}" style="top:${330+i*120}px"><svg viewBox="0 0 64 64" fill="none" stroke="#E9F4FB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ic[2].replace(/<path /g,'<path pathLength="1" ')}</svg><div><div class="zt">${ic[0]}</div><div class="et">${ic[1]}</div></div></div>`).join('');
+const lines4=$('#lines4').getContext('2d');
+function physics(t){
+  rev($('#s4btag'),t,16.45); rev($('#s4bq'),t,16.55); rev($('#s4bqe'),t,16.75); rev($('#s4bnote'),t,17.6);
+  drawFoam(t);
+  const g=lines4; g.clearRect(0,0,1920,1080);
+  ICONS.forEach((ic,i)=>{
+    const t0=16.95+i*.17, e=E.outCubic(P(t,t0,t0+.75));
+    const el=$('#ic'+i); css(el,clamp(e*1.4),0,(1-e)*40);
+    el.querySelectorAll('path').forEach(p=>{p.style.strokeDasharray='1';p.style.strokeDashoffset=(1-E.inOutCubic(P(t,t0,t0+.9))).toFixed(4);});
+    // connection line
+    const x0=990, y0=400+110+ (i-2)*22, x1=1222, y1=330+i*120+56;
+    const pe=E.inOutCubic(P(t,t0+.1,t0+.7)); if(pe<=0) return;
+    g.save(); g.strokeStyle='rgba(238,144,57,.55)'; g.lineWidth=1.6; g.setLineDash([6,8]); g.lineDashOffset=-t*40;
+    g.beginPath(); const N=40; for(let k=0;k<=N*pe;k++){ const u=k/N; const bx=(1-u)**3*x0+3*(1-u)**2*u*(x0+120)+3*(1-u)*u*u*(x1-120)+u**3*x1; const by=(1-u)**3*y0+3*(1-u)**2*u*y0+3*(1-u)*u*u*y1+u**3*y1; k?g.lineTo(bx,by):g.moveTo(bx,by);} g.stroke();
+    g.setLineDash([]); g.fillStyle='#EE9039'; g.beginPath(); g.arc(x0,y0,4,0,7); g.fill(); g.restore();
+  });
+}
+
+/* ---------- S5 map ---------- */
+const mapc=$('#map').getContext('2d');
+const MP={lon0:90.5,lat1:34,s:22,x0:70,y0:52};
+const proj=(lon,lat)=>[MP.x0+(lon-MP.lon0)*MP.s, MP.y0+(MP.lat1-lat)*MP.s];
+const SITES=[
+  {zh:'台灣・台中',en:'TAIWAN · TAICHUNG',hq:true,ll:[120.58,24.22],t:21.0,lx:24,ly:-8},
+  {zh:'中國・福清',en:'CHINA · FUQING',ll:[119.38,25.72],t:21.3,lx:-196,ly:-58},
+  {zh:'中國・中山',en:'CHINA · ZHONGSHAN',ll:[113.39,22.52],t:21.55,lx:-232,ly:-24},
+  {zh:'越南',en:'VIETNAM',ll:[107.6,14.2],t:21.8,lx:26,ly:-22,country:3},
+  {zh:'印尼',en:'INDONESIA · EXPANDING',tagz:'布局中',ll:[110.2,-7.3],t:22.05,lx:26,ly:-22,country:4,dashed:true},
+];
+const MD=DOTS.filter(d=>d[0]>=MP.lon0-0.3&&d[0]<=136.5&&d[1]<=MP.lat1+.3&&d[1]>=-11.5).map(d=>{const p=proj(d[0],d[1]);return [p[0],p[1],d[2]]});
+const TWp=proj(...SITES[0].ll);
+MD.forEach(d=>d.push(Math.hypot(d[0]-TWp[0],d[1]-TWp[1])));
+$('#pins5').innerHTML=SITES.map((s,i)=>{const p=proj(...s.ll);return `<div class="pin-l" id="pl${i}" style="left:${p[0]+s.lx}px;top:${p[1]+s.ly}px"><div class="a">${s.zh}${s.hq?'<span class="hq">HQ</span>':''}${s.tagz?`<span class="hq" style="background:transparent;color:#EE9039;border:1px dashed #EE9039">${s.tagz}</span>`:''}</div><div class="b">${s.en}</div></div>`}).join('');
+function drawMap(t){
+  const g=mapc; g.clearRect(0,0,1920,1080);
+  const fade=1-E.inCubic(P(t,25.85,26.3));
+  g.globalAlpha=fade;
+  for(const d of MD){
+    const td=20.12+d[3]/1500; const e=P(t,td,td+.35); if(e<=0) continue;
+    let near=0, orng=0; SITES.forEach(s=>{ if(t>s.t){ const k=E.outCubic(P(t,s.t,s.t+.6));
+        if(s.country){ if(d[2]===s.country){ if(s.dashed) orng=Math.max(orng,.55*k); else near=Math.max(near,.75*k); } }
+        else { const p=proj(...s.ll); const dd=Math.hypot(d[0]-p[0],d[1]-p[1]); near=Math.max(near,clamp(1-dd/80)*k); } } });
+    const flash=Math.max(0,1-Math.abs(t-td-.12)/.18);
+    const r=2.3*E.outBack(e);
+    if(orng>0.02&&near<=0.02){ g.fillStyle=`rgba(${lerp(62,238,orng)|0},${lerp(104,144,orng)|0},${lerp(145,57,orng)|0},${(0.62+orng*.2).toFixed(3)})`; g.beginPath(); g.arc(d[0],d[1],Math.max(r,0.1),0,7); g.fill(); continue; }
+    g.fillStyle=near>0.02?`rgba(${lerp(52,90,near)|0},${lerp(88,175,near)|0},${lerp(122,236,near)|0},${(0.55+near*.45).toFixed(3)})`:`rgba(${62+flash*120|0},${104+flash*100|0},${145+flash*90|0},${(.62+flash*.38).toFixed(3)})`;
+    g.beginPath(); g.arc(d[0],d[1],Math.max(r,0.1)+near*1.1,0,7); g.fill();
+  }
+  // arcs
+  SITES.slice(1).forEach(s=>{
+    const a=TWp, b=proj(...s.ll); const e=E.inOutCubic(P(t,s.t-.15,s.t+.45)); if(e<=0) return;
+    const mx=(a[0]+b[0])/2-(b[1]-a[1])*.28, my=(a[1]+b[1])/2+(b[0]-a[0])*.28;
+    g.strokeStyle='rgba(238,144,57,.75)'; g.lineWidth=2; g.setLineDash(s.dashed?[7,7]:[]); g.beginPath();
+    const N=60; for(let k=0;k<=N*e;k++){ const u=k/N; const x=(1-u)**2*a[0]+2*(1-u)*u*mx+u*u*b[0], y=(1-u)**2*a[1]+2*(1-u)*u*my+u*u*b[1]; k?g.lineTo(x,y):g.moveTo(x,y);} g.stroke(); g.setLineDash([]);
+    // traveling pulse
+    if(e>=1){ const u=((t-s.t)*0.6)%1; const x=(1-u)**2*a[0]+2*(1-u)*u*mx+u*u*b[0], y=(1-u)**2*a[1]+2*(1-u)*u*my+u*u*b[1];
+      const rg=g.createRadialGradient(x,y,0,x,y,14); rg.addColorStop(0,'rgba(255,214,170,1)'); rg.addColorStop(1,'rgba(238,144,57,0)'); g.fillStyle=rg; g.fillRect(x-14,y-14,28,28); }
+  });
+  // pins
+  SITES.forEach((s,i)=>{
+    const p=proj(...s.ll); const e=E.outBack(P(t,s.t,s.t+.45));
+    const el=$('#pl'+i); const le=E.outCubic(P(t,s.t+.1,s.t+.55)); css(el,le*fade,0,(1-le)*-16);
+    if(e<=0) return;
+    const col=s.hq?'238,144,57':'120,200,255';
+    if(!s.dashed) for(let k=0;k<2;k++){ const ph=((t-s.t)*0.8+k*.5)%1; g.strokeStyle=`rgba(${col},${(1-ph)*.7})`; g.lineWidth=2; g.beginPath(); g.arc(p[0],p[1],8+ph*38,0,7); g.stroke(); }
+    if(s.dashed){ g.setLineDash([4,4]); g.strokeStyle='#EE9039'; g.lineWidth=2.4; g.beginPath(); g.arc(p[0],p[1],9*e,0,7); g.stroke(); g.setLineDash([]); g.fillStyle='#EE9039'; g.beginPath(); g.arc(p[0],p[1],3*e,0,7); g.fill(); }
+    else { g.fillStyle=`rgb(${col})`; g.beginPath(); g.arc(p[0],p[1],8*e,0,7); g.fill();
+    g.fillStyle='#fff'; g.beginPath(); g.arc(p[0],p[1],3.2*e,0,7); g.fill(); }
+  });
+  g.globalAlpha=1;
+}
+const BADGES=[['Higg<br>FEM','環境績效'],['ZDHC','化學品管理'],['GHG','溫室氣體盤查'],['GRS','全球回收標準']];
+$('#badges').innerHTML=BADGES.map((b,i)=>`<div class="bdg w" id="bd${i}"><div class="hex"><svg viewBox="0 0 142 142"><polygon points="71,6 127,38.5 127,103.5 71,136 15,103.5 15,38.5" fill="rgba(0,125,194,.14)" stroke="rgba(140,203,242,.55)" stroke-width="1.6"/><polygon class="hx" pathLength="1" points="71,6 127,38.5 127,103.5 71,136 15,103.5 15,38.5" fill="none" stroke="#EE9039" stroke-width="3" stroke-dasharray="1" stroke-dashoffset="1"/></svg><span>${b[0]}</span></div><div class="c">${b[1]}</div></div>`).join('');
+function panel5(t){
+  const o0=25.85,o1=26.25;
+  rev($('#p5tag'),t,20.35,o0,o1); rev($('#p5big'),t,20.5,o0,o1,40,.8); rev($('#p5e'),t,20.8,o0,o1);
+  rev($('#p5tag2'),t,22.95,o0,o1);
+  BADGES.forEach((b,i)=>{ const t0=23.15+i*.2; rev($('#bd'+i),t,t0,o0,o1,30,.5); $('#bd'+i).querySelector('.hx').style.strokeDashoffset=(1-E.inOutCubic(P(t,t0+.1,t0+.8))).toFixed(4); });
+  rev($('#q5z'),t,24.25,o0,o1); rev($('#q5e'),t,24.5,o0,o1);
+}
+
+/* ---------- FX (wipes, flash) ---------- */
+const fx=$('#fx').getContext('2d');
+function wipe(g,t,t0){ // diagonal brand bands crossing the screen; covered at t0
+  const u=P(t,t0-.32,t0+.36); if(u<=0||u>=1) return;
+  const e=E.inOutCubic(u);
+  const bands=[['#0A2A45',0,1500],['#007DC2',260,520],['#EE9039',520,120],['#E9F4FB',600,26]];
+  g.save(); g.translate(960,540); g.rotate(-Math.PI/4);
+  bands.forEach(([c,off,w],k)=>{ const x=lerp(-2400,2400,E.inOutCubic(clamp(u*1.0+(k*.04)-.02)))-off; g.fillStyle=c; g.fillRect(x-w,-1600,w,3200); });
+  g.restore();
+}
+function drawFX(t){
+  const g=fx; g.clearRect(0,0,1920,1080);
+  // S1->S2 flash
+  const f=Math.max(0,1-Math.abs(t-4.0)/0.09); if(f>0){ g.fillStyle=`rgba(233,244,251,${(f*f*.8).toFixed(3)})`; g.fillRect(0,0,1920,1080); }
+  wipe(g,t,8.0); wipe(g,t,14.0); wipe(g,t,20.0);
+  // global fade in/out
+  const fin=1-P(t,0,.35); if(fin>0){ g.fillStyle=`rgba(0,0,0,${fin})`; g.fillRect(0,0,1920,1080); }
+}
+
+/* ---------- master render ---------- */
+function render(t){
+  drawBG(t);
+  // S1
+  if(show('#s1',t,0,4.02)){
+    drawFabric(t);
+    $$('#s1 .w').forEach(el=>{ const t0=+el.dataset.t; const a=E.outCubic(P(t,t0,t0+.55)); const o=1-E.inCubic(P(t,3.05,3.5));
+      css(el,Math.min(a,o),(1-a)*24,0,1+(1-o)*.06,(1-a)*10+(1-o)*12); });
+  }
+  // S2
+  if(show('#s2',t,3.98,8.05)){
+    const svg=$('#logo2'); const lt=t-4.0;
+    animLogo(svg,lt,{stripeD:520,stag:.07,dur:.8,blobAt:.4,textAt:.62});
+    const z=lerp(1.22,1.0,E.outCubic(P(t,4.0,5.6)));
+    const up=E.inOutCubic(P(t,5.75,6.45));
+    const s=z*lerp(1,0.74,up), W=1000*s, H=118/349*W;
+    const cx=960, cy=lerp(520,410,up);
+    const ex=1+E.inCubic(P(t,7.65,8.0))*.12;
+    svg.style.width=(W*ex)+'px'; svg.style.left=(cx-W*ex/2)+'px'; svg.style.top=(cy-H*ex/2)+'px';
+    svg.style.opacity=(1-P(t,7.75,8.0)).toFixed(3);
+    $$('#s2 .w').forEach(el=>{ const t0=el.id==='enname'?6.35:+el.dataset.t; rev(el,t,t0,7.7,8.0); });
+  }
+  // S3 + S4a
+  const s3on=show('#s3',t,7.98,16.6);
+  if(s3on){
+    stackFrame(t);
+    const o0=13.75,o1=14.05;
+    rev($('#s3tag'),t,8.15,o0,o1); rev($('#s3h'),t,8.25,o0,o1,30,.7); rev($('#s3e'),t,8.4,o0,o1);
+    const steps=$$('.step'); const T0=[8.35,9.7,11.0,12.3,13.6];
+    steps.forEach((el,i)=>{ const a=E.outCubic(P(t,8.3+i*.08,8.8+i*.08)); const b=1-E.inCubic(P(t,o0,o1));
+      const act=t>=T0[i]&&t<T0[i+1]+(i===3?.4:0); const done=t>=T0[i+1];
+      el.style.opacity=(Math.min(a,b)*(act?1:done?.55:.32)).toFixed(3);
+      el.style.transform=`translate(${(act?14:0)+(1-a)*-30}px,0)`;
+      el.querySelector('.rail i').style.height=(P(t,T0[i],T0[i+1])*100)+'%'; });
+    rev($('#s4tag'),t,14.25,16.05,16.4); rev($('#s4h'),t,14.35,16.05,16.4,30,.7); rev($('#s4e'),t,14.5,16.05,16.4);
+    labels4(t);
+  }
+  // S4b
+  if(show('#s4b',t,16.3,20.05)){ physics(t); }
+  // S5
+  if(show('#s5',t,19.98,26.35)){ drawMap(t); panel5(t); }
+  // S6
+  if(show('#s6',t,25.95,30.01)){
+    const e=E.inOutCubic(P(t,25.95,26.75));
+    $('#sheet').style.transform=`translate(${lerp(-3900,-900,e)}px,${-1200}px) rotate(18deg)`;
+    $$('#s6c .tz .w').forEach(el=>rev(el,t,+el.dataset.t,99,100,26,.7));
+    rev($('#s6te'),t,27.05);
+    const svg=$('#logo6'); animLogo(svg,t-27.3,{stripeD:300,stag:.05,dur:.6,blobAt:.28,textAt:.42});
+    const W=600, H=118/349*W; svg.style.left=(960-W/2+14)+'px'; svg.style.top=(470)+'px'; svg.style.width=W+'px';
+    rev($('#co_a'),t,28.0); rev($('#co_b'),t,28.12); rev($('#co_c'),t,28.3); rev($('#co_d'),t,28.45);
+  }
+  // HUD
+  const hv=Math.min(E.outCubic(P(t,8.2,8.8)),1-E.inCubic(P(t,25.7,26.1)));
+  $('#hud').style.opacity=hv.toFixed(3); $('#hud').style.display=hv>0?'block':'none';
+  const ch=t<14?0:t<20?1:t<22.9?2:3;
+  $$('#hudChap span').forEach((s,i)=>s.classList.toggle('on',i===ch));
+  $('#hudBar i').style.width=(P(t,8.0,26.0)*100)+'%';
+  drawFX(t);
+}
+
+/* ---------- boot ---------- */
+window.__render=t=>render(t);
+async function fontsReady(){
+  const L=[['600 74px "Noto Serif TC"','一雙登山靴答案藏在同一層材料裡五個品類物理問題合規是底線創新才是選擇夥伴的理由成為品牌最堅實後盾'],['900 92px "Noto Sans TC"','中良工業股份有限公司永續創新性能四道核心工藝織造染整機能處理與塗佈貼合國生產據點台灣台中福清中山越南印尼布局中'],['700 30px "Noto Sans TC"','耐磨面料發泡緩衝輕量保暖生質防水膜機能塗層登山靴背包曲棍球手套帽子獵犬背心環境績效化學品管理溫室氣體盤查全球回收標準示意動畫已應用於'],['800 30px Manrope','ABC'],['500 15px "JetBrains Mono"','ABC'],['500 19px "Noto Sans TC"','耐磨面料發泡緩衝輕量保暖生質防水膜機能塗層網布塗層技術'],['500 16px "Noto Sans TC"','環境績效化學品管理溫室氣體盤查全球回收標準ARIAPRENE已應用於登山靴背包曲棍球手套帽子與獵犬背心示意動畫'],['700 24px "Noto Sans TC"','台灣台中中國福清中山越南印尼布局中'],['700 12px "JetBrains Mono"','HQ布局中'],['900 50px "Noto Sans TC"','國布局'],['700 28px "Noto Sans TC"','中良工業股份有限公司'],['600 56px "Noto Serif TC"','一層成為品牌最堅實的後盾'],['600 36px "Noto Serif TC"','合規是底線創新才是選擇夥伴的理由'],['italic 500 20px Manrope','Compliance'],['600 22px Manrope','TIONG'],['400 13px "JetBrains Mono"','x']];
+  await Promise.all(L.map(([f,s])=>document.fonts.load(f,s).catch(()=>{})));
+  await document.fonts.ready;
+}
+window.__ready=fontsReady().then(()=>{ render(0); return true; });
+const q=new URLSearchParams(location.search);
+function fit(){ const st=$('#stage'); const s=Math.min(innerWidth/1920,innerHeight/1080); st.style.transform=`translate(${(innerWidth-1920*s)/2}px,${(innerHeight-1080*s)/2}px) scale(${s})`; }
+if(!q.has('render')){
+  addEventListener('resize',fit); fit();
+  window.__ready.then(()=>{
+    if(q.has('t')){ render(+q.get('t')); return; }
+    let t0=performance.now(), paused=false, pt=0;
+    addEventListener('keydown',e=>{ if(e.code==='Space'){ paused=!paused; if(!paused) t0=performance.now()-pt*1000; }});
+    (function loop(){ if(!paused){ pt=((performance.now()-t0)/1000)%DUR; render(pt);} requestAnimationFrame(loop); })();
+  });
+}
+</script>
+</body>
+</html>
