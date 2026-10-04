@@ -16,7 +16,7 @@ def img64(p,w=760):
     b=io.BytesIO(); im.save(b,'JPEG',quality=82,optimize=True,progressive=True); return 'data:image/jpeg;base64,'+base64.b64encode(b.getvalue()).decode()
 P=r'C:/Users/sugi/Desktop/Linkedin/圖片區/地球友善小組Pason 怕剩/'
 rep={'/*LOGO_NAV*/':logo(h=30),'/*LOGO_FOOT*/':logo(h=26),'/*LOGO_PARTS*/null':json.dumps(L,ensure_ascii=False),
-     '/*MAPDOTS*/null':json.dumps(dots,separators=(',',':')),'/*PASONT1*/':img64(P+'S__234512469_0.jpg'),'/*PASONT2*/':img64(P+'S__234512472_0.jpg',820),
+     '/*MAPDOTS*/null':json.dumps(dots,separators=(',',':')),'/*SHOE_PARTS*/null':open('shoe_parts.json',encoding='utf-8').read(),'/*PASONT1*/':img64(P+'S__234512469_0.jpg'),'/*PASONT2*/':img64(P+'S__234512472_0.jpg',820),
      '/*VIDEO*/':VIDEO,'/*POSTER*/':POSTER}
 for k,v in rep.items(): src=src.replace(k,v)
 assert '/*' not in src.split('<script>')[0].replace('/*!','') or True

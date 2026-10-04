@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>中良工業 Tiong Liong — 一層一層</title>
-<meta name="description" content="中良工業（Tiong Liong Industrial, TLC）互動介紹：核心工藝、工程化複合材料、ARIAPRENE® 物理實驗室、四國布局與 ESG。">
+<meta name="description" content="中良工業（Tiong Liong Industrial, TLC）互動介紹：核心工藝、工程化複合材料、ARIAPRENE® 物理實驗室、鞋材核心業務、四國布局與 ESG。">
 <link rel="canonical" href="https://sugimotofang-spec.github.io/tlc-intro/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tiong Liong Industrial · 中良工業">
 <meta property="og:url" content="https://sugimotofang-spec.github.io/tlc-intro/">
 <meta property="og:title" content="中良工業 Tiong Liong — 一層一層 · Layer by Layer">
-<meta property="og:description" content="30 秒影片＋互動網頁：核心工藝、工程化複合材料、ARIAPRENE® 泡棉實驗室、四國布局與 ESG。A 30-second film and interactive tour of Tiong Liong Industrial.">
+<meta property="og:description" content="45 秒影片＋互動網頁：核心工藝、工程化複合材料、ARIAPRENE® 泡棉實驗室、鞋材核心業務、四國布局與 ESG。A 45-second film and interactive tour of Tiong Liong Industrial.">
 <meta property="og:image" content="https://sugimotofang-spec.github.io/tlc-intro/media/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -113,7 +113,7 @@ canvas{display:block}
 #film .track .rail{position:absolute;left:0;right:0;top:10px;height:3px;background:rgba(255,255,255,.2);border-radius:2px}
 #film .track .fill{position:absolute;left:0;top:10px;height:3px;background:var(--orange);border-radius:2px}
 #film .track .tick{position:absolute;top:6px;width:2px;height:11px;background:rgba(255,255,255,.55)}
-#film .chaps{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}
+#film .chaps{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:18px}
 #film .chap{text-align:left;padding:14px 14px 12px;border-radius:12px;border:1px solid var(--line);background:var(--navy-2);transition:border-color .25s,background .25s}
 #film .chap:hover{border-color:var(--line-2)}
 #film .chap.on{border-color:var(--orange);background:rgba(238,144,57,.08)}
@@ -121,7 +121,47 @@ canvas{display:block}
 #film .chap span{display:block;font:700 15px var(--zh);letter-spacing:.06em;margin-top:6px}
 #film .chap small{display:block;font:500 12px var(--sans);color:var(--dim)}
 #film .missing{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:30px;color:var(--mute);font:500 15px var(--zh)}
-@media (max-width:900px){#film .chaps{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:900px){#film .chaps{grid-template-columns:repeat(4,1fr)}}
+
+/* ---------- FOOTWEAR ---------- */
+#footwear .grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;margin-top:56px;align-items:stretch}
+#fwStage{position:relative;border-radius:20px;border:1px solid var(--line);background:radial-gradient(ellipse at 50% 55%,rgba(0,125,194,.16),rgba(6,18,31,0) 70%),var(--navy-2);padding:56px 28px 70px;display:flex;align-items:center;min-height:520px}
+#fwShoe{width:100%;height:auto;overflow:visible;display:block}
+#fwShoe .pt{transition:opacity .25s}
+#fwShoe .pt.zone{cursor:pointer}
+#fwShoe.focus .pt:not(.on){opacity:.32}
+#fwShoe .mk circle{fill:var(--orange)}
+#fwShoe .mk text{font:700 13px var(--mono);fill:#1a0d02;text-anchor:middle;dominant-baseline:central}
+#fwStage .ui{position:absolute;left:18px;right:18px;bottom:16px;display:flex;align-items:center;gap:14px;font:500 12px var(--mono);color:var(--mute);letter-spacing:.12em}
+#fwStage .ui input{flex:1;accent-color:var(--orange)}
+#fwStage .hintl{position:absolute;left:18px;top:16px;font:500 12px var(--mono);letter-spacing:.16em;color:var(--dim)}
+#fwInfo{border-radius:20px;border:1px solid var(--line);background:var(--panel);padding:30px;display:flex;flex-direction:column}
+#fwList{display:flex;flex-direction:column;gap:8px}
+#fwList button{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;border:1px solid transparent;text-align:left;transition:background .2s,border-color .2s}
+#fwList button:hover{background:rgba(140,203,242,.06)}
+#fwList button.on{border-color:var(--orange);background:rgba(238,144,57,.08)}
+#fwList .no{font:600 12px var(--mono);color:var(--orange);letter-spacing:.12em;min-width:22px}
+#fwList b{display:block;font:800 16px var(--zh);letter-spacing:.04em}
+#fwList small{display:block;font:500 13px var(--sans);color:var(--mute)}
+#fwDetail{margin-top:22px;padding-top:22px;border-top:1px solid var(--line);flex:1}
+#fwDetail h3{font:800 24px var(--zh);letter-spacing:.04em}
+#fwDetail h4{font:600 14px var(--mono);color:var(--orange);letter-spacing:.06em;margin-top:6px}
+#fwDetail p{font:500 15px/1.75 var(--zh);margin-top:14px}
+#fwDetail p.en{font:500 14px/1.65 var(--sans);color:var(--mute);margin-top:8px}
+#fwBrands{margin-top:72px}
+#fwNames{display:flex;flex-wrap:wrap;align-items:baseline;margin-top:18px}
+#fwNames b{font:800 clamp(30px,5vw,76px)/1.1 var(--sans);letter-spacing:-.02em;padding:0 clamp(14px,2.6vw,40px);border-left:1px solid var(--line-2);white-space:nowrap}
+#fwNames b:first-child{padding-left:0;border-left:0}
+#fwCases{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+#fwCases a{display:block;padding:22px 22px 20px;border-radius:16px;border:1px solid var(--line);background:var(--navy-2);text-decoration:none;transition:border-color .25s,transform .25s}
+#fwCases a:hover{border-color:var(--orange);transform:translateY(-3px)}
+#fwCases svg{width:54px;height:54px;overflow:visible}
+#fwCases b{display:block;font:800 22px var(--sans);margin-top:10px}
+#fwCases span{display:block;font:600 16px var(--sans)}
+#fwCases em{display:block;font:600 13px var(--mono);font-style:normal;color:var(--orange);letter-spacing:.03em;margin-top:12px}
+#fwCases small{display:block;font:500 11px var(--mono);color:var(--dim);letter-spacing:.12em;margin-top:14px}
+@media (max-width:980px){#footwear .grid{grid-template-columns:1fr}#fwStage{min-height:0;padding:48px 14px 64px}#fwCases{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){#fwCases{grid-template-columns:1fr}}
 
 /* ---------- CRAFT (scroll-scrubbed) ---------- */
 #craft{padding:0}
@@ -290,6 +330,7 @@ body.en #lxDetail h4{font-family:var(--sans)}
     <li><a href="#craft">工藝</a></li>
     <li><a href="#layers">材料</a></li>
     <li><a href="#physics">物理</a></li>
+    <li><a href="#footwear">鞋材</a></li>
     <li><a href="#footprint">布局</a></li>
     <li><a href="#esg">永續</a></li>
   </ul>
@@ -302,10 +343,10 @@ body.en #lxDetail h4{font-family:var(--sans)}
   <div class="shade"></div>
   <div class="copy">
     <div class="tag">Tiong Liong Industrial · 中良工業</div>
-    <h1>一層一層，<br>成為品牌<em>最堅實</em>的後盾。</h1>
+    <h1>層層用心，<br>築起<em>信任</em></h1>
     <p class="sub">From yarn to engineered composites — performance textiles for the world's leading athletic and outdoor brands. Sustainability · Innovation · Performance.</p>
     <div class="btns">
-      <a class="btn pri" href="#film">▶ 觀看 30 秒影片 <small>Watch the film</small></a>
+      <a class="btn pri" href="#film">▶ 觀看 45 秒影片 <small>Watch the film</small></a>
       <a class="btn sec" href="#layers">拆開一塊布 <small>Explore the layers</small></a>
     </div>
   </div>
@@ -323,8 +364,8 @@ body.en #lxDetail h4{font-family:var(--sans)}
 <section id="film" class="sec"><div class="wrap">
   <div class="sec-head" data-rv>
     <div class="tag">00 / The Film</div>
-    <h2 class="h2">三十秒，認識中良。</h2>
-    <p class="h2-en">Thirty seconds, six chapters — from a single thread to an engineered package.</p>
+    <h2 class="h2">四十五秒，認識中良。</h2>
+    <p class="h2-en">Forty-five seconds, seven chapters — from a single thread to the shoes our materials go into.</p>
   </div>
   <div class="player paused" id="player" data-rv>
     <video id="vid" preload="metadata" playsinline></video>
@@ -332,7 +373,7 @@ body.en #lxDetail h4{font-family:var(--sans)}
     <div class="big" id="bigPlay"><button aria-label="播放影片"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#1a0d02"/></svg></button></div>
     <div class="bar">
       <button id="pp" aria-label="播放／暫停"><svg width="18" height="18" viewBox="0 0 24 24" id="ppIco"><path d="M8 5v14l11-7z" fill="#fff"/></svg></button>
-      <span class="time" id="vtime">0:00 / 0:30</span>
+      <span class="time" id="vtime">0:00 / 0:45</span>
       <div class="track" id="track" role="slider" aria-label="影片進度" tabindex="0"><div class="rail"></div><div class="fill" id="vfill"></div></div>
       <button id="mute" aria-label="靜音切換"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 9v6h4l5 4V5L8 9z" fill="#fff"/><path id="muteWave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></button>
       <button id="fs" aria-label="全螢幕"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
@@ -410,10 +451,38 @@ body.en #lxDetail h4{font-family:var(--sans)}
   </div>
 </div></section>
 
+<!-- ================= FOOTWEAR ================= -->
+<section id="footwear" class="sec"><div class="wrap">
+  <div class="sec-head" data-rv>
+    <div class="tag">04 / Footwear</div>
+    <h2 class="h2">鞋材，是我們的本業。</h2>
+    <p class="h2-en">Footwear materials are our core business — uppers, tongues, collars, linings and reinforcements for global sports brands. Tap a zone, or slide to take the shoe apart.</p>
+  </div>
+  <div class="grid">
+    <div id="fwStage" data-rv>
+      <div class="hintl">TAP A ZONE</div>
+      <svg id="fwShoe" role="img" aria-label="跑鞋側視圖，標示中良材料常用的部位"></svg>
+      <div class="ui"><span>組合 ASSEMBLED</span><input id="fwExplode" type="range" min="0" max="100" value="0" aria-label="拆解程度"><span>拆開 EXPLODED</span></div>
+    </div>
+    <div id="fwInfo" data-rv>
+      <div id="fwList"></div>
+      <div id="fwDetail"></div>
+      <p class="note" style="margin-top:18px">部位與材料為示意，實際組合依鞋款規格而定 · Illustrative; constructions vary by model.</p>
+    </div>
+  </div>
+  <div id="fwBrands" data-rv>
+    <div class="tag">長期服務的品牌包括 · Brands we serve include</div>
+    <div id="fwNames"><b>Nike</b><b>adidas</b><b>New Balance</b></div>
+    <div class="tag" style="margin-top:56px">公開案例 · Public cases · ARIAPRENE®</div>
+    <div id="fwCases"></div>
+    <p class="note" style="margin-top:16px">案例來源：ariaprene.com · 品牌名稱為各公司之商標 · Cases as published on ariaprene.com; brand names are trademarks of their respective owners.</p>
+  </div>
+</div></section>
+
 <!-- ================= FOOTPRINT ================= -->
 <section id="footprint" class="sec"><div class="wrap">
   <div class="sec-head" data-rv>
-    <div class="tag">04 / Global Footprint</div>
+    <div class="tag">05 / Global Footprint</div>
     <h2 class="h2">四國布局，一套治理標準。</h2>
     <p class="h2-en">Every month our certification team coordinates international standards across production bases in Taiwan, China and Southeast Asia.</p>
   </div>
@@ -431,7 +500,7 @@ body.en #lxDetail h4{font-family:var(--sans)}
 <!-- ================= ESG ================= -->
 <section id="esg" class="sec" style="padding-top:40px"><div class="wrap">
   <div data-rv>
-    <div class="tag">05 / ESG in Practice</div>
+    <div class="tag">06 / ESG in Practice</div>
     <p class="quote">跨國 ESG 的落地，考驗的從來不是口號，而是<em>數據的真實性與治理紀律</em>。</p>
     <p class="quote-en" data-hide-en>Cross-border ESG isn't about slogans — it's about data integrity and governance discipline.</p>
   </div>
@@ -587,13 +656,14 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
 /* ================= FILM PLAYER ================= */
 (function(){
   const v=$('#vid'), pl=$('#player'), big=$('#bigPlay'), fill=$('#vfill'), track=$('#track'), tm=$('#vtime');
-  const CH=[[0,'開場','Hook'],[4,'品牌','Brand'],[8,'核心工藝','Craft'],[14,'複合材料','Materials'],[20,'布局・ESG','Footprint & ESG'],[26,'結語','Close']];
-  const VID={zh:['media/tlc-intro-30s-zh.mp4','media/poster-zh.jpg'],en:['media/tlc-intro-30s-en.mp4','media/poster-en.jpg']};
+  const CH=[[0,'開場','Hook'],[4,'品牌','Brand'],[8,'核心工藝','Craft'],[14,'複合材料','Materials'],[20,'鞋材','Footwear'],[35,'布局・ESG','Footprint & ESG'],[41,'結語','Close']];
+  const DUR=45;
+  const VID={zh:['media/tlc-intro-45s-zh.mp4','media/poster-zh.jpg'],en:['media/tlc-intro-45s-en.mp4','media/poster-en.jpg']};
   function chaps(){ $('#chaps').innerHTML=CH.map((c,i)=>`<button class="chap" data-t="${c[0]}"><b>0:${String(c[0]).padStart(2,'0')}</b><span>${L(c[1],c[2])}</span><small>${L(c[2],'')}</small></button>`).join('');
     $$('.chap').forEach(b=>b.onclick=()=>{ v.currentTime=+b.dataset.t; play(); }); }
   function source(){ const [src,poster]=VID[LANG]; if(v.getAttribute('src')===src) return; const was=!v.paused; v.pause(); v.setAttribute('src',src); v.setAttribute('poster',poster); v.load(); $('#vidMissing').style.display='none'; big.classList.remove('hide'); if(was) play(); }
   langHooks.push(()=>{ chaps(); source(); });
-  track.insertAdjacentHTML('beforeend',CH.slice(1).map(c=>`<div class="tick" style="left:${c[0]/30*100}%"></div>`).join(''));
+  track.insertAdjacentHTML('beforeend',CH.slice(1).map(c=>`<div class="tick" style="left:${c[0]/DUR*100}%"></div>`).join(''));
   const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
   const ico=p=>$('#ppIco').innerHTML=p?'<path d="M8 5v14l11-7z" fill="#fff"/>':'<path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="#fff"/>';
   const play=()=>{ v.play().catch(()=>{}); };
@@ -602,9 +672,9 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
   v.addEventListener('play',()=>{ big.classList.add('hide'); pl.classList.remove('paused'); ico(false); });
   v.addEventListener('pause',()=>{ pl.classList.add('paused'); ico(true); });
   v.addEventListener('ended',()=>{ big.classList.remove('hide'); });
-  v.addEventListener('timeupdate',()=>{ const d=v.duration||30; fill.style.width=(v.currentTime/d*100)+'%'; tm.textContent=`${fmt(v.currentTime)} / ${fmt(d)}`;
+  v.addEventListener('timeupdate',()=>{ const d=v.duration||DUR; fill.style.width=(v.currentTime/d*100)+'%'; tm.textContent=`${fmt(v.currentTime)} / ${fmt(d)}`;
     $$('.chap').forEach((b,i)=>{ const a=CH[i][0], z=i<CH.length-1?CH[i+1][0]:99; b.classList.toggle('on',v.currentTime>=a&&v.currentTime<z&&(!v.paused||v.currentTime>0)); }); });
-  const seek=e=>{ const r=track.getBoundingClientRect(); v.currentTime=clamp((e.clientX-r.left)/r.width)*(v.duration||30); };
+  const seek=e=>{ const r=track.getBoundingClientRect(); v.currentTime=clamp((e.clientX-r.left)/r.width)*(v.duration||DUR); };
   track.addEventListener('pointerdown',e=>{ seek(e); track.setPointerCapture(e.pointerId); track.onpointermove=seek; });
   track.addEventListener('pointerup',()=>{ track.onpointermove=null; });
   track.addEventListener('keydown',e=>{ if(e.key==='ArrowRight') v.currentTime+=2; if(e.key==='ArrowLeft') v.currentTime-=2; });
@@ -957,18 +1027,91 @@ function onVisible(el,cb){const io=new IntersectionObserver(es=>es.forEach(e=>cb
   let seen=false; const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ seen=true; e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
   cards(); langHooks.push(cards);
 })();
+/* ================= FOOTWEAR ================= */
+(function(){
+  const SHOE=/*SHOE_PARTS*/null, svg=$('#fwShoe'), list=$('#fwList'), det=$('#fwDetail'), slider=$('#fwExplode');
+  const ZONES=[
+    {id:'upper',parts:['upper','saddle'],at:[560,285],zh:'鞋面',en:'Upper',mz:'平織・經編・圓編・CORDURA®',me:'Woven · warp-knit · circular-knit · CORDURA®',
+      pz:'鞋面布料決定一雙鞋的支撐、透氣與耐磨。中良從織造、染整到塗佈都在自己廠內完成。',pe:'The upper fabric decides support, breathability and durability. TLC weaves, dyes and coats it in-house.'},
+    {id:'tongue',parts:['tongue'],at:[344,132],zh:'鞋舌',en:'Tongue',mz:'ARIAPRENE® 發泡複合',me:'ARIAPRENE® foam laminate',
+      pz:'回彈快、貼合腳背的發泡複合材料。公開案例：HOKA TenNine Hike GTX 的鞋舌使用 ARIAPRENE® TERRA。',pe:'A foam laminate that recovers fast and sits close to the foot. Public case: the HOKA TenNine Hike GTX tongue uses ARIAPRENE® TERRA.'},
+    {id:'collar',parts:['collar'],at:[205,178],zh:'領口・內裡',en:'Collar & lining',mz:'泡棉貼合・針織內裡',me:'Foam lamination · knit lining',
+      pz:'包覆腳踝、減少摩擦。公開案例：Arc’teryx Kragg 的後跟領口使用 ARIAPRENE® TERRA。',pe:'Wraps the ankle and cuts friction. Public case: the Arc’teryx Kragg heel collar uses ARIAPRENE® TERRA.'},
+    {id:'reinf',parts:['heel'],at:[124,252],zh:'補強・貼合',en:'Reinforcement',mz:'不織布・感壓熱熔膠',me:'Nonwovens · pressure-sensitive hot-melt',
+      pz:'不織布補強與感壓熱熔膠，讓結構定型、貼合更乾淨。',pe:'Nonwoven reinforcements and pressure-sensitive hot-melt keep the structure in shape and the bonds clean.'},
+    {id:'wear',parts:['toecap'],at:[868,318],zh:'耐磨區',en:'Wear zones',mz:'Coprime® 網布塗層',me:'Coprime® mesh coating',
+      pz:'Coprime® 網布塗層讓耐磨週期提升 3 倍，製程零耗水、無 VOCs。',pe:'Coprime® mesh coating triples abrasion cycles, with a process that uses no water and no VOCs.'},
+  ];
+  const CASES=[
+    ['life','New Balance','247 Breathe Pack','ARIAPRENE® 襪套','ARIAPRENE® sock bootie','https://ariaprene.com/applications/footwear/new-balance-247-breathe-pack/'],
+    ['court','PUMA','Fenty Trainer','ARIAPRENE® 鞋面','ARIAPRENE® upper','https://ariaprene.com/applications/footwear/rihanna-unleases-the-puma-fenty-trainer/'],
+    ['boot','HOKA','TenNine Hike GTX','ARIAPRENE® TERRA 鞋舌','ARIAPRENE® TERRA tongue','https://ariaprene.com/applications/footwear/hoka-one-one-tennine-hike-gtx-with-ariaprene-terra/'],
+    ['court','Arc’teryx','Kragg','ARIAPRENE® TERRA 後跟領口','ARIAPRENE® TERRA heel collar','https://ariaprene.com/footwear/precision-comfort-after-the-climb-arcteryx-kragg-x-ariaprene-rev/'],
+  ];
+  const ICON={
+    court:'<path d="M6 42V30c0-3 2-5 5-5h11l5-6c1-1 3-2 5-1l6 2c2 1 3 3 4 5l2 4 9 3c4 1 6 4 6 7v3z"/><path d="M5 42h55v4c0 2-1 3-3 3H8c-2 0-3-1-3-3z"/><path d="M31 21l3 4M35 22l2 4"/><path d="M8 35h12" stroke="#EE9039"/>',
+    life:'<path d="M7 39V27c0-3 2-5 5-5h10l7 7 13 3c7 2 11 5 13 9v1H7z"/><path d="M5 40h53c1 0 2 1 2 2v3c0 3-2 5-5 5H10c-3 0-5-2-5-5z"/><path d="M12 22v-4c0-2 2-3 4-3h4"/><path d="M20 30c5 2 9 6 11 11" stroke="#EE9039"/>',
+    boot:'<path d="M14 10h13l1.6 14c11 2 19 7 24 13 3 3 4 6 4 9v4H12V13c0-2 1-3 2-3z"/><path d="M9 54h50"/><path d="M20 17l9 2M20 23l10 2.6M21 29l12 2.4"/><path d="M27.5 9.5c2-2 5-1 5.5 2l.6 11" stroke="#EE9039"/>',
+  };
+  const EX={outsole:[0,96],midsole:[0,52],upper:[0,-8],saddle:[0,-30],toecap:[96,-16],heel:[-96,6],eyestay:[36,-74],tongue:[14,-138],collar:[-48,-84],tab:[-96,-92],laces:[44,-118]};
+  const ORDER=['tongue','midsole','outsole','upper','heel','toecap','collar','tab','saddle','eyestay','laces'];
+  const FILL={outsole:'#0B2034',midsole:'url(#fwMid)',upper:'url(#fwWeave)',saddle:'rgba(233,244,251,.66)',toecap:'rgba(140,203,242,.58)',heel:'#007DC2',eyestay:'#0A2A45',tongue:'url(#fwFoam)',collar:'#12395C',tab:'#EE9039',laces:'#E9F4FB'};
+  const tex=(w,h,fn)=>{const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);return c.toDataURL();};
+  const weave=tex(96,96,(g,w)=>{ g.fillStyle='#07233B'; g.fillRect(0,0,w,w); const c=24,t=17;
+    for(let j=0;j<4;j++){ const y=j*c+c/2; g.fillStyle='#9FC1DA'; g.fillRect(0,y-t/2,w,t); g.fillStyle='#E4F0F8'; g.fillRect(0,y-t*.18,w,t*.36); }
+    for(let i=0;i<4;i++) for(let j=0;j<4;j++){ if((i+j)&1) continue; const x=i*c+c/2,y=j*c+c/2; g.fillStyle='#0F5E96'; g.fillRect(x-t/2,y-c/2-1,t,c+2); g.fillStyle='#2A9BE0'; g.fillRect(x-t*.2,y-c/2-1,t*.4,c+2); } });
+  const foam=tex(120,120,(g,w)=>{ g.fillStyle='#E7882F'; g.fillRect(0,0,w,w); const r=9;
+    for(let y=0,row=0;y<w+r;y+=r*1.72,row++) for(let x=(row%2)*r;x<w+r;x+=r*2){ const gr=g.createRadialGradient(x-r*.3,y-r*.3,0,x,y,r); gr.addColorStop(0,'#FFC88F'); gr.addColorStop(.55,'#F29A45'); gr.addColorStop(1,'#B9611C'); g.fillStyle=gr; g.beginPath(); g.arc(x,y,r*.92,0,7); g.fill(); } });
+  const zoneOf={}; ZONES.forEach((z,i)=>z.parts.forEach(p=>zoneOf[p]=i));
+  const P={}; SHOE.parts.forEach(p=>P[p.id]=p);
+  let h=`<defs><linearGradient id="fwMid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3F8FC"/><stop offset="1" stop-color="#AFC4D6"/></linearGradient>
+    <pattern id="fwWeave" patternUnits="userSpaceOnUse" width="26" height="26"><image href="${weave}" width="26" height="26"/></pattern>
+    <pattern id="fwFoam" patternUnits="userSpaceOnUse" width="80" height="80"><image href="${foam}" width="80" height="80"/></pattern>
+    <linearGradient id="fwShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".14"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".38"/></linearGradient></defs>`;
+  ORDER.forEach(id=>{ const p=P[id], z=zoneOf[id], cls='pt'+(z!=null?' zone':'');
+    h+=`<g class="${cls}" data-id="${id}"${z!=null?` data-z="${z}"`:''}>`;
+    if(p.stroke) h+=`<path d="${p.d}" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="${id==='laces'?9:14}" stroke-linecap="round"/><path d="${p.d}" fill="none" stroke="${FILL[id]}" stroke-width="${id==='laces'?6:11}" stroke-linecap="round"/>`;
+    else { h+=`<path d="${p.d}" fill="${FILL[id]}" stroke="rgba(140,203,242,.55)" stroke-width="1.6" stroke-linejoin="round"/>`;
+      if(id==='upper') h+=`<path d="${p.d}" fill="url(#fwShade)"/>`;
+      if(id==='eyestay') h+=SHOE.eyelets.map(e=>`<circle cx="${e[0]}" cy="${e[1]}" r="6.5" fill="#CFE3F2"/><circle cx="${e[0]}" cy="${e[1]}" r="3" fill="#06121F"/>`).join(''); }
+    h+='</g>'; });
+  h+=ZONES.map((z,i)=>`<g class="mk" data-z="${i}" style="cursor:pointer"><circle cx="${z.at[0]}" cy="${z.at[1]}" r="13"/><text x="${z.at[0]}" y="${z.at[1]}">${i+1}</text></g>`).join('');
+  svg.setAttribute('viewBox','-40 -60 1100 560'); svg.innerHTML=h;
+  let cur=0;
+  function explode(){ const e=slider.value/100; const k=e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2;
+    $$('#fwShoe .pt').forEach(g=>{ const d=EX[g.dataset.id]||[0,0]; g.setAttribute('transform',`translate(${(d[0]*k).toFixed(1)} ${(d[1]*k).toFixed(1)})`); });
+    $$('#fwShoe .mk').forEach(m=>{ const z=ZONES[+m.dataset.z], d=EX[z.parts[0]]; m.setAttribute('transform',`translate(${(d[0]*k).toFixed(1)} ${(d[1]*k).toFixed(1)})`); }); }
+  function pick(i,user){ cur=i; if(user) svg.classList.add('focus');
+    $$('#fwShoe .pt').forEach(g=>g.classList.toggle('on',g.dataset.z!=null&&+g.dataset.z===i));
+    $$('#fwList button').forEach((b,k)=>b.classList.toggle('on',k===i));
+    const z=ZONES[i]; det.innerHTML=`<h3>${L(z.zh,z.en)}</h3><h4>${L(z.mz,z.me)}</h4><p>${L(z.pz,z.pe)}</p>${LANG==='en'?'':`<p class="en">${z.pe}</p>`}`; }
+  function render(){
+    list.innerHTML=ZONES.map((z,i)=>`<button data-z="${i}"><span class="no">0${i+1}</span><span><b>${L(z.zh,z.en)}</b><small>${L(z.me,z.mz)}</small></span></button>`).join('');
+    $$('#fwList button').forEach(b=>b.onclick=()=>pick(+b.dataset.z,true));
+    $('#fwCases').innerHTML=CASES.map(c=>`<a href="${c[5]}" target="_blank" rel="noopener"><svg viewBox="0 0 64 64" fill="none" stroke="#E9F4FB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ICON[c[0]]}</svg><b>${c[1]}</b><span>${c[2]}</span><em>${L(c[3],c[4])}</em><small>ARIAPRENE.COM ↗</small></a>`).join('');
+    pick(cur,svg.classList.contains('focus')); }
+  $$('#fwShoe .zone, #fwShoe .mk').forEach(g=>g.addEventListener('click',()=>pick(+g.dataset.z,true)));
+  slider.addEventListener('input',explode);
+  render(); explode(); langHooks.push(render);
+})();
 /* ================= LANGUAGE ================= */
 (function(){
   const EN=[
-    ['#nav ul a',['Film','Craft','Materials','Lab','Footprint','ESG']],
+    ['#nav ul a',['Film','Craft','Materials','Lab','Footwear','Footprint','ESG']],
     ['#hero .tag','Tiong Liong Industrial · Taiwan'],
-    ['#hero h1','Layer by layer,<br>a <em>solid foundation</em><br>for the brands we serve.'],
+    ['#hero h1','Layer by Layer,<br>We Build <em>Trust</em>'],
     ['#hero .sub',"From yarn to engineered composites — performance textiles for the world's leading athletic and outdoor brands."],
-    ['#hero .btns a',['▶ Watch the 30s film','Explore the layers']],
+    ['#hero .btns a',['▶ Watch the 45s film','Explore the layers']],
     ['#hero .hint','<i>✋</i>DRAG THE FABRIC'],
     ['#stats .st span',['Countries across Asia','Core techniques','Fabric categories','Coprime® abrasion cycles']],
-    ['#film .h2','Tiong Liong in thirty seconds.'],
-    ['#film .h2-en','Six chapters — from a single thread to an engineered package.'],
+    ['#film .h2','Tiong Liong in forty-five seconds.'],
+    ['#film .h2-en','Seven chapters — from a single thread to the shoes our materials go into.'],
+    ['#footwear .h2','Footwear materials<br>are our core business.'],
+    ['#footwear .h2-en','Uppers, tongues, collars, linings and reinforcements for global sports brands. Tap a zone, or slide to take the shoe apart.'],
+    ['#fwStage .ui span',['ASSEMBLED','EXPLODED']],
+    ['#fwInfo > .note','Illustrative; constructions vary by model.'],
+    ['#fwBrands .tag',['Brands we serve include','Public cases · ARIAPRENE®']],
+    ['#fwBrands > .note','Cases as published on ariaprene.com. Brand names are trademarks of their respective owners.'],
     ['#vidMissing','Video not found — keep the media folder next to this page.'],
     ['#craft .h2','From a single yarn<br>to an engineered material.'],
     ['#craftSteps h3',['Weaving','Dyeing &amp; Finishing','Treatment &amp; Coating','Lamination']],
